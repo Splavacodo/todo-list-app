@@ -6,6 +6,50 @@
     <title>Todoist Clone</title>
 </head>
 <body>
-    
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img class="profile-img" src="./images/hum-floating.gif" alt="user selected profile image in the shape of a circle">
+                <div class="username">Splav</div>
+            </div>
+
+            <div class="content-actions">
+                <button id="sidebar-add-task-btn">
+                    <img class="sidebar-add-icon" src="./images/plus-circle.svg" alt="icon of a circle with a plus sign centered inside of it">
+                    <div>Add Task</div>
+                </button>
+            </div>
+
+            <div class="projects-container">
+                <div class="projects-header">
+                    <div class="projects-name">My Projects</div>
+
+                    <div class="project-actions">
+                        <button id="sidebar-add-project-btn">
+                            <img class="header-icon" src="./images/plus.svg" alt="plus sign icon">
+                        </button>
+                        <button id="sidebar-toggle-view-projects-btn">
+                            <img class="header-icon" src="./images/chevron-down.svg" alt="downward arrow icon">
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="projects-list">
+                    <li class="project">
+                        <img class="project-icon" src="./images/pound.svg" alt="pound symbol icon">
+                        <div class="project-name">Welcome</div>
+                        <button id="edit-project-btn">
+                            <img class="project-edit-icon" src="./images/dots-horizontal.svg" alt="three hollow circles in a horizontal line spaced evenly">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <button id="help-btn">
+                <img class="help-icon" src="./images/help-circle-outline.svg" alt="question mark enclosed in a circle icon">
+                <div>Help &amp; Resources</div>
+            </button>
+        </nav>
+    </div>
 </body>
 </html>

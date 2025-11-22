@@ -1,3 +1,194 @@
-body {
-    background-color: lavender;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans", "Segoe UI", Tahoma;
+    font-size: var(--regular-text-size);
+}
+
+:root {
+    --primary-bg-color: #1f1f1f;
+    --secondary-bg-color: #2e2e2e;
+    --primary-text-color: #fff;
+    --secondary-text-color: #ccc;
+    --primary-bg-accent-color: #de4c4a;
+    --primary-text-accent-color: #e26a60;
+    --regular-text-size: 13px;
+}
+
+html * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-bg-color) var(--secondary-bg-color); 
+}
+
+button {
+    font-size: inherit;
+    color: inherit;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 5px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.app-container {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    flex-shrink: 0;
+
+    height: 100vh;
+    width: 250px;
+    padding: 18px 12px;
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    font-size: 16px;
+
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+
+.profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.content-actions {
+    width: 100%;
+}
+
+#sidebar-add-task-btn {
+    display: flex;
+    justify-content: flex-start;
+    padding: 4px;
+    gap: 8px;
+
+    width: 100%;
+}
+
+#sidebar-add-task-btn > div {
+    color: var(--primary-text-accent-color);
+}
+
+#sidebar-add-task-btn:hover,
+.projects-header:hover,
+.project:hover,
+#help-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+#sidebar-add-project-btn,
+#sidebar-toggle-view-projects-btn,
+#edit-project-btn {
+    padding: 4px;
+}
+
+#sidebar-add-project-btn:hover,
+#sidebar-toggle-view-projects-btn:hover,
+#edit-project-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+
+.project:hover > #edit-project-btn{
+    visibility: visible;
+}
+
+img[class^="sidebar"] {
+    width: 28px;
+    height: 28px;
+}
+
+img[class^="header"],
+img[class^="project"],
+img[class^="help"] {
+    width: 16px;
+    height: 16px;
+}
+
+.sidebar-add-icon {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(44%) saturate(818%) hue-rotate(314deg) brightness(110%) contrast(107%);
+}
+
+.header-icon,
+img[class^="project"],
+img[class^="help"] {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.projects-container {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 6px 4px;
+    border-radius: 5px;
+}
+
+.project-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.projects-name {
+    color: var(--secondary-text-color);
+}
+
+.projects-list {
+    margin-left: 12px;
+}
+
+.project {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    list-style: none;
+    padding: 6px 4px;
+    border-radius: 5px;
+}
+
+#edit-project-btn {
+    margin-left: auto;
+    visibility: hidden;
+}
+
+#help-btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 4px;
+    width: 100%;
 }
