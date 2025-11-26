@@ -1,3 +1,7 @@
 import "../styles/main.css";
 
-console.log("yo"); 
+function init() {
+    console.log("yo");
+}
+
+init();
