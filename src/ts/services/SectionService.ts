@@ -20,12 +20,12 @@ export class SectionService {
         const section: Record<string, any> = JSON.parse(sectionJson);
 
         const sectionId: string = section["id"];
-        const sectionName: string = section["name"];
+        const sectionTitle: string = section["title"];
         const sectionTaskIds: Array<string> = section["taskIds"];
         const parentId: string = section["parentId"];
         const sectionTasks: Array<Task> = this.getTaskModels(sectionTaskIds);
 
-        this.sections[sectionId] = new Section(sectionId, sectionName, sectionTasks, parentId);
+        this.sections[sectionId] = new Section(sectionId, sectionTitle, sectionTasks, parentId);
     }
 
     private getTaskModels(sectionTaskIds: Array<string>): Array<Task> {

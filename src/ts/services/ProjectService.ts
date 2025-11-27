@@ -24,11 +24,11 @@ export class ProjectService {
         const project: Record<string, any> = JSON.parse(projectJson);
         
         const projectId: string = project["id"];
-        const projectName: string = project["name"];
+        const projectTitle: string = project["title"];
         const projectChildrenIds: Array<string> = project["childrenIds"];
         const projectChildren: Array<Section|Task> = this.getChildrenModels(projectChildrenIds);
 
-        this.projects[projectId] = new Project(projectId, projectName, projectChildren);
+        this.projects[projectId] = new Project(projectId, projectTitle, projectChildren);
     }
 
     private getChildrenModels(childrenIds: Array<string>): Array<Section|Task> {
