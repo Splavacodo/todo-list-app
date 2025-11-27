@@ -2,22 +2,22 @@ import { Task } from "./Task";
 
 export class Section {
     private _id: string;
-    private _name: string;
+    private _title: string;
     private _tasks: Array<Task>;
     private _parentId: string;
 
-    constructor(id: string, name: string, tasks: Array<Task>, parentId: string) { 
+    constructor(id: string, title: string, tasks: Array<Task>, parentId: string) { 
         this._id = id;
-        this._name = name;
+        this._title = title;
         this._tasks = tasks;
         this._parentId = parentId;
     }
 
     get id(): string { return this._id; }
 
-    get name(): string { return this._name; }
+    get title(): string { return this._title; }
 
-    set name(newName: string) { this._name = newName; }
+    set title(newTitle: string) { this._title = newTitle; }
 
     get tasks(): Array<Task> { return this._tasks; }
 

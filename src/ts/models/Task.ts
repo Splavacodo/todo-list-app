@@ -1,15 +1,15 @@
 export class Task {
     private _id: string;
-    private _name: string;
+    private _title: string;
     private _description: string;
     private _dueDate: Date;
     private _priority: number;
     private _notes: string;
     private _parentId: string;
 
-    constructor(id: string, name: string, description: string, dueDate: Date, priority: number, notes: string, parentId: string) {
+    constructor(id: string, title: string, description: string, dueDate: Date, priority: number, notes: string, parentId: string) {
         this._id = id;
-        this._name = name;
+        this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._priority = priority;
@@ -19,9 +19,9 @@ export class Task {
 
     get id(): string { return this._id; }
 
-    get name(): string { return this._name; }
+    get title(): string { return this._title; }
 
-    set name(newName: string) { this._name = newName; }
+    set title(newName: string) { this._title = newName; }
 
     get description(): string { return this._description; }
 
