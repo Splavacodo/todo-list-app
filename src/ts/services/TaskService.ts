@@ -1,5 +1,5 @@
-import { Task } from "../models/task"; 
-import { StorageManager } from "../storage/storageManager";
+import { Task } from "../models/Task"; 
+import { StorageManager } from "../storage/StorageManager";
 
 export class TaskService {
     private _tasks: Record<string, Task>;

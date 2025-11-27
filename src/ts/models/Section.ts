@@ -1,4 +1,4 @@
-import { Task } from "./task";
+import { Task } from "./Task";
 
 export class Section {
     private _id: string;

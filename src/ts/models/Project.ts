@@ -1,5 +1,5 @@
-import { Section } from "./section";
-import { Task } from "./task";
+import { Section } from "./Section";
+import { Task } from "./Task";
 
 export class Project {
     private _id: string;
