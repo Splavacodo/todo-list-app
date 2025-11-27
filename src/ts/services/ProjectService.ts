@@ -1,0 +1,52 @@
+import { Project } from "../models/Project";
+import { Section } from "../models/Section";
+import { Task } from "../models/Task"; 
+
+import { StorageManager } from "../storage/StorageManager";
+
+import { SectionService } from "../services/SectionService";
+import { TaskService } from "./TaskService";
+
+export class ProjectService {
+    private projects: Record<string, Project>;
+    private storageManager: StorageManager;
+    private sectionService: SectionService;
+    private taskService: TaskService;
+
+    constructor(taskService: TaskService, sectionService: SectionService, storageManager: StorageManager) {
+        this.projects = {};
+        this.taskService = taskService;
+        this.sectionService = sectionService;
+        this.storageManager = storageManager;
+    }
+
+    addProjectFromJson(projectJson: string): void {
+        const project: Record<string, any> = JSON.parse(projectJson);
+        
+        const projectId: string = project["id"];
+        const projectName: string = project["name"];
+        const projectChildrenIds: Array<string> = project["childrenIds"];
+        const projectChildren: Array<Section|Task> = this.getChildrenModels(projectChildrenIds);
+
+        this.projects[projectId] = new Project(projectId, projectName, projectChildren);
+    }
+
+    private getChildrenModels(childrenIds: Array<string>): Array<Section|Task> {
+        const children = [];
+
+        for(let childId of childrenIds) {
+            if (this.taskService.containsId(childId))
+                children.push(this.taskService.getTask(childId));
+            else
+                children.push(this.sectionService.getSection(childId));
+        }
+
+        return children;
+    }
+
+    getProject(projectId: string): Project { return this.projects[projectId]; }
+
+    deleteProject(projectId: string): void { delete this.projects[projectId]; }
+
+    // Will be extending this class for more functionality later
+}
