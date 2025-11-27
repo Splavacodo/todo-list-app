@@ -11,9 +11,17 @@ export class TaskService {
     }
 
     addTaskFromJson(taskJson: string): void {
-        let task: Task = JSON.parse(taskJson);
+        const task: Record<string, any> = JSON.parse(taskJson);
 
-        this.tasks[task.id] = task;
+        const taskId: string = task["id"];
+        const taskTitle: string = task["title"];
+        const taskDescription: string = task["description"];
+        const taskDueDate: Date = task["dueDate"];
+        const taskPriority: number = task["priority"]; 
+        const taskNotes: string = task["notes"];
+        const parentId: string = task["parentId"];
+
+        this.tasks[taskId] = new Task(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, taskNotes, parentId);
     }
 
     containsId(id: string): boolean { return id in this.tasks; }
