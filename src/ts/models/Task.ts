@@ -21,7 +21,7 @@ export class Task {
 
     get title(): string { return this._title; }
 
-    set title(newName: string) { this._title = newName; }
+    set title(newTitle: string) { this._title = newTitle; }
 
     get description(): string { return this._description; }
 
