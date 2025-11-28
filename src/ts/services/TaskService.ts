@@ -3,11 +3,9 @@ import { StorageManager } from "../storage/StorageManager";
 
 export class TaskService {
     private tasks: Record<string, Task>;
-    private storageManager: StorageManager;
 
-    constructor(storageManager: StorageManager) {
+    constructor() {
         this.tasks = {};
-        this.storageManager = storageManager;
     }
 
     addTasksFromJson(tasksJson: Array<string>) {

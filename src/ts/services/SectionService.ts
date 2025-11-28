@@ -7,12 +7,10 @@ import { TaskService } from "../services/TaskService";
 
 export class SectionService {
     private sections: Record<string, Section>;
-    private storageManager: StorageManager;
     private taskService: TaskService;
 
-    constructor(taskService: TaskService, storageManager: StorageManager) {
+    constructor(taskService: TaskService) {
         this.sections = {};
-        this.storageManager = storageManager;
         this.taskService = taskService;
     }
 

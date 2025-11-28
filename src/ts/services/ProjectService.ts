@@ -9,15 +9,13 @@ import { TaskService } from "./TaskService";
 
 export class ProjectService {
     private projects: Record<string, Project>;
-    private storageManager: StorageManager;
     private sectionService: SectionService;
     private taskService: TaskService;
 
-    constructor(taskService: TaskService, sectionService: SectionService, storageManager: StorageManager) {
+    constructor(taskService: TaskService, sectionService: SectionService) {
         this.projects = {};
         this.taskService = taskService;
         this.sectionService = sectionService;
-        this.storageManager = storageManager;
     }
 
     addProjectsFromJson(projectsJson: Array<string>): void {
