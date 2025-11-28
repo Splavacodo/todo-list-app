@@ -1,13 +1,24 @@
 export class StorageManager {
     static getLocalProjects() {
-        console.log("TODO: Implement logic to get projects JSON from local storage"); 
+        return "projects" in localStorage ? localStorage.getItem("projects") : {};
     }
 
     static getLocalSections() {
-        console.log("TODO: Implement logic to get sections JSON from local storage"); 
+        return "sections" in localStorage ? localStorage.getItem("sections") : {};
     }
 
     static getLocalTasks() {
-        console.log("TODO: Implement logic to get tasks JSON from local storage"); 
+        return "tasks" in localStorage ? localStorage.getItem("tasks") : {};
+    }
+
+    static init() {
+        if (!("user" in localStorage)) {
+            localStorage["user"] = "someUser";
+            localStorage["projects"] = JSON.stringify([{
+                "id": crypto.randomUUID(),
+                "title": "Welcome &#128075",
+                "childrenIds": []
+            }]); 
+        }
     }
 }
