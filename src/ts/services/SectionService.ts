@@ -16,7 +16,12 @@ export class SectionService {
         this.taskService = taskService;
     }
 
-    addSectionFromJson(sectionJson: string): void {
+    addSectionsFromJson(sectionsJson: Array<string>) {
+        for(let sectionJson of sectionsJson)
+            this.addSectionFromJson(sectionJson);
+    }
+
+    private addSectionFromJson(sectionJson: string): void {
         const section: Record<string, any> = JSON.parse(sectionJson);
 
         const sectionId: string = section["id"];

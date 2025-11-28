@@ -10,7 +10,12 @@ export class TaskService {
         this.storageManager = storageManager;
     }
 
-    addTaskFromJson(taskJson: string): void {
+    addTasksFromJson(tasksJson: Array<string>) {
+        for(let taskJson of tasksJson)
+            this.addTaskFromJson(taskJson);
+    }
+
+    private addTaskFromJson(taskJson: string): void {
         const task: Record<string, any> = JSON.parse(taskJson);
 
         const taskId: string = task["id"];

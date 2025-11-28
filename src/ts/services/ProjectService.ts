@@ -20,7 +20,12 @@ export class ProjectService {
         this.storageManager = storageManager;
     }
 
-    addProjectFromJson(projectJson: string): void {
+    addProjectsFromJson(projectsJson: Array<string>): void {
+        for(let projectJson of projectsJson)
+            this.addProjectFromJson(projectJson);
+    }
+
+    private addProjectFromJson(projectJson: string): void {
         const project: Record<string, any> = JSON.parse(projectJson);
         
         const projectId: string = project["id"];
@@ -45,6 +50,10 @@ export class ProjectService {
     }
 
     getProject(projectId: string): Project { return this.projects[projectId]; }
+
+    getAllProjects(): Array<Project> {
+        return Object.values(this.projects);
+    }
 
     deleteProject(projectId: string): void { delete this.projects[projectId]; }
 
