@@ -17,13 +17,13 @@ export class StorageManager {
             localStorage["projects"] = JSON.stringify(
                 [
                     {
-                        "id": crypto.randomUUID(),
-                        "title": "Welcome &#128075",
+                        "id": "inbox",
+                        "title": "Inbox",
                         "childrenIds": []
                     },
                     {
-                        "id": "inbox",
-                        "title": "Inbox",
+                        "id": crypto.randomUUID(),
+                        "title": "Welcome &#128075",
                         "childrenIds": []
                     }
                 ]
