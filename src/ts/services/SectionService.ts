@@ -14,14 +14,12 @@ export class SectionService {
         this.taskService = taskService;
     }
 
-    addSectionsFromJson(sectionsJson: Array<string>) {
-        for(let sectionJson of sectionsJson)
-            this.addSectionFromJson(sectionJson);
+    addSectionsFromJson(sectionsJson: string) {
+        for(let sectionObj of JSON.parse(sectionsJson))
+            this.addSectionFromJson(sectionObj);
     }
 
-    private addSectionFromJson(sectionJson: string): void {
-        const section: Record<string, any> = JSON.parse(sectionJson);
-
+    private addSectionFromJson(section: Record<string, any>): void {
         const sectionId: string = section["id"];
         const sectionTitle: string = section["title"];
         const sectionTaskIds: Array<string> = section["taskIds"];

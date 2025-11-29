@@ -18,14 +18,12 @@ export class ProjectService {
         this.sectionService = sectionService;
     }
 
-    addProjectsFromJson(projectsJson: Array<string>): void {
-        for(let projectJson of projectsJson)
-            this.addProjectFromJson(projectJson);
+    addProjectsFromJson(projectsJson: string): void {
+        for(let projectObj of JSON.parse(projectsJson))
+            this.addProject(projectObj);
     }
 
-    private addProjectFromJson(projectJson: string): void {
-        const project: Record<string, any> = JSON.parse(projectJson);
-        
+    private addProject(project: Record<string, any>): void {
         const projectId: string = project["id"];
         const projectTitle: string = project["title"];
         const projectChildrenIds: Array<string> = project["childrenIds"];

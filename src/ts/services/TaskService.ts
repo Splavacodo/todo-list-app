@@ -8,14 +8,12 @@ export class TaskService {
         this.tasks = {};
     }
 
-    addTasksFromJson(tasksJson: Array<string>) {
-        for(let taskJson of tasksJson)
-            this.addTaskFromJson(taskJson);
+    addTasksFromJson(tasksJson: string) {
+        for(let taskObj of JSON.parse(tasksJson))
+            this.addTaskFromJson(taskObj);
     }
 
-    private addTaskFromJson(taskJson: string): void {
-        const task: Record<string, any> = JSON.parse(taskJson);
-
+    private addTaskFromJson(task: Record<string, any>): void {
         const taskId: string = task["id"];
         const taskTitle: string = task["title"];
         const taskDescription: string = task["description"];

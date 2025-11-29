@@ -1,14 +1,14 @@
 export class StorageManager {
-    static getLocalProjects() {
-        return "projects" in localStorage ? localStorage.getItem("projects") : {};
+    static getLocalProjects(): string {
+        return "projects" in localStorage ? localStorage.getItem("projects") : "[]";
     }
 
-    static getLocalSections() {
-        return "sections" in localStorage ? localStorage.getItem("sections") : {};
+    static getLocalSections(): string {
+        return "sections" in localStorage ? localStorage.getItem("sections") : "[]";
     }
 
-    static getLocalTasks() {
-        return "tasks" in localStorage ? localStorage.getItem("tasks") : {};
+    static getLocalTasks(): string {
+        return "tasks" in localStorage ? localStorage.getItem("tasks") : "[]";
     }
 
     static init() {
@@ -19,6 +19,7 @@ export class StorageManager {
                 "title": "Welcome &#128075",
                 "childrenIds": []
             }]); 
+            // TODO: add an inbox project as a default
         }
     }
 }
