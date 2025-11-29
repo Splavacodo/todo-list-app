@@ -14,12 +14,20 @@ export class StorageManager {
     static init() {
         if (!("user" in localStorage)) {
             localStorage["user"] = "someUser";
-            localStorage["projects"] = JSON.stringify([{
-                "id": crypto.randomUUID(),
-                "title": "Welcome &#128075",
-                "childrenIds": []
-            }]); 
-            // TODO: add an inbox project as a default
+            localStorage["projects"] = JSON.stringify(
+                [
+                    {
+                        "id": crypto.randomUUID(),
+                        "title": "Welcome &#128075",
+                        "childrenIds": []
+                    },
+                    {
+                        "id": "inbox",
+                        "title": "Inbox",
+                        "childrenIds": []
+                    }
+                ]
+            ); 
         }
     }
 }
