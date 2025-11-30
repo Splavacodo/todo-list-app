@@ -23,7 +23,7 @@ export class StorageManager {
                     },
                     {
                         "id": crypto.randomUUID(),
-                        "title": "Welcome &#128075",
+                        "title": "Welcome 👋",
                         "childrenIds": []
                     }
                 ]
