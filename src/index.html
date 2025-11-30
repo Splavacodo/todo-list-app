@@ -18,13 +18,18 @@
                     <img class="sidebar-add-icon" src="./images/plus-circle.svg" alt="icon of a circle with a plus sign centered inside of it">
                     <div>Add Task</div>
                 </button>
+
+                <button id="sidebar-inbox-btn">
+                    <img class="sidebar-inbox-icon" src="./images/inbox-outline.svg" alt="icon of a box with an open top face">
+                    <div>Inbox</div>
+                </button>
             </div>
 
             <div class="projects-container">
                 <div class="projects-header">
                     <div class="projects-name">My Projects</div>
 
-                    <div class="project-actions">
+                    <div class="sidebar-project-actions">
                         <button id="sidebar-add-project-btn">
                             <img class="header-icon" src="./images/plus.svg" alt="plus sign icon">
                         </button>
@@ -35,13 +40,6 @@
                 </div>
 
                 <ul class="projects-list">
-                    <li class="project">
-                        <img class="project-icon" src="./images/pound.svg" alt="pound symbol icon">
-                        <div class="project-name">Welcome</div>
-                        <button id="edit-project-btn">
-                            <img class="project-edit-icon" src="./images/dots-horizontal.svg" alt="three hollow circles in a horizontal line spaced evenly">
-                        </button>
-                    </li>
                 </ul>
             </div>
 
@@ -50,6 +48,32 @@
                 <div>Help &amp; Resources</div>
             </button>
         </nav>
+
+        <main class="app-content">
+            <div class="main-project-actions"></div>
+
+            <div class="project-container">
+                <header>
+                    <h1 class="project-title">Welcome &#128075</h1>
+                </header>
+
+                <button class="main-add-task-btn"></button>
+
+                <div class="add-section"></div>
+
+                <div class="section-container">
+                    <div class="section-header"></div>
+                    <ul class="tasks-list">
+                        <li class="task"></li>
+                        <li class="task"></li>
+                        <li class="task"></li>
+                    </ul>
+                    <button class="main-add-task-btn"></button>
+                </div>
+
+                <div class="add-section"></div>
+            </div>
+        </main>
     </div>
 </body>
 </html>
