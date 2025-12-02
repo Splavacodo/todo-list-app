@@ -2,12 +2,12 @@ export class Task {
     private _id: string;
     private _title: string;
     private _description: string;
-    private _dueDate: Date;
+    private _dueDate: string;
     private _priority: number;
     private _notes: string;
     private _parentId: string;
 
-    constructor(id: string, title: string, description: string, dueDate: Date, priority: number, notes: string, parentId: string) {
+    constructor(id: string, title: string, description: string, dueDate: string, priority: number, notes: string, parentId: string) {
         this._id = id;
         this._title = title;
         this._description = description;
@@ -27,9 +27,9 @@ export class Task {
 
     set description(newDescription: string) { this._description = newDescription; }
 
-    get dueDate(): Date { return this._dueDate; }
+    get dueDate(): string { return this._dueDate; }
 
-    set dueDate(newDueDate: Date) { this._dueDate = newDueDate; }
+    set dueDate(newDueDate: string) { this._dueDate = newDueDate; }
 
     get priority(): number { return this._priority; }
 
