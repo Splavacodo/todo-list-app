@@ -14,13 +14,13 @@ export class TaskService {
     }
 
     private addTask(task: Record<string, any>): void {
-        const taskId: string = task["id"];
-        const taskTitle: string = task["title"];
-        const taskDescription: string = task["description"];
-        const taskDueDate: Date = task["dueDate"];
-        const taskPriority: number = task["priority"]; 
-        const taskNotes: string = task["notes"];
-        const parentId: string = task["parentId"];
+        const taskId: string = task["_id"];
+        const taskTitle: string = task["_title"];
+        const taskDescription: string = task["_description"];
+        const taskDueDate: string = task["_dueDate"];
+        const taskPriority: number = task["_priority"]; 
+        const taskNotes: string = task["_notes"];
+        const parentId: string = task["_parentId"];
 
         this.tasks[taskId] = new Task(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, taskNotes, parentId);
     }
