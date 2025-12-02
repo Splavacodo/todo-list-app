@@ -35,7 +35,7 @@ export class Section {
             {
                 "id": this._id,
                 "title": this._title,
-                "taskId": taskIds,
+                "taskIds": taskIds,
                 "parentId": this._parentId
             }
         );
