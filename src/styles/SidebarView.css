@@ -147,3 +147,23 @@ img[class^="help"],
 
     padding: 8px 4px;
 }
+
+#sidebar-inbox-btn.selected-project,
+#sidebar-inbox-btn.selected-project:hover,
+.selectable.selected-project,
+.selectable.selected-project:hover {
+    background-color: var(--selected-project-bg-accent-color);
+    
+}
+
+#sidebar-inbox-btn.selected-project {
+    color: var(--primary-text-accent-color);
+}
+
+.selected-project.projects-header {
+    font-weight: 600;
+}
+
+.selected-project.project {
+    color: var(--primary-text-accent-color);
+}

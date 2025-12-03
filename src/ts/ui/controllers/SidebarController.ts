@@ -15,13 +15,43 @@ export class SidebarController {
             console.log("sidebar add task btn clicked");
         });
 
-        document.querySelector("#sidebar-inbox-btn").addEventListener("click", () => {
+        const inboxBtn = document.querySelector("#sidebar-inbox-btn");
+
+        inboxBtn.addEventListener("click", () => {
+            this.revertElementSelection();
+            inboxBtn.classList.add("selected-project");
+
             // TODO: Setup a function in UIController to switch to a project view
             console.log("sidebar inbox button clicked");
+        });
+
+        const projectsHeader = document.querySelector(".projects-header");
+
+        projectsHeader.addEventListener("click", () => {
+            this.revertElementSelection();
+            projectsHeader.classList.add("selected-project");
         });
     }
 
     renderSidebarProject(project: Project, projectIdx: string): void {
         SidebarView.renderProject(project, projectIdx);
+
+        const newProject = document.querySelector(`[data-project-idx="${projectIdx}"]`);
+
+        newProject.addEventListener("click", () => {
+            this.revertElementSelection();
+            newProject.classList.add("selected-project");
+        })
+    }
+
+    private revertElementSelection(): void {
+        const sidebarProjects: Array<HTMLElement> = Array.from(document.querySelectorAll(".selectable"));
+
+        for(const sidebarProject of sidebarProjects) {
+            if (sidebarProject.classList.contains("selected-project")) {
+                sidebarProject.classList.remove("selected-project"); 
+                break;
+            }
+        }
     }
 }

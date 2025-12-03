@@ -6,7 +6,7 @@ import { Project } from "../../models/Project";
 export class SidebarView {
     static renderProject(project: Project, projectIdx: string) {
         const projectItem: HTMLLIElement = document.createElement("li");
-        projectItem.setAttribute("class", "project");
+        projectItem.setAttribute("class", "selectable project");
         projectItem.setAttribute("data-project-idx", projectIdx); 
 
         const projectIcon: HTMLImageElement = document.createElement("img");
