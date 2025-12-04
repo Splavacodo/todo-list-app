@@ -43,7 +43,7 @@ button {
     display: flex;
 } 
 
-.projects-title {
+.projects-name {
     color: var(--secondary-text-color);
 }
 
@@ -55,6 +55,7 @@ button {
     background-color: var(--primary-bg-color);
     flex-grow: 1;
     overflow-y: auto;
+    height: 100vh;
 }
 
 .main-project-actions {

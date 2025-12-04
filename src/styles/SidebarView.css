@@ -160,8 +160,9 @@ img[class^="help"],
     color: var(--primary-text-accent-color);
 }
 
-.selected-project.projects-header {
+.selected-project > .projects-name {
     font-weight: 600;
+    color: var(--primary-text-color); 
 }
 
 .selected-project.project {
