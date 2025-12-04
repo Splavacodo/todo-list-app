@@ -20,6 +20,7 @@ function init() {
 
     const uiController = new UIController(taskService, sectionService, projectService); 
     uiController.renderSidebarProjects();
+    uiController.renderInboxProject();
 }
 
 init();

@@ -58,41 +58,6 @@ button {
     height: 100vh;
 }
 
-.main-project-actions {
-    height: 56px;
-    border: 1px white dashed;
-}
-
-.project-container header {
-    margin-left: -4px; 
-}
-
-header .project-title {
-    color: var(--primary-text-color); 
-    font-size: 26px;
-    padding: 8px 0;
-}
-
-.project-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.project-container > * {
-    max-width: 800px;
-    border: 1px white dashed;
-    width: 100%;
-}
-
-.main-add-task-btn {
-    height: 48px;
-}
-
-.add-section {
-    height: 48px;
-}
-
 .task {
     list-style: none;
     height: 48px;
