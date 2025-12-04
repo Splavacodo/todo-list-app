@@ -12,4 +12,8 @@ export class ProjectController {
     renderInboxProjectContainer(inboxProject: Project): void {
         ProjectView.renderInboxProjectContainer(inboxProject);
     }
+
+    resetProjectContainer(): void {
+        ProjectView.resetProjectView();
+    }
 }

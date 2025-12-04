@@ -47,4 +47,15 @@ export class ProjectView {
         projectContainer.appendChild(addTaskBtn);
         projectContainer.appendChild(addSectionDiv);
     }
+
+    static resetProjectView(): void {
+        const projectActions: HTMLDivElement = document.querySelector(".main-project-actions");
+        projectActions.replaceChildren();
+
+        const projectHeader: HTMLElement = document.querySelector(".project-header");
+        projectHeader.textContent = "";
+
+        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+        projectContainer.replaceChildren(projectContainer.firstElementChild);
+    }
 }

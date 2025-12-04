@@ -21,8 +21,7 @@ export class SidebarController {
             this.revertElementSelection();
             inboxBtn.classList.add("selected-project");
 
-            // TODO: Setup a function in UIController to switch to a project view
-            console.log("sidebar inbox button clicked");
+            this.uiController.renderInboxProject();
         });
 
         const projectsHeader = document.querySelector(".projects-header");

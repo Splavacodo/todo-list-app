@@ -36,8 +36,14 @@ export class UIController {
     }
 
     renderInboxProject(): void {
+        this.resetProjectContainer(); 
+        
         const inboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
         const inboxProject: Project = this.projectService.getProject(inboxBtn.dataset.projectId);
         this.projectController.renderInboxProjectContainer(inboxProject);
+    }
+
+    resetProjectContainer(): void {
+        this.projectController.resetProjectContainer();  
     }
 }
