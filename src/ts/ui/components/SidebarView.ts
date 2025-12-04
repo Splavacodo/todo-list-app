@@ -8,6 +8,7 @@ export class SidebarView {
         const projectItem: HTMLLIElement = document.createElement("li");
         projectItem.setAttribute("class", "selectable project");
         projectItem.setAttribute("data-project-idx", projectIdx); 
+        projectItem.setAttribute("data-project-id", project.id);
 
         const projectIcon: HTMLImageElement = document.createElement("img");
         projectIcon.setAttribute("class", "project-icon");
