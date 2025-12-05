@@ -29,6 +29,8 @@ export class SidebarController {
         projectsHeader.addEventListener("click", () => {
             this.revertElementSelection();
             projectsHeader.classList.add("selected-project");
+
+            this.uiController.renderMyProjects();
         });
     }
 

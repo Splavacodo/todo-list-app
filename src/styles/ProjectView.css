@@ -106,3 +106,81 @@
     display: inline-block;
     padding: 0 10px;
 }
+
+.add-project-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.add-project-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    background-color: #363636;
+    padding: 8px 12px;
+}
+
+.add-project-btn:hover {
+    background-color: #575757;
+    cursor: pointer;
+}
+
+.add-project-btn > img {
+    width: 18px;
+    height: 18px;
+
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.add-project-btn > div {
+    color: var(--primary-text-color);
+}
+
+.projects-list-header {
+    color: var(--primary-text-color);
+    font-weight: 600;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.project-card {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+
+    padding: 8px 6px;
+    border-radius: 10px;
+}
+
+.project-card:hover {
+    cursor: pointer;
+    background-color:rgba(255, 255, 255, 0.1);
+}
+
+.project-card:hover > #edit-project-card-btn {
+    visibility: visible;
+}
+
+.project-card-title {
+    color: var(--primary-text-color);
+    font-size: 14px;
+}
+
+#edit-project-card-btn {
+    margin-left: auto;
+    visibility: hidden;
+    padding: 8px;
+}
+
+#edit-project-card-btn:hover,
+.project-card:hover {
+    cursor: pointer;
+}
+
+#edit-project-card-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}

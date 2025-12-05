@@ -1,6 +1,7 @@
 import "../../../styles/ProjectView.css";
 import plusIconImg from "../../../images/plus.svg";
 import editIconImg from "../../../images/dots-horizontal.svg";
+import projectIconImg from "../../../images/pound.svg";
 import { Project } from "../../models/Project";
 
 export class ProjectView {
@@ -18,7 +19,6 @@ export class ProjectView {
         projectActions.appendChild(editProjectBtn);
 
         const projectTitle: HTMLElement = document.querySelector(".project-header");
-        console.log(projectTitle);
         projectTitle.textContent = project.title;
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
@@ -57,5 +57,72 @@ export class ProjectView {
 
         const projectContainer: HTMLDivElement = document.querySelector(".project-container");
         projectContainer.replaceChildren(projectContainer.firstElementChild);
+    }
+
+    static renderMyProjects() {
+        const projectTitle: HTMLElement = document.querySelector(".project-header");
+        projectTitle.textContent = "My Projects";
+
+        const projectsBtnContainer: HTMLDivElement = document.createElement("div");
+        projectsBtnContainer.setAttribute("class", "add-project-btn-container");
+
+        const addProjectBtn: HTMLButtonElement = document.createElement("button");
+        addProjectBtn.setAttribute("class", "add-project-btn");
+
+        const plusIcon: HTMLImageElement = document.createElement("img");
+        plusIcon.src = plusIconImg;
+        plusIcon.alt = "plus sign icon";
+
+        const addProjectBtnText: HTMLDivElement = document.createElement("div");
+        addProjectBtnText.textContent = "Add project";
+
+        addProjectBtn.appendChild(plusIcon);
+        addProjectBtn.appendChild(addProjectBtnText);
+
+        projectsBtnContainer.appendChild(addProjectBtn);
+        
+        const projectsListHeader: HTMLDivElement = document.createElement("div");
+        projectsListHeader.setAttribute("class", "projects-list-header");
+
+        const numProjects: number = document.querySelector(".projects-list").children.length;
+        projectsListHeader.textContent = numProjects + (numProjects == 1 ? " project": " projects");
+
+        const projects: Array<Element> = Array.from(document.querySelector(".projects-list").children);
+
+        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+        projectContainer.appendChild(projectsBtnContainer);
+
+        for(let project of projects) {
+            const projectCard = document.createElement("div");
+            projectCard.setAttribute("class", "project-card");
+            projectCard.setAttribute("data-project-idx", (project as HTMLElement).dataset.projectIdx); 
+            projectCard.setAttribute("data-project-id", (project as HTMLElement).dataset.projectId);
+
+            const projectIcon: HTMLImageElement = document.createElement("img");
+            projectIcon.setAttribute("class", "project-card-icon");
+            projectIcon.src = projectIconImg;
+            projectIcon.alt = "pound symbol icon";
+
+            const projectTitle: HTMLDivElement = document.createElement("div");
+            projectTitle.setAttribute("class", "project-card-title");
+            projectTitle.textContent = project.textContent;
+
+            const editProjectBtn: HTMLButtonElement = document.createElement("button");
+            editProjectBtn.setAttribute("id", "edit-project-card-btn");
+
+            const editProjectIcon: HTMLImageElement = document.createElement("img");
+            editProjectIcon.setAttribute("class", "project-card-edit-icon");
+            editProjectIcon.src = editIconImg;
+            editProjectIcon.alt = "three hollow circles in a horizontal line spaced evenly";
+
+            editProjectBtn.appendChild(editProjectIcon);
+
+            projectCard.appendChild(projectIcon);
+            projectCard.appendChild(projectTitle);
+            projectCard.appendChild(editProjectBtn);
+
+            projectContainer.appendChild(projectsListHeader);
+            projectContainer.appendChild(projectCard);
+        }
     }
 }
