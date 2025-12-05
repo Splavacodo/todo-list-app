@@ -8,6 +8,7 @@ export class SectionView {
     static renderSection(section: Section) {
         const sectionHeader: HTMLDivElement = document.createElement("div");
         sectionHeader.setAttribute("class", "section-header");
+        sectionHeader.setAttribute("data-section-id", section.id);
 
         const sectionToggleBtn: HTMLButtonElement = document.createElement("button");
         sectionToggleBtn.setAttribute("class", "section-toggle-btn");

@@ -20,6 +20,7 @@ export class ProjectView {
 
         const projectTitle: HTMLElement = document.querySelector(".project-header");
         projectTitle.textContent = project.title;
+        projectTitle.setAttribute("data-project-id", project.id);
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
@@ -141,6 +142,7 @@ export class ProjectView {
 
         const projectTitle: HTMLElement = document.querySelector(".project-header");
         projectTitle.textContent = project.title;
+        projectTitle.setAttribute("data-project-id", project.id);
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
