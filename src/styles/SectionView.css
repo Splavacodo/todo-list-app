@@ -1,0 +1,38 @@
+.section-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.section-title {
+    color: var(--primary-text-color);
+    font-weight: bold;
+}
+
+.edit-section-btn {
+    margin-left: auto;
+    padding: 4px;
+}
+
+.section-toggle-icon,
+.edit-section-btn-icon {
+    width: 18px;
+    height: 18px;
+
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.section-toggle-btn:hover,
+.edit-section-btn:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.section-toggle-btn {
+    position: absolute;
+    left: -32px;
+    padding: 4px;
+}

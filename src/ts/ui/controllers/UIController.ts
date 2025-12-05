@@ -4,6 +4,7 @@ import { TaskService } from "../../services/TaskService";
 
 import { SidebarController } from "./SidebarController";
 import { ProjectController } from "./ProjectController";
+import { SectionController } from "./SectionController";
 
 import { Project } from "../../models/Project";
 
@@ -13,6 +14,7 @@ export class UIController {
     private projectService: ProjectService;
     private sidebarController: SidebarController;
     private projectController: ProjectController;
+    private sectionController: SectionController;
 
     constructor(taskService: TaskService, sectionService: SectionService, projectService: ProjectService) {
         this.taskService = taskService;
@@ -23,6 +25,8 @@ export class UIController {
         this.sidebarController.setupEventListeners();
 
         this.projectController = new ProjectController(this);
+
+        this.sectionController = new SectionController(this);
     }
 
     renderSidebarProjects(): void {
@@ -46,5 +50,13 @@ export class UIController {
     renderMyProjects(): void {
         this.projectController.resetProjectContainer();
         this.projectController.renderMyProjects();
+    }
+
+    renderUserProject(project: Project): void {
+        this.projectController.resetProjectContainer();
+        this.projectController.renderUserProject(project);
+
+        // TODO: Render tasks first before sections
+        this.sectionController.renderProjectSections(project);
     }
 }

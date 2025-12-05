@@ -17,6 +17,10 @@ export class ProjectController {
         ProjectView.renderMyProjects();
     }
 
+    renderUserProject(project: Project): void {
+        ProjectView.renderProject(project);
+    }
+
     resetProjectContainer(): void {
         ProjectView.resetProjectView();
     }

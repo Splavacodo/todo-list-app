@@ -42,7 +42,9 @@ export class SidebarController {
         newProject.addEventListener("click", () => {
             this.revertElementSelection();
             newProject.classList.add("selected-project");
-        })
+
+            this.uiController.renderUserProject(project);
+        });
     }
 
     private revertElementSelection(): void {
