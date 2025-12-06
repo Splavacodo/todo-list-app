@@ -5,7 +5,13 @@ import trashOutlineImg from "../../../images/trash-can-outline.svg"
 import { Task } from "../../models/Task";
 
 export class TaskView {
-    static renderTask(task: Task) {
+    static renderTaskToParent(task: Task, parentId: string) {
+        const tasksList = document.querySelector(`ul[data-parent-id="${parentId}"]`);
+        console.log(tasksList);
+        tasksList.appendChild(this.createTaskContainer(task));
+    }
+
+    static createTaskContainer(task: Task): HTMLLIElement {
         const taskContainer: HTMLLIElement = document.createElement("li");
         taskContainer.setAttribute("class", "task");
 
@@ -108,7 +114,6 @@ export class TaskView {
         taskContainer.appendChild(editTaskBtn);
         taskContainer.appendChild(deleteTaskBtn);
 
-        const tasksList = document.querySelector(".tasks-list");
-        tasksList.appendChild(taskContainer);
+        return taskContainer;
     }
 }

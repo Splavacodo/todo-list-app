@@ -9,6 +9,7 @@ import { TaskController } from "./TaskController";
 
 import { Project } from "../../models/Project";
 import { Section } from "../../models/Section";
+import { Task } from "../../models/Task";
 
 export class UIController {
     private taskService: TaskService;
@@ -67,5 +68,10 @@ export class UIController {
 
         for(let section of projectSections)
             this.taskController.renderSectionTasks(section);
+
+        const projectTasks: Array<Task> = project.children.filter((childElement) => childElement instanceof Task);
+
+        for(let task of projectTasks)
+            this.taskController.renderProjectTask(task);
     }
 }
