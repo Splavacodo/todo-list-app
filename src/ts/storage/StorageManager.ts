@@ -34,6 +34,7 @@ export class StorageManager {
             ); 
 
             const taskDetailsId = crypto.randomUUID();
+            const deleteTaskId = crypto.randomUUID();
             const addingSectionsId = crypto.randomUUID();
             const addingTasksId = crypto.randomUUID();
             const addingProjectsId = crypto.randomUUID();
@@ -51,6 +52,15 @@ export class StorageManager {
 
             localStorage["tasks"] = JSON.stringify(
                 [
+                    {
+                        _id: deleteTaskId,
+                        _title: "Delete this task",
+                        _description: "You can delete tasks by hovering over a task and clicking the trash button on the right",
+                        _dueDate: "none",
+                        _priority: "4",
+                        _notes: "",
+                        _parentId: welcomeProjectId
+                    },
                     {
                         _id: taskDetailsId,
                         _title: "Select this task to see more details",
