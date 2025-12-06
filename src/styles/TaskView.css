@@ -1,0 +1,86 @@
+.task {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 0;
+    list-style: none;
+    border-bottom: 1px solid #3f3f3f;
+}
+
+.task-checkbox {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+}
+
+.task:hover,
+.task-checkbox:hover,
+.edit-task-btn:hover,
+.delete-task-btn:hover {
+    cursor: pointer;
+}
+
+.task-checkbox-icon {
+    width: 24px;
+    height: 24px;
+
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.task-info {
+    width: 80%;
+}
+
+.task-title {
+    color: var(--primary-text-color);
+    margin-bottom: 4px;
+}
+
+.task-description {
+    color: var(--secondary-text-color);
+    font-size: 12px;
+    overflow: hidden;
+    height: 1.5rem;
+}
+
+.task-due-date {
+    color: var(--primary-text-accent-color);
+}
+
+.edit-task-btn,
+.delete-task-btn {
+    padding: 4px;
+    visibility: hidden;
+}
+
+.task:hover .edit-task-btn,
+.task:hover .delete-task-btn {
+    visibility: visible;
+}
+
+.edit-task-btn {
+    margin-left: auto;
+}
+
+.edit-task-btn:hover,
+.delete-task-btn:hover {
+    background-color: #3f3f3f;
+}
+
+.edit-task-btn-icon,
+.delete-task-btn-icon {
+    width: 18px;
+    height: 18px;
+} 
+
+.edit-task-btn-icon {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.delete-task-btn-icon {
+    filter: brightness(0) saturate(100%) invert(65%) sepia(24%) saturate(6513%) hue-rotate(318deg) brightness(80%) contrast(123%);
+}
