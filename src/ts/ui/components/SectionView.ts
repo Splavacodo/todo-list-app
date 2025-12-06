@@ -35,7 +35,8 @@ export class SectionView {
         editSectionBtn.appendChild(editSectionBtnImg);
 
         const tasksList = document.createElement("ul");
-        tasksList.setAttribute("class", "tasks-list");
+        tasksList.setAttribute("class", "section-tasks-list");
+        tasksList.setAttribute("data-parent-id", section.id);
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");

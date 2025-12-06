@@ -142,7 +142,11 @@ export class ProjectView {
 
         const projectTitle: HTMLElement = document.querySelector(".project-header");
         projectTitle.textContent = project.title;
-        projectTitle.setAttribute("data-project-id", project.id);
+        projectTitle.setAttribute("data-parent-id", project.id);
+
+        const tasksList = document.createElement("ul");
+        tasksList.setAttribute("class", "project-tasks-list");
+        tasksList.setAttribute("data-parent-id", project.id);
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
@@ -167,6 +171,7 @@ export class ProjectView {
         addSectionDiv.appendChild(addSectionText);
 
         const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+        projectContainer.appendChild(tasksList);
         projectContainer.appendChild(addTaskBtn);
         projectContainer.appendChild(addSectionDiv);
     }
