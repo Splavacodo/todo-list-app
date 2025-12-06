@@ -7,7 +7,6 @@ import { Task } from "../../models/Task";
 export class TaskView {
     static renderTaskToParent(task: Task, parentId: string) {
         const tasksList = document.querySelector(`ul[data-parent-id="${parentId}"]`);
-        console.log(tasksList);
         tasksList.appendChild(this.createTaskContainer(task));
     }
 

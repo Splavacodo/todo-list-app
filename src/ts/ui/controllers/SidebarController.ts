@@ -1,6 +1,8 @@
 import { UIController } from "./UIController";
 import { SidebarView } from "../components/SidebarView"; 
 import { Project } from "../../models/Project";
+import toggleOnImg from "../../../images/chevron-right.svg";
+import toggleOffImg from "../../../images/chevron-down.svg";
 
 export class SidebarController {
     private uiController: UIController;
@@ -13,6 +15,12 @@ export class SidebarController {
         document.querySelector("#sidebar-add-task-btn").addEventListener("click", () => {
             // TODO: Create and add a modal view to DOM for creating a new task
             console.log("sidebar add task btn clicked");
+        });
+
+        const sidebarProjectsToggleBtn: HTMLButtonElement = document.querySelector("#sidebar-toggle-view-projects-btn");
+
+        sidebarProjectsToggleBtn.addEventListener("click", () => {
+            (sidebarProjectsToggleBtn.firstElementChild as HTMLImageElement).src = ((sidebarProjectsToggleBtn.firstElementChild as HTMLImageElement).src === toggleOnImg) ? toggleOffImg : toggleOnImg;
         });
 
         const inboxBtn = document.querySelector("#sidebar-inbox-btn");
