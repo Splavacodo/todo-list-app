@@ -15,6 +15,7 @@ export class StorageManager {
         if (!("user" in localStorage)) {
             const welcomeProjectId: string = crypto.randomUUID();
             const tipsSectionId: string = crypto.randomUUID();
+            const deleteTaskId = crypto.randomUUID();
 
             localStorage["user"] = "someUser";
 
@@ -28,13 +29,12 @@ export class StorageManager {
                     {
                         "id": welcomeProjectId,
                         "title": "Welcome 👋",
-                        "childrenIds": [tipsSectionId]
+                        "childrenIds": [deleteTaskId, tipsSectionId]
                     }
                 ]
             ); 
 
             const taskDetailsId = crypto.randomUUID();
-            const deleteTaskId = crypto.randomUUID();
             const addingSectionsId = crypto.randomUUID();
             const addingTasksId = crypto.randomUUID();
             const addingProjectsId = crypto.randomUUID();
