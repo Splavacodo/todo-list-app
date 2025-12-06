@@ -29,8 +29,6 @@ export class StorageManager {
                         "id": welcomeProjectId,
                         "title": "Welcome 👋",
                         "childrenIds": [tipsSectionId]
-                        // TODO: Update eventListeners for projects and inbox to handle highlighting the current project in the sidebar
-                        // TODO: Create a project view
                     }
                 ]
             ); 

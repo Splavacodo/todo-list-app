@@ -36,3 +36,11 @@
     left: -32px;
     padding: 4px;
 }
+
+.tasks-list {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+
+    margin-top: -12px;
+}

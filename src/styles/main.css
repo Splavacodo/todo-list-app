@@ -57,9 +57,3 @@ button {
     overflow-y: auto;
     height: 100vh;
 }
-
-.task {
-    list-style: none;
-    height: 48px;
-    border-bottom: 1px white dotted;
-}
