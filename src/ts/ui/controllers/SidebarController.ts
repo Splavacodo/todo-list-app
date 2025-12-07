@@ -1,8 +1,6 @@
 import { UIController } from "./UIController";
 import { SidebarView } from "../components/SidebarView"; 
 import { Project } from "../../models/Project";
-import toggleOnImg from "../../../images/chevron-right.svg";
-import toggleOffImg from "../../../images/chevron-down.svg";
 
 export class SidebarController {
     private uiController: UIController;
@@ -20,7 +18,14 @@ export class SidebarController {
         const sidebarProjectsToggleBtn: HTMLButtonElement = document.querySelector("#sidebar-toggle-view-projects-btn");
 
         sidebarProjectsToggleBtn.addEventListener("click", () => {
-            (sidebarProjectsToggleBtn.firstElementChild as HTMLImageElement).src = ((sidebarProjectsToggleBtn.firstElementChild as HTMLImageElement).src === toggleOnImg) ? toggleOffImg : toggleOnImg;
+            if (sidebarProjectsToggleBtn.classList.contains("toggle-on")) {
+                sidebarProjectsToggleBtn.classList.remove("toggle-on");
+                sidebarProjectsToggleBtn.classList.add("toggle-off");
+            }
+            else {
+                sidebarProjectsToggleBtn.classList.add("toggle-on");
+                sidebarProjectsToggleBtn.classList.remove("toggle-off");
+            }
         });
 
         const inboxBtn = document.querySelector("#sidebar-inbox-btn");
