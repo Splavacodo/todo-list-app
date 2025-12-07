@@ -18,13 +18,19 @@ export class SidebarController {
         const sidebarProjectsToggleBtn: HTMLButtonElement = document.querySelector("#sidebar-toggle-view-projects-btn");
 
         sidebarProjectsToggleBtn.addEventListener("click", () => {
+            const projectsList: HTMLUListElement = document.querySelector(".projects-list");
+
             if (sidebarProjectsToggleBtn.classList.contains("toggle-on")) {
                 sidebarProjectsToggleBtn.classList.remove("toggle-on");
                 sidebarProjectsToggleBtn.classList.add("toggle-off");
+
+                projectsList.classList.remove("off");
             }
             else {
                 sidebarProjectsToggleBtn.classList.add("toggle-on");
                 sidebarProjectsToggleBtn.classList.remove("toggle-off");
+
+                projectsList.classList.add("off");
             }
         });
 

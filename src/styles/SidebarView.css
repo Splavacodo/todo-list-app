@@ -121,6 +121,14 @@ img[class^="help"],
 
 .projects-list {
     margin-left: 12px;
+
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.projects-list.off {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .project {
