@@ -53,27 +53,28 @@
 #sidebar-inbox-btn:hover,
 .projects-header:hover,
 .project:hover,
-#help-btn:hover {
+#help-btn:hover,
+[class$="option"]:hover {
     background-color: rgba(255, 255, 255, 0.05);
     cursor: pointer;
 }
 
 #sidebar-add-project-btn,
 #sidebar-toggle-view-projects-btn,
-#edit-project-btn {
+.edit-project-btn {
     padding: 4px;
 }
 
 #sidebar-add-project-btn:hover,
 #sidebar-toggle-view-projects-btn:hover,
-#edit-project-btn:hover
+.edit-project-btn:hover
 {
     background-color: rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }
 
 
-.project:hover > #edit-project-btn{
+.project:hover > .edit-project-btn{
     visibility: visible;
 }
 
@@ -89,14 +90,16 @@ img[class^="help"] {
     height: 16px;
 }
 
-.sidebar-add-icon {
+.sidebar-add-icon,
+.delete-option-icon {
     filter: brightness(0) saturate(100%) invert(36%) sepia(44%) saturate(818%) hue-rotate(314deg) brightness(110%) contrast(107%);
 }
 
 .header-icon,
 img[class^="project"],
 img[class^="help"],
-.sidebar-inbox-icon {
+.sidebar-inbox-icon,
+.rename-option-icon {
     filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
 }
 
@@ -140,9 +143,10 @@ img[class^="help"],
     list-style: none;
     padding: 6px 4px;
     border-radius: 5px;
+    position: relative;
 }
 
-#edit-project-btn {
+.edit-project-btn {
     margin-left: auto;
     visibility: hidden;
 }
@@ -185,4 +189,44 @@ img[class^="help"],
 .toggle-off > img{
     transform: rotate(0);
     transition: 0.2s ease;
+}
+
+.sidebar-edit-project-menu {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+
+    position: fixed;
+
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    border: 1px solid #3f3f3f;
+    border-radius: 8px;
+    padding: 4px;
+    width: 200px;
+}
+
+[class$="option"] {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    
+    padding: 4px 8px;
+    border-radius: 4px;
+    
+}
+
+.rename-option-icon,
+.delete-option-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.rename-option-text {
+    color: var(--primary-text-color);
+}
+
+.delete-option-text {
+    color: var(--primary-text-accent-color);
 }

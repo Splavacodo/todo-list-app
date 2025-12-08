@@ -7,6 +7,8 @@ export class SidebarController {
 
     constructor(uiController: UIController) {
         this.uiController = uiController;
+
+        SidebarView.renderEditProjectMenu();
     }
 
     setupEventListeners(): void {
@@ -51,6 +53,13 @@ export class SidebarController {
 
             this.uiController.renderMyProjects();
         });
+
+        const appBody = document.querySelector("body");
+
+        appBody.addEventListener("click", () => {
+            const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
+            editProjectMenu.style.display = "none";
+        });
     }
 
     renderSidebarProject(project: Project, projectIdx: string): void {
@@ -63,6 +72,19 @@ export class SidebarController {
             newProject.classList.add("selected-project");
 
             this.uiController.renderUserProject(project);
+        });
+
+        const editProjectBtn: HTMLButtonElement = document.querySelector(".edit-project-btn");
+
+        editProjectBtn.addEventListener("click", (event) => {
+            const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
+
+            if (editProjectMenu.style.display === "flex")
+                editProjectMenu.style.display = "none";
+            else {
+                SidebarView.placeEditProjectMenu(editProjectBtn);
+                event.stopPropagation();
+            }
         });
     }
 
