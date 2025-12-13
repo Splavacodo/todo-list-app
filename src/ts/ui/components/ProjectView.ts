@@ -55,6 +55,15 @@ export class ProjectView {
 
         const taskPlacementBtnText: HTMLButtonElement = document.querySelector(".task-placement-text");
         taskPlacementBtnText.textContent = project.title;
+
+        for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
+            if (child.hasAttribute("selected")) {
+                child.toggleAttribute("selected");
+                break;
+            }
+        }
+
+        document.querySelector(`option[value="${project.id}"]`).setAttribute("selected", "");
     }
 
     static resetProjectView(): void {
@@ -136,6 +145,17 @@ export class ProjectView {
 
         const taskPlacementBtnText: HTMLButtonElement = document.querySelector(".task-placement-text");
         taskPlacementBtnText.textContent = "Inbox";
+        
+        const inboxProjectId: string = (document.querySelector("#sidebar-inbox-btn") as HTMLButtonElement).dataset["projectId"];
+
+        for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
+            if (child.hasAttribute("selected")) {
+                child.toggleAttribute("selected");
+                break;
+            }
+        }
+
+        document.querySelector(`option[value="${inboxProjectId}"]`).setAttribute("selected", "");
     }
 
     static renderProject(project: Project): void {
@@ -188,5 +208,14 @@ export class ProjectView {
 
         const taskPlacementBtnText: HTMLDivElement = document.querySelector(".task-placement-text");
         taskPlacementBtnText.textContent = project.title;
+
+        for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
+            if (child.hasAttribute("selected")) {
+                child.toggleAttribute("selected");
+                break;
+            }
+        }
+
+        document.querySelector(`option[value="${project.id}"]`).setAttribute("selected", "");
     }
 }
