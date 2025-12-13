@@ -35,10 +35,15 @@ export class TaskView {
         taskDescription.setAttribute("class", "task-description");
         taskDescription.textContent = task.description;
 
+        if (taskDescription.textContent !== "") {
+            taskDescription.style.height = "1.5rem";
+            taskTitle.style.marginBottom = "4px";
+        }
+
         const taskDueDateDiv: HTMLDivElement = document.createElement("div");
         taskDueDateDiv.setAttribute("class", "task-due-date");
 
-        if (task.dueDate !== "none") {
+        if (task.dueDate !== "") {
             const taskDueDate: Date = new Date(task.dueDate);
 
             switch(taskDueDate.getMonth()) {

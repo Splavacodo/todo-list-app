@@ -38,9 +38,16 @@ export class SectionService {
         return tasks;
     }
 
+    containsId(id: string): boolean { return id in this.sections; }
+
     getSection(sectionId: string): Section { return this.sections[sectionId]; }
 
     deleteSection(sectionId: string): void { delete this.sections[sectionId]; }
 
-    // Will be extending this class for more functionality later
+    addTaskToSection(sectionId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number) {
+        const section: Section = this.sections[sectionId];
+        const newTask: Task = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", sectionId);
+
+        section.tasks.push(newTask);
+    }
 }

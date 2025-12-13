@@ -51,6 +51,18 @@ export class UIController {
         const inboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
         const inboxProject: Project = this.projectService.getProject(inboxBtn.dataset.projectId);
         this.projectController.renderInboxProjectContainer(inboxProject);
+
+        this.sectionController.renderProjectSections(inboxProject);
+
+        const projectSections: Array<Section> = inboxProject.children.filter((childElement) => childElement instanceof Section);
+
+        for(let section of projectSections)
+            this.taskController.renderSectionTasks(section);
+
+        const projectTasks: Array<Task> = inboxProject.children.filter((childElement) => childElement instanceof Task);
+
+        for(let task of projectTasks)
+            this.taskController.renderProjectTask(task);
     }
 
     renderMyProjects(): void {
@@ -221,6 +233,20 @@ export class UIController {
 
         addTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
+
+            const selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
+
+            if (this.sectionService.containsId(selectedTaskPlacementId)) {
+                this.sectionService.addTaskToSection(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+
+                const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+                const selectedProject: Project = this.projectService.getProject(selectedProjectId);
+
+                if (this.projectService.projectContainsChildId(selectedProjectId, selectedTaskPlacementId) && selectedProject.title === "Inbox")
+                    this.renderInboxProject();
+                else if (this.projectService.projectContainsChildId(selectedProjectId, selectedTaskPlacementId))
+                    this.renderUserProject(selectedProject);
+            }
 
             (document.querySelector(".add-task-form") as HTMLFormElement).reset();
 

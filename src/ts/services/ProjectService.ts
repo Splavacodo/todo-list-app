@@ -53,5 +53,12 @@ export class ProjectService {
 
     deleteProject(projectId: string): void { delete this.projects[projectId]; }
 
-    // Will be extending this class for more functionality later
+    projectContainsChildId(projectId: string, childId: string): boolean {
+        for(let child of this.projects[projectId].children) {
+            if (child.id === childId)
+                return true;
+        }
+
+        return false;
+    }
 }
