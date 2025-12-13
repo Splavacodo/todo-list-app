@@ -44,48 +44,48 @@ export class TaskView {
         taskDueDateDiv.setAttribute("class", "task-due-date");
 
         if (task.dueDate !== "") {
-            const taskDueDate: Date = new Date(task.dueDate);
+            const dateComponents: Array<string> = task.dueDate.split("-");
 
-            switch(taskDueDate.getMonth()) {
-                case 0:
+            switch(dateComponents[1]) {
+                case "01":
                     taskDueDateDiv.textContent += "Jan";
                     break;
-                case 1:
+                case "02":
                     taskDueDateDiv.textContent += "Feb";
                     break;
-                case 2:
+                case "03":
                     taskDueDateDiv.textContent += "Mar";
                     break;
-                case 3:
+                case "04":
                     taskDueDateDiv.textContent += "Apr";
                     break;
-                case 4:
+                case "05":
                     taskDueDateDiv.textContent += "May";
                     break;
-                case 5:
+                case "06":
                     taskDueDateDiv.textContent += "June";
                     break;
-                case 6:
+                case "07":
                     taskDueDateDiv.textContent += "Jul";
                     break;
-                case 7:
+                case "08":
                     taskDueDateDiv.textContent += "Aug";
                     break;
-                case 8:
+                case "09":
                     taskDueDateDiv.textContent += "Sep";
                     break;
-                case 9:
+                case "10":
                     taskDueDateDiv.textContent += "Oct";
                     break;
-                case 10:
+                case "11":
                     taskDueDateDiv.textContent += "Nov";
                     break;
-                case 11:
+                case "12":
                     taskDueDateDiv.textContent += "Dec";
                     break;
             }
 
-            taskDueDateDiv.textContent += taskDueDate.getDay();
+            taskDueDateDiv.textContent += " " + dateComponents[2];
             taskDueDateDiv.style.marginTop = "4px";
         }
 
