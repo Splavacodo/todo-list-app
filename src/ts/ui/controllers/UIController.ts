@@ -235,16 +235,25 @@ export class UIController {
             event.preventDefault();
 
             const selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
+            const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+            const selectedProject: Project = this.projectService.getProject(selectedProjectId);
 
             if (this.sectionService.containsId(selectedTaskPlacementId)) {
                 this.sectionService.addTaskToSection(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
 
-                const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
-                const selectedProject: Project = this.projectService.getProject(selectedProjectId);
+                const parentSection: Section = this.sectionService.getSection(selectedTaskPlacementId);
 
-                if (this.projectService.projectContainsChildId(selectedProjectId, selectedTaskPlacementId) && selectedProject.title === "Inbox")
+                if (parentSection.parentId === selectedProjectId && selectedProject.title === "Inbox")
                     this.renderInboxProject();
-                else if (this.projectService.projectContainsChildId(selectedProjectId, selectedTaskPlacementId))
+                else if (parentSection.parentId === selectedProjectId)
+                    this.renderUserProject(selectedProject);
+            }
+            else {
+                this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+
+                if (selectedTaskPlacementId === selectedProjectId && selectedProject.title === "Inbox")
+                    this.renderInboxProject();
+                else if (selectedTaskPlacementId === selectedProjectId)
                     this.renderUserProject(selectedProject);
             }
 

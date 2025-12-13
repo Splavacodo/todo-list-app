@@ -53,12 +53,10 @@ export class ProjectService {
 
     deleteProject(projectId: string): void { delete this.projects[projectId]; }
 
-    projectContainsChildId(projectId: string, childId: string): boolean {
-        for(let child of this.projects[projectId].children) {
-            if (child.id === childId)
-                return true;
-        }
+    addTaskToProject(projectId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number) {
+        const project: Project = this.projects[projectId];
+        const newTask = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", projectId);
 
-        return false;
+        project.children.push(newTask);
     }
 }
