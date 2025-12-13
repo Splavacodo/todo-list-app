@@ -50,10 +50,186 @@ button {
 .app-content {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
 
     background-color: var(--primary-bg-color);
     flex-grow: 1;
     overflow-y: auto;
     height: 100vh;
+}
+
+#add-task-dialog {
+    top: 24%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--secondary-bg-color);
+    border: 1px solid #3f3f3f;
+    border-radius: 10px;
+    width: 550px;
+}
+
+.add-task-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-top-half {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-bottom-half {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #3f3f3f;
+    height: 64px;
+    padding: 0 16px;
+}
+
+::backdrop {
+    background-color: transparent;
+}
+
+input,
+textarea {
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    border: none;
+    outline: none;
+}
+
+input {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+textarea {
+    resize: none;
+    max-height: 150px;
+}
+
+.task-setting-actions {
+    display: flex; 
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.task-due-date-btn,
+.task-priority-btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+
+    color: var(--primary-text-color);
+    background-color: var(--secondary-bg-color);
+    border: 1px solid #3f3f3f;
+    padding: 4px 8px;
+}
+
+.task-priority-btn[task-priority="4"] {
+    border: 1px solid #3f3f3f;
+}
+
+.task-priority-btn[task-priority="3"] {
+    border: 1px solid #3644ff;
+}
+
+.task-priority-btn[task-priority="2"] {
+    border: 1px solid #de924a;
+}
+
+.task-priority-btn[task-priority="1"] {
+    border: 1px solid var(--primary-bg-accent-color);
+}
+
+.task-due-date-btn:hover,
+.task-priority-btn:hover,
+.task-placement-btn:hover {
+    background-color: #3f3f3f;
+    cursor: pointer;
+}
+
+#task-due-date,
+#task-priority-selection,
+#task-placement-selection {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+#task-priority-selection {
+    left: 17%;
+}
+
+.task-due-date-icon,
+.task-priority-icon,
+.task-placement-menu-icon {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);
+}
+
+.task-due-date-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.task-priority-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.task-placement-menu-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.task-submission-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.cancel-task-btn,
+.dialog-add-task-btn,
+.task-placement-btn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+
+    padding: 7px 14px;
+    color: var(--primary-text-color);
+    font-weight: 500; 
+}
+
+.cancel-task-btn {
+    margin-left: auto;
+    background-color: #414141;
+}
+
+.cancel-task-btn:hover {
+    background-color: #575757;
+    cursor: pointer;
+}
+
+.dialog-add-task-btn:hover:not(:disabled) {
+    background-color: var(--primary-text-accent-color);
+    cursor: pointer;
+}
+
+.dialog-add-task-btn {
+    background-color: var(--primary-bg-accent-color);
+}
+
+.dialog-add-task-btn:not(:disabled) {
+    opacity: 1;
+}
+
+.dialog-add-task-btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
 }

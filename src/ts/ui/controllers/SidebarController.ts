@@ -13,8 +13,25 @@ export class SidebarController {
 
     setupEventListeners(): void {
         document.querySelector("#sidebar-add-task-btn").addEventListener("click", () => {
-            // TODO: Create and add a modal view to DOM for creating a new task
-            console.log("sidebar add task btn clicked");
+            (document.querySelector("#add-task-dialog") as HTMLDialogElement).showModal();
+
+            const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
+            const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
+
+            dueDateInput.style.width = String(dueDateButton.offsetWidth) + "px";
+            dueDateInput.style.height = String(dueDateButton.offsetHeight) + "px";
+
+            const priorityBtn: HTMLButtonElement = document.querySelector(".task-priority-btn");
+            const prioritySelection: HTMLSelectElement = document.querySelector("#task-priority-selection");
+
+            prioritySelection.style.width = String(priorityBtn.offsetWidth) + "px";
+            prioritySelection.style.height = String(priorityBtn.offsetHeight) + "px";
+
+            const taskPlacementBtn: HTMLButtonElement = document.querySelector(".task-placement-btn");
+            const taskPlacementSelection: HTMLSelectElement = document.querySelector("#task-placement-selection");
+
+            taskPlacementSelection.style.width = String(taskPlacementBtn.offsetWidth) + "px";
+            taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
         });
 
         const sidebarProjectsToggleBtn: HTMLButtonElement = document.querySelector("#sidebar-toggle-view-projects-btn");

@@ -19,7 +19,9 @@ function init() {
     projectService.addProjectsFromJson(StorageManager.getLocalProjects());
 
     const uiController = new UIController(taskService, sectionService, projectService); 
+    uiController.setupEventListeners();
     uiController.renderSidebarProjects();
+    uiController.renderTaskPlacementOptions();
     uiController.renderInboxProject();
 }
 

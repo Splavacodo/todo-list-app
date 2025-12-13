@@ -47,6 +47,9 @@ export class ProjectView {
         const projectContainer: HTMLDivElement = document.querySelector(".project-container");
         projectContainer.appendChild(addTaskBtn);
         projectContainer.appendChild(addSectionDiv);
+
+        const taskPlacementBtnText: HTMLButtonElement = document.querySelector(".task-placement-text");
+        taskPlacementBtnText.textContent = project.title;
     }
 
     static resetProjectView(): void {
@@ -125,6 +128,9 @@ export class ProjectView {
             projectContainer.appendChild(projectsListHeader);
             projectContainer.appendChild(projectCard);
         }
+
+        const taskPlacementBtnText: HTMLButtonElement = document.querySelector(".task-placement-text");
+        taskPlacementBtnText.textContent = "Inbox";
     }
 
     static renderProject(project: Project): void {
@@ -174,5 +180,8 @@ export class ProjectView {
         projectContainer.appendChild(tasksList);
         projectContainer.appendChild(addTaskBtn);
         projectContainer.appendChild(addSectionDiv);
+
+        const taskPlacementBtnText: HTMLDivElement = document.querySelector(".task-placement-text");
+        taskPlacementBtnText.textContent = project.title;
     }
 }

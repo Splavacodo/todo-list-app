@@ -59,5 +59,43 @@
             </div>
         </main>
     </div>
+    <dialog id="add-task-dialog">
+        <form class="add-task-form" method="dialog">
+            <div class="form-top-half">
+                <input type="text" name="task-name" id="task-name" placeholder="Task name" autocomplete="off">
+                <textarea name="task-description" id="task-description" rows="1" form="add-task-form" placeholder="Description" maxlength="500"></textarea>
+                <div class="task-setting-actions">
+                    <input type="date" name="task-due-date" id="task-due-date">
+                    <button class="task-due-date-btn">
+                        <img src="./images/calendar-range.svg" alt="icon of a calender" class="task-due-date-icon">
+                        <div class="task-due-date-text">Date</div>
+                    </button>
+                    <select name="task-priority-selection" id="task-priority-selection">
+                        <option value="priority-1">Priority 1</option>
+                        <option value="priority-2">Priority 2</option>
+                        <option value="priority-3">Priority 3</option>
+                        <option value="priority-4" selected>Priority 4</option>
+                    </select>
+                    <button class="task-priority-btn" task-priority="4">
+                        <img src="./images/flag-variant-outline.svg" alt="icon of a flag" class="task-priority-icon">
+                        <div class="task-priority-text">Priority</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-bottom-half">
+                <div class="task-submission-actions">
+                    <select name="task-placement-selection" id="task-placement-selection">
+                    </select>
+                    <button class="task-placement-btn">
+                        <div class="task-placement-text"></div>
+                        <img class="task-placement-menu-icon" src="./images/menu-down.svg" alt="small arrow pointing down">
+                    </button>
+                    <button class="cancel-task-btn" formmethod="dialog">Cancel</button>
+                    <button class="dialog-add-task-btn" disabled>Add task</button>
+                </div>
+            </div>
+        </form>
+    </dialog>
 </body>
 </html>

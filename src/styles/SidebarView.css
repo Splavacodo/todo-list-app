@@ -165,7 +165,6 @@ img[class^="help"],
 .selectable.selected-project,
 .selectable.selected-project:hover {
     background-color: var(--selected-project-bg-accent-color);
-    
 }
 
 #sidebar-inbox-btn.selected-project {
