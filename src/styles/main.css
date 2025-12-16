@@ -68,9 +68,28 @@ button {
     width: 550px;
 }
 
-.add-task-form {
+#add-project-dialog {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--secondary-bg-color);
+    border: 1px solid #3f3f3f;
+    border-radius: 10px;
+    width: 480px; 
+}
+
+.add-task-form,
+.add-project-form {
     display: flex;
     flex-direction: column;
+}
+
+.add-project-header {
+    color: var(--primary-text-color);
+    font-size: 16px;
+    padding: 16px;
+    border-bottom: 1px solid #3f3f3f;
 }
 
 .form-top-half {
@@ -92,7 +111,7 @@ button {
     background-color: transparent;
 }
 
-input,
+#task-name,
 textarea {
     background-color: var(--secondary-bg-color);
     color: var(--primary-text-color);
@@ -100,7 +119,18 @@ textarea {
     outline: none;
 }
 
-input {
+#project-name {
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    outline: none;
+    border: 1px solid #3f3f3f;
+
+    font-weight: 600;
+    padding: 8px;
+    margin: 0 16px;
+}
+
+#task-name {
     font-size: 16px;
     font-weight: 600;
 }
@@ -186,16 +216,24 @@ textarea {
     height: 16px;
 }
 
-.task-submission-actions {
+.task-submission-actions,
+.project-submission-actions {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
     width: 100%;
 }
 
+.project-submission-actions {
+    padding: 16px;
+    align-items: center;
+}
+
 .cancel-task-btn,
 .dialog-add-task-btn,
-.task-placement-btn {
+.task-placement-btn,
+.cancel-project-btn,
+.dialog-add-project-btn {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -206,30 +244,41 @@ textarea {
     font-weight: 500; 
 }
 
-.cancel-task-btn {
+.cancel-task-btn,
+.cancel-project-btn {
     margin-left: auto;
     background-color: #414141;
 }
 
-.cancel-task-btn:hover {
+.cancel-task-btn:hover,
+.cancel-project-btn:hover {
     background-color: #575757;
     cursor: pointer;
 }
 
-.dialog-add-task-btn:hover:not(:disabled) {
+.dialog-add-task-btn:hover:not(:disabled),
+.dialog-add-project-btn:hover:not(:disabled) {
     background-color: var(--primary-text-accent-color);
     cursor: pointer;
 }
 
-.dialog-add-task-btn {
+.dialog-add-task-btn,
+.dialog-add-project-btn {
     background-color: var(--primary-bg-accent-color);
 }
 
-.dialog-add-task-btn:not(:disabled) {
+.dialog-add-task-btn:not(:disabled),
+.dialog-add-project-btn:not(:disabled) {
     opacity: 1;
 }
 
-.dialog-add-task-btn:disabled {
+.dialog-add-task-btn:disabled,
+.dialog-add-project-btn:disabled {
     opacity: 0.2;
     cursor: not-allowed;
+}
+
+label {
+    padding: 16px;
+    color: var(--primary-text-color);
 }

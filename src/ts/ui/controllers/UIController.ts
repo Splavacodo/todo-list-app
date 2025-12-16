@@ -111,6 +111,11 @@ export class UIController {
     }
 
     setupEventListeners() {
+        this.setupAddTaskDialogEventListerners();
+        this.setupAddProjectDialogEventListeners();
+    }
+
+    private setupAddTaskDialogEventListerners() {
         const taskDescription: HTMLTextAreaElement = document.querySelector('#task-description');
         const MAX_ROWS = 10;
 
@@ -267,5 +272,20 @@ export class UIController {
 
             (document.querySelector("#add-task-dialog") as HTMLDialogElement).close();
         });
+    }
+
+    private setupAddProjectDialogEventListeners() {
+        const projectTitle: HTMLInputElement = document.querySelector("#project-name");
+        const addProjectBtn: HTMLButtonElement = document.querySelector(".dialog-add-project-btn");
+
+        projectTitle.addEventListener("input", () => {
+            (projectTitle.value === "") ? addProjectBtn.toggleAttribute("disabled") : addProjectBtn.removeAttribute("disabled");
+        });
+
+        addProjectBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            (document.querySelector("#add-project-dialog") as HTMLDialogElement).close();
+        })
     }
 }

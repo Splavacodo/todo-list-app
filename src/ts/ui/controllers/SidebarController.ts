@@ -77,6 +77,10 @@ export class SidebarController {
             const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
             editProjectMenu.style.display = "none";
         });
+
+        document.querySelector("#sidebar-add-project-btn").addEventListener("click", () => {
+            (document.querySelector("#add-project-dialog") as HTMLDialogElement).showModal();
+        });
     }
 
     renderSidebarProject(project: Project, projectIdx: string): void {
