@@ -53,10 +53,16 @@ export class ProjectService {
 
     deleteProject(projectId: string): void { delete this.projects[projectId]; }
 
-    addTaskToProject(projectId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number) {
+    addTaskToProject(projectId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number): void {
         const project: Project = this.projects[projectId];
         const newTask = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", projectId);
 
         project.children.push(newTask);
+    }
+
+    addNewProject(projectName: string): void {
+        const newProjetId: string = crypto.randomUUID();
+
+        this.projects[newProjetId] = new Project(newProjetId, projectName, []);
     }
 }

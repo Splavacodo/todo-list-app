@@ -109,6 +109,7 @@ export class ProjectView {
 
         const projectContainer: HTMLDivElement = document.querySelector(".project-container");
         projectContainer.appendChild(projectsBtnContainer);
+        projectContainer.appendChild(projectsListHeader);
 
         for(let project of projects) {
             const projectCard = document.createElement("div");
@@ -139,7 +140,6 @@ export class ProjectView {
             projectCard.appendChild(projectTitle);
             projectCard.appendChild(editProjectBtn);
 
-            projectContainer.appendChild(projectsListHeader);
             projectContainer.appendChild(projectCard);
         }
 

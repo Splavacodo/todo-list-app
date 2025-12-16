@@ -41,6 +41,9 @@ export class UIController {
         const inboxBtn = document.querySelector("#sidebar-inbox-btn");
         inboxBtn.setAttribute("data-project-id", projects[0].id);
 
+        const projectsList: HTMLUListElement = document.querySelector(".projects-list");
+        projectsList.replaceChildren();
+
         for(let i = 1; i < projects.length; i++)
             this.sidebarController.renderSidebarProject(projects[i], i.toString());
     }
@@ -90,6 +93,8 @@ export class UIController {
     renderTaskPlacementOptions() {
         const projects: Array<Project> = this.projectService.getAllProjects();
         const taskPlacementSelection: HTMLSelectElement = document.querySelector("#task-placement-selection");
+        
+        taskPlacementSelection.replaceChildren();
 
         for(const project of projects) {
             const projectOption: HTMLOptionElement = document.createElement("option");
@@ -285,7 +290,21 @@ export class UIController {
         addProjectBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
+            this.projectService.addNewProject(projectTitle.value);
+
+            addProjectBtn.toggleAttribute("disabled");
+            (document.querySelector(".add-project-form") as HTMLFormElement).reset();
             (document.querySelector("#add-project-dialog") as HTMLDialogElement).close();
+
+            this.renderSidebarProjects();
+            this.renderTaskPlacementOptions();
+
+            const selectedProject: HTMLElement = document.querySelector(".selected-project");
+
+            if (selectedProject.classList.contains("projects-header")) {
+                this.projectController.resetProjectContainer();
+                this.projectController.renderMyProjects();
+            }
         })
     }
 }
