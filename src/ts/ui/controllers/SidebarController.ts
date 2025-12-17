@@ -78,8 +78,9 @@ export class SidebarController {
             editProjectMenu.style.display = "none";
         });
 
-        document.querySelector("#sidebar-add-project-btn").addEventListener("click", () => {
+        document.querySelector("#sidebar-add-project-btn").addEventListener("click", (event) => {
             (document.querySelector("#add-project-dialog") as HTMLDialogElement).showModal();
+            event.stopPropagation();
         });
 
         const renameProjectOption: HTMLDivElement = document.querySelector(".rename-menu-option");
