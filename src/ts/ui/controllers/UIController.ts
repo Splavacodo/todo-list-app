@@ -118,6 +118,7 @@ export class UIController {
     setupEventListeners() {
         this.setupAddTaskDialogEventListerners();
         this.setupAddProjectDialogEventListeners();
+        this.setupRenameProjectEventListeners();
     }
 
     private setupAddTaskDialogEventListerners() {
@@ -306,5 +307,14 @@ export class UIController {
                 this.projectController.renderMyProjects();
             }
         })
+    }
+
+    private setupRenameProjectEventListeners() {
+        const newProjectNameInput: HTMLInputElement = document.querySelector("#new-project-name");
+        const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
+
+        newProjectNameInput.addEventListener("input", () => {
+            (newProjectNameInput.value === "") ? renameProjectBtn.toggleAttribute("disabled") : renameProjectBtn.removeAttribute("disabled");
+        });
     }
 }

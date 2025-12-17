@@ -114,6 +114,12 @@ export class SidebarController {
             }
 
             (document.querySelector("#new-project-name") as HTMLInputElement).value = project.title;
+        
+            const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
+            
+            if (renameProjectBtn.hasAttribute("disabled"))
+                renameProjectBtn.toggleAttribute("disabled");
+
         });
     }
 
