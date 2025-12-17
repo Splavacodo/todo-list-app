@@ -107,7 +107,7 @@ export class UIController {
 
             for(const section of projectSections) {
                 const sectionOption: HTMLOptionElement = document.createElement("option");
-                sectionOption.textContent = "/ " + section.title;
+                sectionOption.textContent = project.title + " / " + section.title;
                 sectionOption.value = section.id;
 
                 taskPlacementSelection.appendChild(sectionOption);
