@@ -316,5 +316,27 @@ export class UIController {
         newProjectNameInput.addEventListener("input", () => {
             (newProjectNameInput.value === "") ? renameProjectBtn.toggleAttribute("disabled") : renameProjectBtn.removeAttribute("disabled");
         });
+
+        renameProjectBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const renameProjectDialog: HTMLDialogElement = document.querySelector("#rename-project-dialog");
+            const projectId: string = renameProjectDialog.dataset["projectId"];
+            const projectToRename = this.projectService.getProject(projectId);
+            
+            projectToRename.title = newProjectNameInput.value; 
+
+            this.renderSidebarProjects();
+            this.renderTaskPlacementOptions();
+
+            const selectedProject: HTMLElement = document.querySelector(".selected-project");
+
+            if (selectedProject.classList.contains("projects-header")) {
+                this.projectController.resetProjectContainer();
+                this.projectController.renderMyProjects();
+            }
+
+            (document.querySelector("#rename-project-dialog") as HTMLDialogElement).close();
+        });
     }
 }
