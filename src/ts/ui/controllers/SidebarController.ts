@@ -81,6 +81,12 @@ export class SidebarController {
         document.querySelector("#sidebar-add-project-btn").addEventListener("click", () => {
             (document.querySelector("#add-project-dialog") as HTMLDialogElement).showModal();
         });
+
+        const renameProjectOption: HTMLDivElement = document.querySelector(".rename-menu-option");
+
+        renameProjectOption.addEventListener("click", () => {
+            (document.querySelector("#rename-project-dialog") as HTMLDialogElement).showModal();
+        });
     }
 
     renderSidebarProject(project: Project, projectIdx: string): void {
@@ -95,7 +101,7 @@ export class SidebarController {
             this.uiController.renderUserProject(project);
         });
 
-        const editProjectBtn: HTMLButtonElement = document.querySelector(".edit-project-btn");
+        const editProjectBtn: HTMLButtonElement = document.querySelector(`[data-project-idx="${projectIdx}"] > .edit-project-btn`);
 
         editProjectBtn.addEventListener("click", (event) => {
             const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
@@ -106,6 +112,8 @@ export class SidebarController {
                 SidebarView.placeEditProjectMenu(editProjectBtn);
                 event.stopPropagation();
             }
+
+            (document.querySelector("#new-project-name") as HTMLInputElement).value = project.title;
         });
     }
 

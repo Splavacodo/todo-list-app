@@ -68,7 +68,8 @@ button {
     width: 550px;
 }
 
-#add-project-dialog {
+#add-project-dialog,
+#rename-project-dialog {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -80,12 +81,14 @@ button {
 }
 
 .add-task-form,
-.add-project-form {
+.add-project-form,
+.rename-project-form {
     display: flex;
     flex-direction: column;
 }
 
-.add-project-header {
+.add-project-header,
+.rename-project-header {
     color: var(--primary-text-color);
     font-size: 16px;
     padding: 16px;
@@ -119,7 +122,8 @@ textarea {
     outline: none;
 }
 
-#project-name {
+#project-name,
+#new-project-name {
     background-color: var(--secondary-bg-color);
     color: var(--primary-text-color);
     outline: none;
@@ -128,6 +132,7 @@ textarea {
     font-weight: 600;
     padding: 8px;
     margin: 0 16px;
+    border-radius: 5px;
 }
 
 #task-name {
@@ -217,14 +222,16 @@ textarea {
 }
 
 .task-submission-actions,
-.project-submission-actions {
+.project-submission-actions,
+.project-rename-actions {
     display: flex;
     justify-content: flex-start;
     gap: 8px;
     width: 100%;
 }
 
-.project-submission-actions {
+.project-submission-actions,
+.project-rename-actions {
     padding: 16px;
     align-items: center;
 }
@@ -233,7 +240,9 @@ textarea {
 .dialog-add-task-btn,
 .task-placement-btn,
 .cancel-project-btn,
-.dialog-add-project-btn {
+.dialog-add-project-btn,
+.cancel-rename-btn,
+.dialog-rename-project-btn {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -245,35 +254,41 @@ textarea {
 }
 
 .cancel-task-btn,
-.cancel-project-btn {
+.cancel-project-btn,
+.cancel-rename-btn {
     margin-left: auto;
     background-color: #414141;
 }
 
 .cancel-task-btn:hover,
-.cancel-project-btn:hover {
+.cancel-project-btn:hover,
+.cancel-rename-btn:hover {
     background-color: #575757;
     cursor: pointer;
 }
 
 .dialog-add-task-btn:hover:not(:disabled),
-.dialog-add-project-btn:hover:not(:disabled) {
+.dialog-add-project-btn:hover:not(:disabled),
+.dialog-rename-project-btn:hover:not(:disabled) {
     background-color: var(--primary-text-accent-color);
     cursor: pointer;
 }
 
 .dialog-add-task-btn,
-.dialog-add-project-btn {
+.dialog-add-project-btn,
+.dialog-rename-project-btn {
     background-color: var(--primary-bg-accent-color);
 }
 
 .dialog-add-task-btn:not(:disabled),
-.dialog-add-project-btn:not(:disabled) {
+.dialog-add-project-btn:not(:disabled),
+.dialog-rename-project-btn:not(:disabled) {
     opacity: 1;
 }
 
 .dialog-add-task-btn:disabled,
-.dialog-add-project-btn:disabled {
+.dialog-add-project-btn:disabled,
+.dialog-rename-project-btn:disabled {
     opacity: 0.2;
     cursor: not-allowed;
 }
