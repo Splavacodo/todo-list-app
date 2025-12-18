@@ -25,10 +25,10 @@ export class UIController {
         this.sectionService = sectionService;
         this.projectService = projectService;
 
-        this.sidebarController = new SidebarController(this);
+        this.sidebarController = new SidebarController(this, this.projectService);
         this.sidebarController.setupEventListeners();
 
-        this.projectController = new ProjectController(this);
+        this.projectController = new ProjectController(this, projectService);
 
         this.sectionController = new SectionController(this);
 
@@ -53,7 +53,8 @@ export class UIController {
         
         const inboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
         const inboxProject: Project = this.projectService.getProject(inboxBtn.dataset.projectId);
-        this.projectController.renderInboxProjectContainer(inboxProject);
+
+        this.projectController.renderInboxProjectContainer();
 
         this.sectionController.renderProjectSections(inboxProject);
 
@@ -297,15 +298,7 @@ export class UIController {
             (document.querySelector(".add-project-form") as HTMLFormElement).reset();
             (document.querySelector("#add-project-dialog") as HTMLDialogElement).close();
 
-            this.renderSidebarProjects();
-            this.renderTaskPlacementOptions();
-
-            const selectedProject: HTMLElement = document.querySelector(".selected-project");
-
-            if (selectedProject.classList.contains("projects-header")) {
-                this.projectController.resetProjectContainer();
-                this.projectController.renderMyProjects();
-            }
+            this.renderProjectUpdates();
         })
     }
 
@@ -326,17 +319,24 @@ export class UIController {
             
             projectToRename.title = newProjectNameInput.value; 
 
-            this.renderSidebarProjects();
-            this.renderTaskPlacementOptions();
-
-            const selectedProject: HTMLElement = document.querySelector(".selected-project");
-
-            if (selectedProject.classList.contains("projects-header")) {
-                this.projectController.resetProjectContainer();
-                this.projectController.renderMyProjects();
-            }
+            this.renderProjectUpdates();
 
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).close();
         });
+    }
+
+    renderProjectUpdates() {
+        this.renderSidebarProjects();
+        this.renderTaskPlacementOptions();
+
+        const selectedProject: HTMLElement = document.querySelector(".selected-project");
+
+        if (selectedProject && selectedProject.classList.contains("projects-header")) {
+            this.projectController.resetProjectContainer();
+            this.projectController.renderMyProjects();
+        }
+        else {
+            this.renderInboxProject();
+        }
     }
 }

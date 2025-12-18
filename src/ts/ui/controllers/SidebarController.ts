@@ -1,12 +1,15 @@
 import { UIController } from "./UIController";
 import { SidebarView } from "../components/SidebarView"; 
 import { Project } from "../../models/Project";
+import { ProjectService } from "../../services/ProjectService";
 
 export class SidebarController {
     private uiController: UIController;
+    private projectService: ProjectService;
 
-    constructor(uiController: UIController) {
+    constructor(uiController: UIController, projectService: ProjectService) {
         this.uiController = uiController;
+        this.projectService = projectService;
 
         SidebarView.renderEditProjectMenu();
     }
@@ -103,6 +106,7 @@ export class SidebarController {
         });
 
         const editProjectBtn: HTMLButtonElement = document.querySelector(`[data-project-idx="${projectIdx}"] > .edit-project-btn`);
+        const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
 
         editProjectBtn.addEventListener("click", (event) => {
             const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
@@ -116,11 +120,17 @@ export class SidebarController {
 
             (document.querySelector("#new-project-name") as HTMLInputElement).value = project.title;
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", project.id);
+            deleteProjectMenuOption.setAttribute("data-project-id", project.id);
         
             const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
             
             if (renameProjectBtn.hasAttribute("disabled"))
                 renameProjectBtn.toggleAttribute("disabled");
+        });
+
+        deleteProjectMenuOption.addEventListener("click", () => {
+            this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
+            this.uiController.renderProjectUpdates();
         });
     }
 
