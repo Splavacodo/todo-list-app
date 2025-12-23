@@ -23,6 +23,7 @@ function init() {
     uiController.renderSidebarProjects();
     uiController.renderTaskPlacementOptions();
     uiController.renderInboxProject();
+    uiController.setupProjectContainerEventListeners();
 }
 
 init();

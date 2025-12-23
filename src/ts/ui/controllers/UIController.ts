@@ -28,7 +28,7 @@ export class UIController {
         this.sidebarController = new SidebarController(this, this.projectService);
         this.sidebarController.setupEventListeners();
 
-        this.projectController = new ProjectController(this, projectService);
+        this.projectController = new ProjectController(this, projectService, sectionService);
 
         this.sectionController = new SectionController(this);
 
@@ -338,5 +338,48 @@ export class UIController {
         else {
             this.renderInboxProject();
         }
+    }
+
+    setupProjectContainerEventListeners() {
+        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+
+        projectContainer.addEventListener("click", (event) => {
+            let eventTarget = event.target as HTMLElement;
+
+            if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("main-add-task-btn"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);  
+
+            const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
+
+            if (eventTarget.classList.contains("main-add-task-btn")) {
+                if (mainAddTaskForm) {
+                    projectContainer.replaceChild(this.projectController.getAddTaskButton(), mainAddTaskForm);
+                }
+                console.log(eventTarget);
+
+                projectContainer.replaceChild(this.projectController.getAddTaskForm(), eventTarget);
+                this.renderTaskPlacementOptions();
+
+                const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
+                const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
+
+                dueDateInput.style.width = String(dueDateButton.offsetWidth) + "px";
+                dueDateInput.style.height = String(dueDateButton.offsetHeight) + "px";
+
+                const priorityBtn: HTMLButtonElement = document.querySelector(".task-priority-btn");
+                const prioritySelection: HTMLSelectElement = document.querySelector("#main-task-priority-selection");
+
+                prioritySelection.style.width = String(priorityBtn.offsetWidth) + "px";
+                prioritySelection.style.height = String(priorityBtn.offsetHeight) + "px";
+
+                const taskPlacementBtn: HTMLButtonElement = document.querySelector(".task-placement-btn");
+                const taskPlacementSelection: HTMLSelectElement = document.querySelector("#task-placement-selection");
+
+                taskPlacementSelection.style.width = String(taskPlacementBtn.offsetWidth) + "px";
+                taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
+
+                this.projectController.setupMainAddTaskFormEventListeners();
+            }
+        });
     }
 }
