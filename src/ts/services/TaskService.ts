@@ -13,16 +13,21 @@ export class TaskService {
             this.addTask(taskObj);
     }
 
-    private addTask(task: Record<string, any>): void {
-        const taskId: string = task["_id"];
-        const taskTitle: string = task["_title"];
-        const taskDescription: string = task["_description"];
-        const taskDueDate: string = task["_dueDate"];
-        const taskPriority: number = task["_priority"]; 
-        const taskNotes: string = task["_notes"];
-        const parentId: string = task["_parentId"];
+    addTask(task: Record<string, any>): void;
+    addTask(task: Task): void {
+        if (task instanceof Task) 
+            this.tasks[task.id] = task;
+        else {
+            const taskId: string = task["_id"];
+            const taskTitle: string = task["_title"];
+            const taskDescription: string = task["_description"];
+            const taskDueDate: string = task["_dueDate"];
+            const taskPriority: number = task["_priority"]; 
+            const taskNotes: string = task["_notes"];
+            const parentId: string = task["_parentId"];
 
-        this.tasks[taskId] = new Task(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, taskNotes, parentId);
+            this.tasks[taskId] = new Task(taskId, taskTitle, taskDescription, taskDueDate, taskPriority, taskNotes, parentId);
+        }
     }
 
     containsId(id: string): boolean { return id in this.tasks; }

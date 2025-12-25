@@ -58,6 +58,7 @@ export class ProjectService {
         const newTask = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", projectId);
 
         project.children.push(newTask);
+        this.taskService.addTask(newTask);
     }
 
     addSectionToProject(projectId: string, sectionTitle: string, placementIdx: number): void {
