@@ -65,4 +65,12 @@ export class ProjectService {
 
         this.projects[newProjetId] = new Project(newProjetId, projectName, []);
     }
+
+    getProjectLevelTasks(project: Project) {
+        return project.children.filter((childElement) => childElement instanceof Task);
+    }
+
+    getProjectSections(project: Project) {
+        return project.children.filter((childElement) => childElement instanceof Section);
+    }
 }

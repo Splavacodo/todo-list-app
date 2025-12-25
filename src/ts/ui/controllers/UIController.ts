@@ -30,7 +30,7 @@ export class UIController {
 
         this.projectController = new ProjectController(this, projectService, sectionService);
 
-        this.sectionController = new SectionController(this);
+        this.sectionController = new SectionController(this, projectService);
 
         this.taskController = new TaskController(this);
     }
@@ -66,12 +66,12 @@ export class UIController {
 
         this.sectionController.renderProjectSections(project);
 
-        const projectSections: Array<Section> = project.children.filter((childElement) => childElement instanceof Section);
+        const projectSections: Array<Section> = this.projectService.getProjectSections(project);
 
         for(let section of projectSections)
             this.taskController.renderSectionTasks(section);
 
-        const projectTasks: Array<Task> = project.children.filter((childElement) => childElement instanceof Task);
+        const projectTasks: Array<Task> = this.projectService.getProjectLevelTasks(project);
 
         for(let task of projectTasks)
             this.taskController.renderProjectTask(task);
@@ -90,7 +90,7 @@ export class UIController {
 
             taskPlacementSelection.appendChild(projectOption);
 
-            const projectSections: Array<Section> = project.children.filter((childElement) => childElement instanceof Section);
+            const projectSections: Array<Section> = this.projectService.getProjectSections(project);
 
             for(const section of projectSections) {
                 const sectionOption: HTMLOptionElement = document.createElement("option");
