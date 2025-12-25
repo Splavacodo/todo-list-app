@@ -260,6 +260,14 @@ export class ProjectController {
         });
     }
 
+    setupMyProjectsPageEventListeners() {
+        const addProjectBtn: HTMLButtonElement = document.querySelector(".add-project-btn");
+
+        addProjectBtn.addEventListener("click", () => {
+            (document.querySelector("#add-project-dialog") as HTMLDialogElement).showModal();
+        })
+    }
+
     getAddTaskForm(parentId: string): HTMLFormElement {
         return ProjectView.getAddTaskForm(parentId);
     }

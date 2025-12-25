@@ -58,6 +58,7 @@ export class UIController {
     renderMyProjects(): void {
         this.projectController.resetProjectContainer();
         this.projectController.renderMyProjects();
+        this.projectController.setupMyProjectsPageEventListeners();
     }
 
     renderProject(project: Project): void {
@@ -318,8 +319,7 @@ export class UIController {
         const selectedProject: HTMLElement = document.querySelector(".selected-project");
 
         if (selectedProject && selectedProject.classList.contains("projects-header")) {
-            this.projectController.resetProjectContainer();
-            this.projectController.renderMyProjects();
+            this.renderMyProjects();
         }
         else {
             this.renderInboxProject();
