@@ -109,14 +109,7 @@ export class SidebarController {
         const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
 
         editProjectBtn.addEventListener("click", (event) => {
-            const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
-
-            if (editProjectMenu.style.display === "flex")
-                editProjectMenu.style.display = "none";
-            else {
-                SidebarView.placeEditProjectMenu(editProjectBtn);
-                event.stopPropagation();
-            }
+            SidebarView.placeEditProjectMenu(editProjectBtn);
 
             (document.querySelector("#new-project-name") as HTMLInputElement).value = project.title;
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", project.id);
@@ -126,6 +119,8 @@ export class SidebarController {
             
             if (renameProjectBtn.hasAttribute("disabled"))
                 renameProjectBtn.toggleAttribute("disabled");
+
+            event.stopPropagation();
         });
 
         deleteProjectMenuOption.addEventListener("click", () => {
