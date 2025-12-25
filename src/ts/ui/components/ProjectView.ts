@@ -8,67 +8,6 @@ import menuDownIconImg from "../../../images/menu-down.svg";
 import { Project } from "../../models/Project";
 
 export class ProjectView {
-    static renderInboxProjectContainer(project: Project) {
-        const projectActions: HTMLDivElement = document.querySelector(".main-project-actions");
-
-        const editProjectBtn: HTMLButtonElement = document.createElement("button");
-        editProjectBtn.setAttribute("class", "main-edit-project-btn")
-
-        const editIcon: HTMLImageElement = document.createElement("img");
-        editIcon.src = editIconImg;
-        editIcon.alt = "three hollow circles in a horizontal line spaced evenly";
-
-        editProjectBtn.appendChild(editIcon);
-        projectActions.appendChild(editProjectBtn);
-
-        const projectTitle: HTMLElement = document.querySelector(".project-header");
-        projectTitle.textContent = project.title;
-        projectTitle.setAttribute("data-project-id", project.id);
-
-        const tasksList = document.createElement("ul");
-        tasksList.setAttribute("class", "project-tasks-list");
-        tasksList.setAttribute("data-parent-id", project.id);
-
-        const addTaskBtn: HTMLButtonElement = document.createElement("button");
-        addTaskBtn.setAttribute("class", "main-add-task-btn");
-
-        const plusIcon: HTMLImageElement = document.createElement("img");
-        plusIcon.src = plusIconImg;
-        plusIcon.alt = "plus sign icon";
-
-        const addTaskBtnText: HTMLDivElement = document.createElement("div");
-        addTaskBtnText.textContent = "Add task";
-
-        addTaskBtn.appendChild(plusIcon);
-        addTaskBtn.appendChild(addTaskBtnText);
-
-        const addSectionDiv: HTMLDivElement = document.createElement("div");
-        addSectionDiv.setAttribute("class", "add-section");
-
-        const addSectionText: HTMLSpanElement = document.createElement("span");
-        addSectionText.setAttribute("class", "add-section-text");
-        addSectionText.textContent = "Add section"; 
-
-        addSectionDiv.appendChild(addSectionText);
-
-        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
-        projectContainer.appendChild(tasksList);
-        projectContainer.appendChild(addTaskBtn);
-        projectContainer.appendChild(addSectionDiv);
-
-        const taskPlacementBtnText: HTMLButtonElement = document.querySelector(".task-placement-text");
-        taskPlacementBtnText.textContent = project.title;
-
-        for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
-            if (child.hasAttribute("selected")) {
-                child.toggleAttribute("selected");
-                break;
-            }
-        }
-
-        document.querySelector(`option[value="${project.id}"]`).setAttribute("selected", "");
-    }
-
     static resetProjectView(): void {
         const projectActions: HTMLDivElement = document.querySelector(".main-project-actions");
         projectActions.replaceChildren();

@@ -49,24 +49,10 @@ export class UIController {
     }
 
     renderInboxProject(): void {
-        this.projectController.resetProjectContainer(); 
-        
         const inboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
         const inboxProject: Project = this.projectService.getProject(inboxBtn.dataset.projectId);
 
-        this.projectController.renderInboxProjectContainer();
-
-        this.sectionController.renderProjectSections(inboxProject);
-
-        const projectSections: Array<Section> = inboxProject.children.filter((childElement) => childElement instanceof Section);
-
-        for(let section of projectSections)
-            this.taskController.renderSectionTasks(section);
-
-        const projectTasks: Array<Task> = inboxProject.children.filter((childElement) => childElement instanceof Task);
-
-        for(let task of projectTasks)
-            this.taskController.renderProjectTask(task);
+        this.renderProject(inboxProject);
     }
 
     renderMyProjects(): void {
@@ -74,9 +60,9 @@ export class UIController {
         this.projectController.renderMyProjects();
     }
 
-    renderUserProject(project: Project): void {
+    renderProject(project: Project): void {
         this.projectController.resetProjectContainer();
-        this.projectController.renderUserProject(project);
+        this.projectController.renderProject(project);
 
         this.sectionController.renderProjectSections(project);
 
@@ -258,7 +244,7 @@ export class UIController {
                 if (parentSection.parentId === selectedProjectId && selectedProject.title === "Inbox")
                     this.renderInboxProject();
                 else if (parentSection.parentId === selectedProjectId)
-                    this.renderUserProject(selectedProject);
+                    this.renderProject(selectedProject);
             }
             else {
                 this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
@@ -266,7 +252,7 @@ export class UIController {
                 if (selectedTaskPlacementId === selectedProjectId && selectedProject.title === "Inbox")
                     this.renderInboxProject();
                 else if (selectedTaskPlacementId === selectedProjectId)
-                    this.renderUserProject(selectedProject);
+                    this.renderProject(selectedProject);
             }
 
             (document.querySelector(".add-task-form") as HTMLFormElement).reset();
@@ -355,7 +341,6 @@ export class UIController {
                 if (mainAddTaskForm) {
                     projectContainer.replaceChild(this.projectController.getAddTaskButton(), mainAddTaskForm);
                 }
-                console.log(eventTarget);
 
                 projectContainer.replaceChild(this.projectController.getAddTaskForm(), eventTarget);
                 this.renderTaskPlacementOptions();

@@ -16,55 +16,16 @@ export class ProjectController {
         this.sectionService = sectionService;
     }
 
-    renderInboxProjectContainer(): void {
-        const inboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
-        const inboxProject: Project = this.projectService.getProject(inboxBtn.dataset.projectId);
-        
-        ProjectView.renderInboxProjectContainer(inboxProject);
-    }
-
     renderMyProjects(): void {
         ProjectView.renderMyProjects();
     }
 
-    renderUserProject(project: Project): void {
+    renderProject(project: Project): void {
         ProjectView.renderProject(project);
     }
 
     resetProjectContainer(): void {
         ProjectView.resetProjectView();
-    }
-
-    setupAddTaskDivEventListeners() {
-        const addTaskBtns: Array<Element> = Array.from(document.getElementsByClassName("main-add-task-btn"));
-        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
-
-        addTaskBtns.forEach((addTaskBtn) => {
-            addTaskBtn.addEventListener("click", () => {
-                projectContainer.replaceChild(ProjectView.getAddTaskForm(), addTaskBtn);
-                this.uiController.renderTaskPlacementOptions();
-
-                const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
-                const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
-
-                dueDateInput.style.width = String(dueDateButton.offsetWidth) + "px";
-                dueDateInput.style.height = String(dueDateButton.offsetHeight) + "px";
-
-                const priorityBtn: HTMLButtonElement = document.querySelector(".task-priority-btn");
-                const prioritySelection: HTMLSelectElement = document.querySelector("#main-task-priority-selection");
-
-                prioritySelection.style.width = String(priorityBtn.offsetWidth) + "px";
-                prioritySelection.style.height = String(priorityBtn.offsetHeight) + "px";
-
-                const taskPlacementBtn: HTMLButtonElement = document.querySelector(".task-placement-btn");
-                const taskPlacementSelection: HTMLSelectElement = document.querySelector("#task-placement-selection");
-
-                taskPlacementSelection.style.width = String(taskPlacementBtn.offsetWidth) + "px";
-                taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
-
-                this.setupMainAddTaskFormEventListeners();
-            });
-        });
     }
 
     setupMainAddTaskFormEventListeners() {
@@ -189,9 +150,9 @@ export class ProjectController {
             taskPlacementBtnText.textContent = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].textContent;
         });
 
-        const selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
-        const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
-        const selectedProject: Project = this.projectService.getProject(selectedProjectId);
+        let selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
+        let selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+        let selectedProject: Project = this.projectService.getProject(selectedProjectId);
 
         taskPlacementBtnText.textContent = selectedProject.title;
 
@@ -209,6 +170,10 @@ export class ProjectController {
         addTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
+            selectedTaskPlacementId = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
+            selectedProjectId = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+            selectedProject = this.projectService.getProject(selectedProjectId);
+
             if (this.sectionService.containsId(selectedTaskPlacementId)) {
                 this.sectionService.addTaskToSection(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
 
@@ -217,7 +182,9 @@ export class ProjectController {
                 if (parentSection.parentId === selectedProjectId && selectedProject.title === "Inbox")
                     this.uiController.renderInboxProject();
                 else if (parentSection.parentId === selectedProjectId)
-                    this.renderUserProject(selectedProject);
+                    this.renderProject(selectedProject);
+                else
+                    projectContainer.replaceChild(ProjectView.getAddTaskButton(), mainAddTaskForm);
             }
             else {
                 this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
@@ -225,7 +192,9 @@ export class ProjectController {
                 if (selectedTaskPlacementId === selectedProjectId && selectedProject.title === "Inbox")
                     this.uiController.renderInboxProject();
                 else if (selectedTaskPlacementId === selectedProjectId)
-                    this.renderUserProject(selectedProject);
+                    this.renderProject(selectedProject);
+                else
+                    projectContainer.replaceChild(ProjectView.getAddTaskButton(), mainAddTaskForm);
             }
 
             taskDescription.value = "";

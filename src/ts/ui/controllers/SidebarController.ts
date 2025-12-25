@@ -102,7 +102,7 @@ export class SidebarController {
             this.revertElementSelection();
             newProject.classList.add("selected-project");
 
-            this.uiController.renderUserProject(project);
+            this.uiController.renderProject(project);
         });
 
         const editProjectBtn: HTMLButtonElement = document.querySelector(`[data-project-idx="${projectIdx}"] > .edit-project-btn`);
