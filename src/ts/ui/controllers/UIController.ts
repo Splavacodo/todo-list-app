@@ -334,20 +334,20 @@ export class UIController {
 
             if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("main-add-task-btn"))
                 eventTarget = (eventTarget.parentNode as HTMLElement);  
+            else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("add-section"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);
 
             const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
+            const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
 
             if (eventTarget.classList.contains("main-add-task-btn")) {
-                if (mainAddTaskForm) {
+                if (mainAddTaskForm)
                     projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
-                }
-
-                const buttonParentId: string = eventTarget.dataset["parentId"];
+                else if (addSectionForm)
+                    projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
         
-                projectContainer.replaceChild(this.projectController.getAddTaskForm(), eventTarget);
+                projectContainer.replaceChild(this.projectController.getAddTaskForm(eventTarget.dataset["parentId"]), eventTarget);
                 this.renderTaskPlacementOptions();
-
-                document.querySelector(".main-add-task-form").setAttribute("data-parent-id", buttonParentId);
 
                 const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
                 const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
@@ -368,6 +368,17 @@ export class UIController {
                 taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
 
                 this.projectController.setupMainAddTaskFormEventListeners();
+            }
+            else if (eventTarget.classList.contains("add-section")) {
+                if (mainAddTaskForm) {
+                    projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                }
+                else if (addSectionForm)
+                    projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+
+                projectContainer.replaceChild(this.projectController.getAddSectionForm(eventTarget.dataset["parentId"]), eventTarget);
+                
+                this.projectController.setupAddSectionFormEventListeners();
             }
         });
     }

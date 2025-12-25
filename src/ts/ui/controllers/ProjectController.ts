@@ -173,6 +173,8 @@ export class ProjectController {
 
         document.querySelector(`option[value="${formParentId}"]`).setAttribute("selected", "");
 
+        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+
         addTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
@@ -190,7 +192,7 @@ export class ProjectController {
                 else if (parentSection.parentId === selectedProjectId)
                     this.uiController.renderProject(selectedProject);
                 else
-                    projectContainer.replaceChild(ProjectView.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                    projectContainer.replaceChild(this.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
             }
             else {
                 this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
@@ -200,31 +202,52 @@ export class ProjectController {
                 else if (selectedTaskPlacementId === selectedProjectId)
                     this.uiController.renderProject(selectedProject);
                 else
-                    projectContainer.replaceChild(ProjectView.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                    projectContainer.replaceChild(this.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
             }
-
-            taskDescription.value = "";
-            dueDateText.textContent = "Date";
-            priorityBtnText.textContent = "Priority";
-            priorityBtn.setAttribute("task-priority", "4");
-            addTaskBtn.toggleAttribute("disabled"); 
         });
 
         const cancelTaskBtn: HTMLButtonElement = document.querySelector(".cancel-task-btn");
-        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
 
         cancelTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
-            projectContainer.replaceChild(ProjectView.getAddTaskButton(formParentId), mainAddTaskForm); 
+            projectContainer.replaceChild(this.getAddTaskButton(formParentId), mainAddTaskForm); 
         });
     }
 
-    getAddTaskForm(): HTMLFormElement {
-        return ProjectView.getAddTaskForm();
+    setupAddSectionFormEventListeners() {
+        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+        const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
+        const addSectionBtn: HTMLButtonElement = document.querySelector(".add-section-btn");
+
+        addSectionBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            // const selectedProjectId = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+        });
+
+        const cancelSectionBtn: HTMLButtonElement = document.querySelector(".cancel-section-btn");
+
+        cancelSectionBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            projectContainer.replaceChild(this.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+        });
+    }
+
+    getAddTaskForm(parentId: string): HTMLFormElement {
+        return ProjectView.getAddTaskForm(parentId);
     }
 
     getAddTaskButton(parentId: string): HTMLButtonElement {
         return ProjectView.getAddTaskButton(parentId);
+    }
+
+    getAddSectionForm(parentId: string): HTMLFormElement {
+        return ProjectView.getAddSectionForm(parentId);
+    }
+
+    getAddSectionDiv(parentId: string): HTMLDivElement {
+        return ProjectView.getAddSectionDiv(parentId);
     }
 }

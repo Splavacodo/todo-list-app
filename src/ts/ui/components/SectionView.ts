@@ -54,6 +54,7 @@ export class SectionView {
 
         const addSectionDiv: HTMLDivElement = document.createElement("div");
         addSectionDiv.setAttribute("class", "add-section");
+        addSectionDiv.setAttribute("data-parent-id", section.id);
 
         const addSectionText: HTMLSpanElement = document.createElement("span");
         addSectionText.setAttribute("class", "add-section-text");

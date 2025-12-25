@@ -137,6 +137,7 @@ export class ProjectView {
 
         const addSectionDiv: HTMLDivElement = document.createElement("div");
         addSectionDiv.setAttribute("class", "add-section");
+        addSectionDiv.setAttribute("data-parent-id", project.id);
 
         const addSectionText: HTMLSpanElement = document.createElement("span");
         addSectionText.setAttribute("class", "add-section-text");
@@ -162,9 +163,10 @@ export class ProjectView {
         document.querySelector(`option[value="${project.id}"]`).setAttribute("selected", "");
     }
 
-    static getAddTaskForm(): HTMLFormElement {
+    static getAddTaskForm(parentId: string): HTMLFormElement {
         const addTaskForm = document.createElement('form');
         addTaskForm.setAttribute("class", "main-add-task-form");
+        addTaskForm.setAttribute("data-parent-id", parentId);
 
         const formTopHalf = document.createElement('div');
         formTopHalf.setAttribute("class", "main-form-top-half");
@@ -321,5 +323,52 @@ export class ProjectView {
         addTaskBtn.appendChild(addTaskBtnText);
 
         return addTaskBtn;
+    }
+
+    static getAddSectionForm(parentId: string): HTMLFormElement {
+        const addSectionForm: HTMLFormElement = document.createElement("form");
+        addSectionForm.setAttribute("class", "add-section-form");
+        addSectionForm.setAttribute("data-parent-id", parentId);
+
+        const sectionTitleInput: HTMLInputElement = document.createElement("input");
+        sectionTitleInput.setAttribute("id", "section-title-input");
+        sectionTitleInput.name = "section-title-input";
+        sectionTitleInput.type = "text";
+        sectionTitleInput.placeholder = "Name this section";
+        sectionTitleInput.autocomplete = "off";
+
+        const addSectionFormButtons: HTMLDivElement = document.createElement("div");
+        addSectionFormButtons.setAttribute("class", "add-section-form-btns");
+
+        const addSectionBtn: HTMLButtonElement = document.createElement("button");
+        addSectionBtn.setAttribute("class", "add-section-btn");
+        addSectionBtn.textContent = "Add section";
+        addSectionBtn.disabled = true;
+
+        const cancelSectionBtn: HTMLButtonElement = document.createElement("button");
+        cancelSectionBtn.setAttribute("class", "cancel-section-btn");
+        cancelSectionBtn.textContent = "Cancel";
+
+        addSectionFormButtons.appendChild(addSectionBtn);
+        addSectionFormButtons.appendChild(cancelSectionBtn);
+
+        addSectionForm.appendChild(sectionTitleInput);
+        addSectionForm.appendChild(addSectionFormButtons);
+
+        return addSectionForm;
+    }
+
+    static getAddSectionDiv(parentId: string): HTMLDivElement {
+        const addSectionDiv: HTMLDivElement = document.createElement("div");
+        addSectionDiv.setAttribute("class", "add-section");
+        addSectionDiv.setAttribute("data-parent-id", parentId);
+
+        const addSectionText: HTMLSpanElement = document.createElement("span");
+        addSectionText.setAttribute("class", "add-section-text");
+        addSectionText.textContent = "Add section"; 
+
+        addSectionDiv.appendChild(addSectionText);
+
+        return addSectionDiv;
     }
 }
