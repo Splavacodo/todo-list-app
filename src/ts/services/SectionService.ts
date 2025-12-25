@@ -19,14 +19,20 @@ export class SectionService {
             this.addSection(sectionObj);
     }
 
-    private addSection(section: Record<string, any>): void {
-        const sectionId: string = section["id"];
-        const sectionTitle: string = section["title"];
-        const sectionTaskIds: Array<string> = section["taskIds"];
-        const parentId: string = section["parentId"];
-        const sectionTasks: Array<Task> = this.getTaskModels(sectionTaskIds);
+    addSection(section: Record<string, any>): void;
+    addSection(section: Section): void {
+        if (section instanceof Section) {
+            this.sections[section.id] = section;
+        }
+        else {
+            const sectionId: string = section["id"];
+            const sectionTitle: string = section["title"];
+            const sectionTaskIds: Array<string> = section["taskIds"];
+            const parentId: string = section["parentId"];
+            const sectionTasks: Array<Task> = this.getTaskModels(sectionTaskIds);
 
-        this.sections[sectionId] = new Section(sectionId, sectionTitle, sectionTasks, parentId);
+            this.sections[sectionId] = new Section(sectionId, sectionTitle, sectionTasks, parentId);
+        }
     }
 
     private getTaskModels(sectionTaskIds: Array<string>): Array<Task> {

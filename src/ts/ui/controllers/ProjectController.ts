@@ -217,13 +217,38 @@ export class ProjectController {
 
     setupAddSectionFormEventListeners() {
         const projectContainer: HTMLDivElement = document.querySelector(".project-container");
-        const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
+
+        const sectionTitleInput: HTMLInputElement = document.querySelector("#section-title-input");
         const addSectionBtn: HTMLButtonElement = document.querySelector(".add-section-btn");
+
+        sectionTitleInput.addEventListener("input", () => {
+            (sectionTitleInput.value === "") ? addSectionBtn.toggleAttribute("disabled") : addSectionBtn.removeAttribute("disabled");
+        });
+
+        const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
 
         addSectionBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
-            // const selectedProjectId = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+            const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+            const selectedProject: Project = this.projectService.getProject(selectedProjectId);
+            const formParentId: string = addSectionForm.dataset["parentId"];
+
+            if (this.sectionService.containsId(formParentId)) {
+                const placementIdx: number = selectedProject.children.indexOf(this.sectionService.getSection(formParentId)) + 1;
+                this.projectService.addSectionToProject(selectedProjectId, sectionTitleInput.value, placementIdx);
+            }
+            else
+                this.projectService.addSectionToProject(selectedProjectId, sectionTitleInput.value, 0);
+
+            console.log(formParentId);
+            console.log(selectedProject.children.indexOf(this.sectionService.getSection(formParentId)));
+            console.log(selectedProject.children);
+
+            if (selectedProject.title == "Inbox")
+                this.uiController.renderInboxProject();
+            else
+                this.uiController.renderProject(selectedProject);
         });
 
         const cancelSectionBtn: HTMLButtonElement = document.querySelector(".cancel-section-btn");

@@ -60,6 +60,14 @@ export class ProjectService {
         project.children.push(newTask);
     }
 
+    addSectionToProject(projectId: string, sectionTitle: string, placementIdx: number): void {
+        const project: Project = this.projects[projectId];
+        const newSection = new Section(crypto.randomUUID(), sectionTitle, [], project.id);
+
+        project.children.splice(placementIdx, 0, newSection);
+        this.sectionService.addSection(newSection);
+    }
+
     addNewProject(projectName: string): void {
         const newProjetId: string = crypto.randomUUID();
 
