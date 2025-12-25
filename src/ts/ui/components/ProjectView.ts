@@ -123,6 +123,7 @@ export class ProjectView {
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
+        addTaskBtn.setAttribute("data-parent-id", project.id);
 
         const plusIcon: HTMLImageElement = document.createElement("img");
         plusIcon.src = plusIconImg;
@@ -304,9 +305,10 @@ export class ProjectView {
         return addTaskForm; 
     }
 
-    static getAddTaskButton(): HTMLButtonElement {
+    static getAddTaskButton(parentId: string): HTMLButtonElement {
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
+        addTaskBtn.setAttribute("data-parent-id", parentId);
 
         const plusIcon: HTMLImageElement = document.createElement("img");
         plusIcon.src = plusIconImg;

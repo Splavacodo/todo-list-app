@@ -40,6 +40,7 @@ export class SectionView {
 
         const addTaskBtn: HTMLButtonElement = document.createElement("button");
         addTaskBtn.setAttribute("class", "main-add-task-btn");
+        addTaskBtn.setAttribute("data-parent-id", section.id);
 
         const plusIcon: HTMLImageElement = document.createElement("img");
         plusIcon.src = plusIconImg;

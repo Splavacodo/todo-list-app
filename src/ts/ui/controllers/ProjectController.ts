@@ -150,11 +150,8 @@ export class ProjectController {
             taskPlacementBtnText.textContent = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].textContent;
         });
 
-        let selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
         let selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
         let selectedProject: Project = this.projectService.getProject(selectedProjectId);
-
-        taskPlacementBtnText.textContent = selectedProject.title;
 
         for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
             if (child.hasAttribute("selected")) {
@@ -163,14 +160,23 @@ export class ProjectController {
             }
         }
 
-        document.querySelector(`option[value="${selectedProject.id}"]`).setAttribute("selected", "");
-
         const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
+        const formParentId: string = mainAddTaskForm.dataset["parentId"];
+
+        if (this.sectionService.containsId(formParentId)) {
+            const parentSection: Section = this.sectionService.getSection(formParentId);
+
+            taskPlacementBtnText.textContent = selectedProject.title + " / " + parentSection.title;
+        }
+        else
+            taskPlacementBtnText.textContent = selectedProject.title;
+
+        document.querySelector(`option[value="${formParentId}"]`).setAttribute("selected", "");
 
         addTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
-            selectedTaskPlacementId = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
+            const selectedTaskPlacementId: string = taskPlacementSelection.options[taskPlacementSelection.selectedIndex].value;
             selectedProjectId = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
             selectedProject = this.projectService.getProject(selectedProjectId);
 
@@ -182,9 +188,9 @@ export class ProjectController {
                 if (parentSection.parentId === selectedProjectId && selectedProject.title === "Inbox")
                     this.uiController.renderInboxProject();
                 else if (parentSection.parentId === selectedProjectId)
-                    this.renderProject(selectedProject);
+                    this.uiController.renderProject(selectedProject);
                 else
-                    projectContainer.replaceChild(ProjectView.getAddTaskButton(), mainAddTaskForm);
+                    projectContainer.replaceChild(ProjectView.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
             }
             else {
                 this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
@@ -192,9 +198,9 @@ export class ProjectController {
                 if (selectedTaskPlacementId === selectedProjectId && selectedProject.title === "Inbox")
                     this.uiController.renderInboxProject();
                 else if (selectedTaskPlacementId === selectedProjectId)
-                    this.renderProject(selectedProject);
+                    this.uiController.renderProject(selectedProject);
                 else
-                    projectContainer.replaceChild(ProjectView.getAddTaskButton(), mainAddTaskForm);
+                    projectContainer.replaceChild(ProjectView.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
             }
 
             taskDescription.value = "";
@@ -210,7 +216,7 @@ export class ProjectController {
         cancelTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
-            projectContainer.replaceChild(ProjectView.getAddTaskButton(), mainAddTaskForm);
+            projectContainer.replaceChild(ProjectView.getAddTaskButton(formParentId), mainAddTaskForm); 
         });
     }
 
@@ -218,7 +224,7 @@ export class ProjectController {
         return ProjectView.getAddTaskForm();
     }
 
-    getAddTaskButton(): HTMLButtonElement {
-        return ProjectView.getAddTaskButton();
+    getAddTaskButton(parentId: string): HTMLButtonElement {
+        return ProjectView.getAddTaskButton(parentId);
     }
 }

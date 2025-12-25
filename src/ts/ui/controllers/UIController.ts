@@ -339,11 +339,15 @@ export class UIController {
 
             if (eventTarget.classList.contains("main-add-task-btn")) {
                 if (mainAddTaskForm) {
-                    projectContainer.replaceChild(this.projectController.getAddTaskButton(), mainAddTaskForm);
+                    projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
                 }
 
+                const buttonParentId: string = eventTarget.dataset["parentId"];
+        
                 projectContainer.replaceChild(this.projectController.getAddTaskForm(), eventTarget);
                 this.renderTaskPlacementOptions();
+
+                document.querySelector(".main-add-task-form").setAttribute("data-parent-id", buttonParentId);
 
                 const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
                 const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
