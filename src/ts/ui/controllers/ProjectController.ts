@@ -23,18 +23,19 @@ export class ProjectController {
         ProjectView.renderMyProjects();
 
         const editProjectBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll("#edit-project-card-btn"));
+
         const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
+        const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
 
         editProjectBtns.forEach((editProjectBtn) => {
             editProjectBtn.addEventListener("click", (event) => {
                 SidebarView.placeEditProjectMenu(editProjectBtn);
-                const btnParentProject: Project = this.projectService.getProject((editProjectBtn.parentNode as HTMLElement).dataset["projectId"]);
+                const parentProjectCard: HTMLDivElement = (editProjectBtn.parentNode as HTMLDivElement); 
+                const btnParentProject: Project = this.projectService.getProject(parentProjectCard.dataset["projectId"]);
 
                 (document.querySelector("#new-project-name") as HTMLInputElement).value = btnParentProject.title;
                 (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", btnParentProject.id);
                 deleteProjectMenuOption.setAttribute("data-project-id", btnParentProject.id);
-
-                const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
             
                 if (renameProjectBtn.hasAttribute("disabled"))
                     renameProjectBtn.toggleAttribute("disabled");
@@ -43,7 +44,13 @@ export class ProjectController {
             });
         });
 
-        //document.querySelector(`.project[data-project-id="${editProjectBtn.dataset["projectId"]}"]`).dispatchEvent(new Event("click"));
+        const projectCards: Array<HTMLDivElement> = Array.from(document.querySelectorAll(".project-card"));
+
+        projectCards.forEach((projectCard) => {
+            projectCard.addEventListener("click", () => {
+                document.querySelector(`.project[data-project-id="${projectCard.dataset["projectId"]}"]`).dispatchEvent(new Event("click"));
+            });
+        });
     }
 
     renderProject(project: Project): void {
