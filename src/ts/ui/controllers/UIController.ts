@@ -393,5 +393,10 @@ export class UIController {
             editInboxProjectMenu.style.display = "none";
         });
 
+        const addSectionMenuOption: HTMLDivElement = document.querySelector(".add-section-menu-option");
+
+        addSectionMenuOption.addEventListener("click", () => {
+            document.querySelector(".add-section").dispatchEvent(new Event("click", { bubbles: true }));
+        });
     }
 }
