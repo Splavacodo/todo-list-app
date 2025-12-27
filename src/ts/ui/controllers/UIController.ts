@@ -314,15 +314,22 @@ export class UIController {
     }
 
     renderProjectUpdates() {
+        const selectedProject: HTMLElement = document.querySelector(".selected-project");
+        const selectedProjectId: string = selectedProject.dataset["projectId"];
+
         this.renderSidebarProjects();
         this.renderTaskPlacementOptions();
 
-        const selectedProject: HTMLElement = document.querySelector(".selected-project");
-
-        if (selectedProject && selectedProject.classList.contains("projects-header")) {
+        if (selectedProject.classList.contains("projects-header"))
             this.renderMyProjects();
+        else if (this.projectService.getProject(selectedProjectId)) {
+            this.renderProject(this.projectService.getProject(selectedProjectId));
+
+            document.querySelector(`.selectable[data-project-id="${selectedProjectId}"]`).classList.add("selected-project");
         }
         else {
+            document.querySelector("#sidebar-inbox-btn").classList.add("selected-project");
+
             this.renderInboxProject();
         }
     }
