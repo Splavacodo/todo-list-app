@@ -61,6 +61,16 @@ export class ProjectController {
         if (project.title === "Inbox") {
             mainEditProjectBtn.addEventListener("click", (event) => {
                 ProjectView.placeInboxProjectMenu(mainEditProjectBtn);
+
+                const projectContainer: HTMLDivElement = document.querySelector(".project-container");
+                const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
+                const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
+
+                if (mainAddTaskForm)
+                    projectContainer.replaceChild(this.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                else if (addSectionForm)
+                    projectContainer.replaceChild(this.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+
                 event.stopPropagation();
             });
         }
