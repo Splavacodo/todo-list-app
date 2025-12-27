@@ -4,6 +4,7 @@ import { Project } from "../../models/Project";
 import { Section } from "../../models/Section"; 
 import { ProjectService } from "../../services/ProjectService";
 import { SectionService } from "../../services/SectionService";
+import { SidebarView } from "../components/SidebarView";
 
 export class ProjectController {
     private uiController: UIController;
@@ -20,6 +21,29 @@ export class ProjectController {
 
     renderMyProjects(): void {
         ProjectView.renderMyProjects();
+
+        const editProjectBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll("#edit-project-card-btn"));
+        const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
+
+        editProjectBtns.forEach((editProjectBtn) => {
+            editProjectBtn.addEventListener("click", (event) => {
+                SidebarView.placeEditProjectMenu(editProjectBtn);
+                const btnParentProject: Project = this.projectService.getProject(editProjectBtn.dataset["projectId"]);
+
+                (document.querySelector("#new-project-name") as HTMLInputElement).value = btnParentProject.title;
+                (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", btnParentProject.id);
+                deleteProjectMenuOption.setAttribute("data-project-id", btnParentProject.id);
+
+                const renameProjectBtn: HTMLButtonElement = document.querySelector(".dialog-rename-project-btn");
+            
+                if (renameProjectBtn.hasAttribute("disabled"))
+                    renameProjectBtn.toggleAttribute("disabled");
+
+                event.stopPropagation();
+            });
+        });
+
+        //document.querySelector(`.project[data-project-id="${editProjectBtn.dataset["projectId"]}"]`).dispatchEvent(new Event("click"));
     }
 
     renderProject(project: Project): void {
