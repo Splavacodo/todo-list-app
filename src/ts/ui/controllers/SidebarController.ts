@@ -39,7 +39,7 @@ export class SidebarController {
 
         const sidebarProjectsToggleBtn: HTMLButtonElement = document.querySelector("#sidebar-toggle-view-projects-btn");
 
-        sidebarProjectsToggleBtn.addEventListener("click", () => {
+        sidebarProjectsToggleBtn.addEventListener("click", (event) => {
             const projectsList: HTMLUListElement = document.querySelector(".projects-list");
 
             if (sidebarProjectsToggleBtn.classList.contains("toggle-on")) {
@@ -54,6 +54,8 @@ export class SidebarController {
 
                 projectsList.classList.add("off");
             }
+
+            event.stopPropagation();
         });
 
         const inboxBtn = document.querySelector("#sidebar-inbox-btn");
