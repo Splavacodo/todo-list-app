@@ -107,6 +107,7 @@ export class UIController {
         this.setupAddTaskDialogEventListerners();
         this.setupAddProjectDialogEventListeners();
         this.setupRenameProjectEventListeners();
+        this.setupEditMenuEventListeners();
     }
 
     private setupAddTaskDialogEventListerners() {
@@ -381,5 +382,16 @@ export class UIController {
                 this.projectController.setupAddSectionFormEventListeners();
             }
         });
+    }
+
+    setupEditMenuEventListeners() {
+        document.body.addEventListener("click", () => {
+            const editProjectMenu: HTMLDivElement = document.querySelector(".sidebar-edit-project-menu");
+            editProjectMenu.style.display = "none";
+
+            const editInboxProjectMenu: HTMLDivElement = document.querySelector(".inbox-project-menu");
+            editInboxProjectMenu.style.display = "none";
+        });
+
     }
 }

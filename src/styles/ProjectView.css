@@ -296,3 +296,45 @@
     background-color: #575757;
     cursor: pointer;
 }
+
+.inbox-project-menu {
+    display: none;
+    flex-direction: column;
+
+    position: fixed;
+
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    border: 1px solid #3f3f3f;
+    border-radius: 8px;
+    padding: 4px;
+    width: 200px;
+}
+
+[class$="option"] {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+[class$="option"]:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.add-section-option-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.add-section-option-text {
+    color: var(--primary-text-color);
+}
+
+.add-section-option-icon {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);    
+}

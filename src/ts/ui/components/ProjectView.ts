@@ -5,6 +5,7 @@ import projectIconImg from "../../../images/pound.svg";
 import calenderIconImg from "../../../images/calendar-range.svg";
 import flagIconImg from "../../../images/flag-variant-outline.svg";
 import menuDownIconImg from "../../../images/menu-down.svg";
+import addSectionIconImg from "../../../images/plus-box-outline.svg";
 import { Project } from "../../models/Project";
 
 export class ProjectView {
@@ -370,5 +371,39 @@ export class ProjectView {
         addSectionDiv.appendChild(addSectionText);
 
         return addSectionDiv;
+    }
+
+    static renderInboxProjectMenu() {
+        const inboxProjectMenu: HTMLDivElement = document.createElement("div");
+        inboxProjectMenu.setAttribute("class", "inbox-project-menu");
+
+        const addSectionMenuOption: HTMLDivElement = document.createElement("div");
+        addSectionMenuOption.setAttribute("class", "add-section-menu-option");
+
+        const addSectionMenuOptionIcon: HTMLImageElement = document.createElement("img");
+        addSectionMenuOptionIcon.setAttribute("class", "add-section-option-icon");
+        addSectionMenuOptionIcon.src = addSectionIconImg;
+        addSectionMenuOptionIcon.alt = "box outline with plus sign inside";
+
+        const addSectionMenuOptionText: HTMLDivElement = document.createElement("div");
+        addSectionMenuOptionText.setAttribute("class", "add-seciton-option-text");
+        addSectionMenuOptionText.textContent = "Add section";
+
+        addSectionMenuOption.appendChild(addSectionMenuOptionIcon);
+        addSectionMenuOption.appendChild(addSectionMenuOptionText);
+
+        inboxProjectMenu.appendChild(addSectionMenuOption);
+
+        document.body.appendChild(inboxProjectMenu);
+    }
+
+    static placeInboxProjectMenu(parentButton: HTMLButtonElement) {
+        const inboxProjectMenu: HTMLDivElement = document.querySelector(".inbox-project-menu");
+
+        const parentButtonRect: DOMRect = parentButton.getBoundingClientRect();
+        inboxProjectMenu.style.top = `${3 * parentButtonRect.top + 8}px`;
+        inboxProjectMenu.style.left = `${parentButtonRect.left - 165}px`;
+
+        inboxProjectMenu.style.display = "flex";
     }
 }

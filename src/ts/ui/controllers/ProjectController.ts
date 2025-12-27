@@ -14,6 +14,8 @@ export class ProjectController {
         this.uiController = uiController;
         this.projectService = projectService;
         this.sectionService = sectionService;
+
+        ProjectView.renderInboxProjectMenu();
     }
 
     renderMyProjects(): void {
@@ -22,6 +24,15 @@ export class ProjectController {
 
     renderProject(project: Project): void {
         ProjectView.renderProject(project);
+        
+        const mainEditProjectBtn: HTMLButtonElement = document.querySelector(".main-edit-project-btn");
+
+        if (project.title === "Inbox") {
+            mainEditProjectBtn.addEventListener("click", (event) => {
+                ProjectView.placeInboxProjectMenu(mainEditProjectBtn);
+                event.stopPropagation();
+            });
+        }
     }
 
     resetProjectContainer(): void {
@@ -240,10 +251,6 @@ export class ProjectController {
             }
             else
                 this.projectService.addSectionToProject(selectedProjectId, sectionTitleInput.value, 0);
-
-            console.log(formParentId);
-            console.log(selectedProject.children.indexOf(this.sectionService.getSection(formParentId)));
-            console.log(selectedProject.children);
 
             if (selectedProject.title == "Inbox")
                 this.uiController.renderInboxProject();
