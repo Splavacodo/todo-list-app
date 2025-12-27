@@ -71,7 +71,6 @@ export class ProjectView {
 
             const editProjectBtn: HTMLButtonElement = document.createElement("button");
             editProjectBtn.setAttribute("id", "edit-project-card-btn");
-            editProjectBtn.setAttribute("data-project-id", (project as HTMLElement).dataset.projectId);
 
             const editProjectIcon: HTMLImageElement = document.createElement("img");
             editProjectIcon.setAttribute("class", "project-card-edit-icon");

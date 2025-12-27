@@ -28,7 +28,7 @@ export class ProjectController {
         editProjectBtns.forEach((editProjectBtn) => {
             editProjectBtn.addEventListener("click", (event) => {
                 SidebarView.placeEditProjectMenu(editProjectBtn);
-                const btnParentProject: Project = this.projectService.getProject(editProjectBtn.dataset["projectId"]);
+                const btnParentProject: Project = this.projectService.getProject((editProjectBtn.parentNode as HTMLElement).dataset["projectId"]);
 
                 (document.querySelector("#new-project-name") as HTMLInputElement).value = btnParentProject.title;
                 (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", btnParentProject.id);
