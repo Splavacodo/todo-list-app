@@ -86,6 +86,13 @@ export class SidebarController {
         renameProjectOption.addEventListener("click", () => {
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).showModal();
         });
+
+        const deleteMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
+
+        deleteMenuOption.addEventListener("click", () => {
+            this.projectService.deleteProject(deleteMenuOption.dataset["projectId"]);
+            this.uiController.renderProjectUpdates();
+        });
     }
 
     renderSidebarProject(project: Project, projectIdx: string): void {
@@ -116,12 +123,6 @@ export class SidebarController {
                 renameProjectBtn.toggleAttribute("disabled");
 
             event.stopPropagation();
-        });
-
-        deleteProjectMenuOption.addEventListener("click", () => {
-            console.log('yo');
-            this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
-            this.uiController.renderProjectUpdates();
         });
     }
 

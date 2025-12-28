@@ -408,5 +408,18 @@ export class UIController {
         addSectionMenuOption.addEventListener("click", () => {
             document.querySelector(".add-section").dispatchEvent(new Event("click", { bubbles: true }));
         });
+
+        const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-project-menu-option");
+
+        deleteProjectMenuOption.addEventListener("click", () => {
+            this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
+            this.renderProjectUpdates();
+        });
+
+        const renameProjectMenuOption: HTMLDivElement = document.querySelector(".rename-project-menu-option");
+
+        renameProjectMenuOption.addEventListener("click", () => {
+            (document.querySelector("#rename-project-dialog") as HTMLDialogElement).showModal();
+        });
     }
 }

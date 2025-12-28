@@ -70,7 +70,7 @@ export class ProjectController {
                 const projectContainer: HTMLDivElement = document.querySelector(".project-container");
                 const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
                 const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
-                const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
+                const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-project-menu-option");
 
                 (document.querySelector("#new-project-name") as HTMLInputElement).value = project.title;
                 (document.querySelector("#rename-project-dialog") as HTMLDialogElement).setAttribute("data-project-id", project.id);
