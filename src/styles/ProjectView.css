@@ -297,7 +297,8 @@
     cursor: pointer;
 }
 
-.inbox-project-menu {
+.inbox-project-menu,
+.user-project-menu {
     display: none;
     flex-direction: column;
 
@@ -326,15 +327,27 @@
     cursor: pointer;
 }
 
-.add-section-option-icon {
+.add-section-option-icon,
+.rename-project-option-icon,
+.delete-project-option-icon {
     width: 20px;
     height: 20px;
 }
 
-.add-section-option-text {
+.add-section-option-text,
+.rename-project-option-text {
     color: var(--primary-text-color);
 }
 
-.add-section-option-icon {
+.delete-project-option-text {
+    color: var(--primary-text-accent-color);
+}
+
+.add-section-option-icon,
+.rename-project-option-icon {
     filter: brightness(0) saturate(100%) invert(91%) sepia(0%) saturate(7484%) hue-rotate(46deg) brightness(91%) contrast(92%);    
+}
+
+.delete-project-option-icon {
+    filter: brightness(0) saturate(100%) invert(36%) sepia(44%) saturate(818%) hue-rotate(314deg) brightness(110%) contrast(107%);
 }

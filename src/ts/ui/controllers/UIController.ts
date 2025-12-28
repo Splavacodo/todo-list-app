@@ -398,6 +398,9 @@ export class UIController {
 
             const editInboxProjectMenu: HTMLDivElement = document.querySelector(".inbox-project-menu");
             editInboxProjectMenu.style.display = "none";
+
+            const userProjectMenu: HTMLDivElement = document.querySelector(".user-project-menu");
+            userProjectMenu.style.display = "none";
         });
 
         const addSectionMenuOption: HTMLDivElement = document.querySelector(".add-section-menu-option");

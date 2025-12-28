@@ -57,10 +57,15 @@ export class ProjectController {
         ProjectView.renderProject(project);
         
         const mainEditProjectBtn: HTMLButtonElement = document.querySelector(".main-edit-project-btn");
+        let projectMenu: HTMLDivElement;
 
-        if (project.title === "Inbox") {
-            mainEditProjectBtn.addEventListener("click", (event) => {
-                ProjectView.placeInboxProjectMenu(mainEditProjectBtn);
+        if (project.title === "Inbox")
+            projectMenu = document.querySelector(".inbox-project-menu");
+        else
+            projectMenu = document.querySelector(".user-project-menu");
+
+        mainEditProjectBtn.addEventListener("click", (event) => {
+                ProjectView.placeProjectMenu(mainEditProjectBtn, projectMenu);
 
                 const projectContainer: HTMLDivElement = document.querySelector(".project-container");
                 const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
@@ -73,7 +78,6 @@ export class ProjectController {
 
                 event.stopPropagation();
             });
-        }
     }
 
     resetProjectContainer(): void {

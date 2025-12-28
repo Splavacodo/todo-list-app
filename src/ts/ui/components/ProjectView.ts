@@ -397,13 +397,11 @@ export class ProjectView {
         document.body.appendChild(inboxProjectMenu);
     }
 
-    static placeInboxProjectMenu(parentButton: HTMLButtonElement) {
-        const inboxProjectMenu: HTMLDivElement = document.querySelector(".inbox-project-menu");
-
+    static placeProjectMenu(parentButton: HTMLButtonElement, projectMenu: HTMLDivElement) {
         const parentButtonRect: DOMRect = parentButton.getBoundingClientRect();
-        inboxProjectMenu.style.top = `${3 * parentButtonRect.top + 8}px`;
-        inboxProjectMenu.style.left = `${parentButtonRect.left - 165}px`;
+        projectMenu.style.top = `${3 * parentButtonRect.top + 8}px`;
+        projectMenu.style.left = `${parentButtonRect.left - 165}px`;
 
-        inboxProjectMenu.style.display = "flex";
+        projectMenu.style.display = "flex";
     }
 }
