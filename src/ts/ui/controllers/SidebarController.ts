@@ -119,6 +119,7 @@ export class SidebarController {
         });
 
         deleteProjectMenuOption.addEventListener("click", () => {
+            console.log('yo');
             this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
             this.uiController.renderProjectUpdates();
         });
