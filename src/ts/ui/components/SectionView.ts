@@ -72,4 +72,14 @@ export class SectionView {
         projectContainer.appendChild(addTaskBtn);
         projectContainer.appendChild(addSectionDiv);
     }
+
+    static placeEditSectionMenu(parentButton: HTMLButtonElement) {
+        const editSectionMenu: HTMLDivElement = document.querySelector(".edit-section-menu");
+
+        const parentButtonRect: DOMRect = parentButton.getBoundingClientRect();
+        editSectionMenu.style.top = `${parentButtonRect.top - 6}px`;
+        editSectionMenu.style.left = `${parentButtonRect.right + 8}px`;
+
+        editSectionMenu.style.display = "flex";
+    }
 }

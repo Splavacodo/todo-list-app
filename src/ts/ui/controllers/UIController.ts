@@ -425,6 +425,9 @@ export class UIController {
 
             const userProjectMenu: HTMLDivElement = document.querySelector(".user-project-menu");
             userProjectMenu.style.display = "none";
+
+            const editSectionMenu: HTMLDivElement = document.querySelector(".edit-section-menu");
+            editSectionMenu.style.display = "none";
         });
 
         const addSectionMenuOption: HTMLDivElement = document.querySelector(".add-section-menu-option");
@@ -444,6 +447,12 @@ export class UIController {
 
         renameProjectMenuOption.addEventListener("click", () => {
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).showModal();
+        });
+
+        const renameSectionMenuOption: HTMLDivElement = document.querySelector(".rename-section-menu-option");
+
+        renameSectionMenuOption.addEventListener("click", () => {
+            (document.querySelector("#rename-section-dialog") as HTMLDialogElement).showModal();
         });
     }
 }

@@ -25,7 +25,9 @@ export class SectionController {
         const editSectionBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll(".edit-section-btn"));
 
         editSectionBtns.forEach((editSectionBtn) => {
-            editSectionBtn.addEventListener("click", () => {
+            editSectionBtn.addEventListener("click", (event) => { 
+                SectionView.placeEditSectionMenu(editSectionBtn);
+
                 const parentSection: Section = this.sectionService.getSection(((editSectionBtn.parentNode) as HTMLElement).dataset["sectionId"]);
 
                 (document.querySelector("#new-section-name") as HTMLInputElement).value = parentSection.title;
@@ -36,7 +38,7 @@ export class SectionController {
                 if (renameSectionBtn.hasAttribute("disabled"))
                     renameSectionBtn.toggleAttribute("disabled");
 
-                (document.querySelector("#rename-section-dialog") as HTMLDialogElement).showModal();
+                event.stopPropagation();
             });
         });
     }
