@@ -3,14 +3,17 @@ import { Section } from "../../models/Section";
 import { Project } from "../../models/Project";
 import { SectionView } from "../components/SectionView";
 import { ProjectService } from "../../services/ProjectService";
+import { SectionService } from "../../services/SectionService";
 
 export class SectionController {
     private uiController: UIController; 
     private projectService: ProjectService;
+    private sectionService: SectionService;
 
-    constructor(uiController: UIController, projectService: ProjectService) {
+    constructor(uiController: UIController, projectService: ProjectService, sectionService: SectionService) {
         this.uiController = uiController;
         this.projectService = projectService;
+        this.sectionService = sectionService;
     }
 
     renderProjectSections(project: Project) {
@@ -18,5 +21,23 @@ export class SectionController {
         
         for(let section of projectSections)
             SectionView.renderSection(section);
+
+        const editSectionBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll(".edit-section-btn"));
+
+        editSectionBtns.forEach((editSectionBtn) => {
+            editSectionBtn.addEventListener("click", () => {
+                const parentSection: Section = this.sectionService.getSection(((editSectionBtn.parentNode) as HTMLElement).dataset["sectionId"]);
+
+                (document.querySelector("#new-section-name") as HTMLInputElement).value = parentSection.title;
+                (document.querySelector("#rename-section-dialog") as HTMLDialogElement).setAttribute("data-section-id", parentSection.id);
+
+                const renameSectionBtn: HTMLButtonElement = document.querySelector(".dialog-rename-section-btn");
+            
+                if (renameSectionBtn.hasAttribute("disabled"))
+                    renameSectionBtn.toggleAttribute("disabled");
+
+                (document.querySelector("#rename-section-dialog") as HTMLDialogElement).showModal();
+            });
+        });
     }
 }

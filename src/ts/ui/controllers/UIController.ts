@@ -30,7 +30,7 @@ export class UIController {
 
         this.projectController = new ProjectController(this, projectService, sectionService);
 
-        this.sectionController = new SectionController(this, projectService);
+        this.sectionController = new SectionController(this, projectService, sectionService);
 
         this.taskController = new TaskController(this);
     }
@@ -107,6 +107,7 @@ export class UIController {
         this.setupAddTaskDialogEventListerners();
         this.setupAddProjectDialogEventListeners();
         this.setupRenameProjectEventListeners();
+        this.setupRenameSectionEventListeners();
         this.setupEditMenuEventListeners();
     }
 
@@ -310,6 +311,29 @@ export class UIController {
             this.renderProjectUpdates();
 
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).close();
+        });
+    }
+
+    private setupRenameSectionEventListeners() {
+        const newSectionNameInput: HTMLInputElement = document.querySelector("#new-section-name");
+        const renameSectionBtn: HTMLButtonElement = document.querySelector(".dialog-rename-section-btn");
+
+        newSectionNameInput.addEventListener("input", () => {
+            (newSectionNameInput.value === "") ? renameSectionBtn.toggleAttribute("disabled") : renameSectionBtn.removeAttribute("disabled");
+        });
+
+        renameSectionBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            const renameSectionDialog: HTMLDialogElement = document.querySelector("#rename-section-dialog");
+            const sectionId: string = renameSectionDialog.dataset["sectionId"];
+            const sectionToRename = this.sectionService.getSection(sectionId);
+            
+            sectionToRename.title = newSectionNameInput.value; 
+
+            this.renderProjectUpdates();
+
+            (document.querySelector("#rename-section-dialog") as HTMLDialogElement).close();
         });
     }
 
