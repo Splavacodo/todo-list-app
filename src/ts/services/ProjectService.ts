@@ -82,4 +82,13 @@ export class ProjectService {
     getProjectSections(project: Project) {
         return project.children.filter((childElement) => childElement instanceof Section);
     }
+
+    deleteChildFromProject(projectId: string, childId: string) {
+        const parentProject: Project = this.projects[projectId];
+
+        if (this.sectionService.containsId(childId))
+            parentProject.children.splice(parentProject.children.indexOf(this.sectionService.getSection(childId)), 1);
+        else
+            parentProject.children.splice(parentProject.children.indexOf(this.taskService.getTask(childId)), 1);
+    }
 }

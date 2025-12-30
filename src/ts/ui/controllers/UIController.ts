@@ -454,5 +454,19 @@ export class UIController {
         renameSectionMenuOption.addEventListener("click", () => {
             (document.querySelector("#rename-section-dialog") as HTMLDialogElement).showModal();
         });
+
+        const deleteSectionMenuOption: HTMLDivElement = document.querySelector(".delete-section-menu-option");
+
+        deleteSectionMenuOption.addEventListener("click", () => {
+            const sectionToDelete: Section = this.sectionService.getSection(deleteSectionMenuOption.dataset["sectionId"]);
+            
+            const sectionTasks: Array<Task> = sectionToDelete.tasks;
+            sectionTasks.forEach((task) => this.taskService.deleteTask(task.id));
+
+            this.projectService.deleteChildFromProject(sectionToDelete.parentId, sectionToDelete.id);
+            this.sectionService.deleteSection(sectionToDelete.id);
+
+            this.renderProjectUpdates();
+        });
     }
 }

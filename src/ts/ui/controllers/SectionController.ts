@@ -23,6 +23,7 @@ export class SectionController {
             SectionView.renderSection(section);
 
         const editSectionBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll(".edit-section-btn"));
+        const deleteSectionMenuOption: HTMLDivElement = document.querySelector(".delete-section-menu-option");
 
         editSectionBtns.forEach((editSectionBtn) => {
             editSectionBtn.addEventListener("click", (event) => { 
@@ -32,6 +33,7 @@ export class SectionController {
 
                 (document.querySelector("#new-section-name") as HTMLInputElement).value = parentSection.title;
                 (document.querySelector("#rename-section-dialog") as HTMLDialogElement).setAttribute("data-section-id", parentSection.id);
+                deleteSectionMenuOption.setAttribute("data-section-id", parentSection.id);
 
                 const renameSectionBtn: HTMLButtonElement = document.querySelector(".dialog-rename-section-btn");
             
