@@ -26,7 +26,8 @@ export class SectionController {
         const deleteSectionMenuOption: HTMLDivElement = document.querySelector(".delete-section-menu-option");
 
         editSectionBtns.forEach((editSectionBtn) => {
-            editSectionBtn.addEventListener("click", (event) => { 
+            editSectionBtn.addEventListener("click", (event) => {
+                SectionView.renderProjectsInMoveToMenu(); 
                 SectionView.placeEditSectionMenu(editSectionBtn);
 
                 const parentSection: Section = this.sectionService.getSection(((editSectionBtn.parentNode) as HTMLElement).dataset["sectionId"]);

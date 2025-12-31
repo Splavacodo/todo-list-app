@@ -2,6 +2,7 @@ import "../../../styles/SectionView.css";
 import downwardCaratImgIcon from "../../../images/chevron-down.svg";
 import editImgIcon from "../../../images/dots-horizontal.svg";
 import plusIconImg from "../../../images/plus.svg";
+import projectOptionIconImg from "../../../images/pound.svg";
 import { Section } from "../../models/Section";
 
 export class SectionView {
@@ -91,5 +92,39 @@ export class SectionView {
         moveSectionToMenu.style.left = `${parentOptionRect.left - 15}px`;
 
         moveSectionToMenu.style.display = "flex";
+    }
+
+    static renderProjectsInMoveToMenu() {
+        const moveSectionToMenu: HTMLDivElement = document.querySelector(".move-section-to-menu");
+
+        for(let child of Array.from(moveSectionToMenu.children)) {
+            if (child.classList.contains("move-to-project-menu-option"))
+                moveSectionToMenu.removeChild(child);
+        }
+
+        const userProjects: Array<HTMLLIElement> = Array.from(document.querySelectorAll(".project"));
+
+        for(let project of userProjects) {
+            const userProjectOption: HTMLDivElement = document.createElement("div");
+            userProjectOption.setAttribute("class", "move-to-project-menu-option");
+            userProjectOption.setAttribute("data-project-id", project.dataset["projectId"]);
+
+            const projectOptionIcon: HTMLImageElement = document.createElement("img");
+            projectOptionIcon.setAttribute("class", "project-option-icon");
+            projectOptionIcon.alt = "pound symbol icon";
+            projectOptionIcon.src = projectOptionIconImg;
+
+            const projectTitleDiv: HTMLDivElement = document.querySelector(`.project[data-project-id="${project.dataset["projectId"]}"] > div`);
+            const projectTitle: string = projectTitleDiv.textContent;
+
+            const projectOptionText: HTMLDivElement = document.createElement("div");
+            projectOptionText.setAttribute("class", "project-option-text");
+            projectOptionText.textContent = projectTitle;
+
+            userProjectOption.appendChild(projectOptionIcon);
+            userProjectOption.appendChild(projectOptionText);
+
+            moveSectionToMenu.appendChild(userProjectOption);
+        }
     }
 }
