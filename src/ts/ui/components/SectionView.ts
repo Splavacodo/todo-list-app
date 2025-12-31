@@ -82,4 +82,14 @@ export class SectionView {
 
         editSectionMenu.style.display = "flex";
     }
+
+    static placeMoveSectionToMenu(parentOption: HTMLDivElement) {
+        const moveSectionToMenu: HTMLDivElement = document.querySelector(".move-section-to-menu");
+
+        const parentOptionRect: DOMRect = parentOption.getBoundingClientRect();
+        moveSectionToMenu.style.top = `${parentOptionRect.top}px`;
+        moveSectionToMenu.style.left = `${parentOptionRect.left - 15}px`;
+
+        moveSectionToMenu.style.display = "flex";
+    }
 }

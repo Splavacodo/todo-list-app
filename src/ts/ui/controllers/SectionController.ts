@@ -44,4 +44,8 @@ export class SectionController {
             });
         });
     }
+
+    placeMoveSectionToMenu(parentOption: HTMLDivElement) {
+        SectionView.placeMoveSectionToMenu(parentOption);
+    }
 }

@@ -428,6 +428,9 @@ export class UIController {
 
             const editSectionMenu: HTMLDivElement = document.querySelector(".edit-section-menu");
             editSectionMenu.style.display = "none";
+
+            const moveSectionToMenu: HTMLDivElement = document.querySelector(".move-section-to-menu");
+            moveSectionToMenu.style.display = "none";
         });
 
         const addSectionMenuOption: HTMLDivElement = document.querySelector(".add-section-menu-option");
@@ -479,5 +482,20 @@ export class UIController {
 
             this.renderProjectUpdates();
         });
+
+        const moveSectionToOption: HTMLDivElement = document.querySelector(".move-to-menu-option");
+
+        moveSectionToOption.addEventListener("click", (event) => {
+            this.sectionController.placeMoveSectionToMenu(moveSectionToOption);
+
+            event.stopPropagation();
+        });
+
+        const myProjectsOptionsHeader: HTMLDivElement = document.querySelector(".my-projects-options-header");
+
+        myProjectsOptionsHeader.addEventListener("click", (event) => event.stopPropagation());
+
+        const moveToInboxOption: HTMLDivElement = document.querySelector(".move-to-inbox-menu-option");
+        moveToInboxOption.setAttribute("data-project-id", (document.querySelector("#sidebar-inbox-btn") as HTMLElement).dataset["projectId"]);
     }
 }
