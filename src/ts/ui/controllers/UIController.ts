@@ -439,6 +439,17 @@ export class UIController {
         const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-project-menu-option");
 
         deleteProjectMenuOption.addEventListener("click", () => {
+            const projectToDelete: Project = this.projectService.getProject(deleteProjectMenuOption.dataset["projectId"]);
+            const projectTasks: Array<Task> = this.projectService.getProjectLevelTasks(projectToDelete);
+            const projectSections: Array<Section> = this.projectService.getProjectSections(projectToDelete);
+
+            projectTasks.forEach((task) => this.taskService.deleteTask(task.id));
+            
+            projectSections.forEach((section) => {
+                section.tasks.forEach((task) => this.taskService.deleteTask(task.id));
+                this.sectionService.deleteSection(section.id);
+            });
+
             this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
             this.renderProjectUpdates();
         });
