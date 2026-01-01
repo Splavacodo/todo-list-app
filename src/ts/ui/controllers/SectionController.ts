@@ -24,17 +24,20 @@ export class SectionController {
 
         const editSectionBtns: Array<HTMLButtonElement> = Array.from(document.querySelectorAll(".edit-section-btn"));
         const deleteSectionMenuOption: HTMLDivElement = document.querySelector(".delete-section-menu-option");
+        const moveToMenuOption: HTMLDivElement = document.querySelector(".move-to-menu-option");
 
         editSectionBtns.forEach((editSectionBtn) => {
             editSectionBtn.addEventListener("click", (event) => {
                 SectionView.renderProjectsInMoveToMenu(); 
                 SectionView.placeEditSectionMenu(editSectionBtn);
+                this.setupProjectsInMoveToMenuEventListeners();
 
                 const parentSection: Section = this.sectionService.getSection(((editSectionBtn.parentNode) as HTMLElement).dataset["sectionId"]);
 
                 (document.querySelector("#new-section-name") as HTMLInputElement).value = parentSection.title;
                 (document.querySelector("#rename-section-dialog") as HTMLDialogElement).setAttribute("data-section-id", parentSection.id);
                 deleteSectionMenuOption.setAttribute("data-section-id", parentSection.id);
+                moveToMenuOption.setAttribute("data-section-id", parentSection.id);
 
                 const renameSectionBtn: HTMLButtonElement = document.querySelector(".dialog-rename-section-btn");
             
@@ -48,5 +51,25 @@ export class SectionController {
 
     placeMoveSectionToMenu(parentOption: HTMLDivElement) {
         SectionView.placeMoveSectionToMenu(parentOption);
+    }
+
+    setupProjectsInMoveToMenuEventListeners() {
+        const projectOptions: Array<HTMLDivElement> = Array.from(document.querySelectorAll(".move-to-project-menu-option"));
+
+        const moveSectionToOption: HTMLDivElement = document.querySelector(".move-to-menu-option");
+        const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+
+        projectOptions.forEach((projectOption) => {
+            projectOption.addEventListener("click", () => {
+                const projectOptionId: string = projectOption.dataset["projectId"];
+
+                if (selectedProjectId === projectOptionId)
+                    return;
+                else
+                    this.projectService.moveChildToProject(selectedProjectId, projectOptionId, moveSectionToOption.dataset["sectionId"]);
+
+                this.uiController.renderProjectUpdates();
+            })
+        })
     }
 }

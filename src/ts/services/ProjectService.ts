@@ -91,4 +91,17 @@ export class ProjectService {
         else
             parentProject.children.splice(parentProject.children.indexOf(this.taskService.getTask(childId)), 1);
     }
+
+    moveChildToProject(sourceProjectId: string, destinationProjectId: string, childId: string) {
+        this.deleteChildFromProject(sourceProjectId, childId);
+
+        const destinationProject: Project = this.projects[destinationProjectId];
+
+        if (this.sectionService.containsId(childId)) {
+            const childSection: Section = this.sectionService.getSection(childId);
+
+            destinationProject.children.push(this.sectionService.getSection(childId));
+            childSection.parentId = destinationProjectId;
+        }
+    }
 }

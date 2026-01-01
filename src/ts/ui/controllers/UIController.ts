@@ -497,5 +497,17 @@ export class UIController {
 
         const moveToInboxOption: HTMLDivElement = document.querySelector(".move-to-inbox-menu-option");
         moveToInboxOption.setAttribute("data-project-id", (document.querySelector("#sidebar-inbox-btn") as HTMLElement).dataset["projectId"]);
+
+        moveToInboxOption.addEventListener("click", () => {
+            const selectedProjectId: string = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
+            const inboxProjectId: string = moveToInboxOption.dataset["projectId"];
+
+            if (selectedProjectId === inboxProjectId)
+                return;
+            else
+                this.projectService.moveChildToProject(selectedProjectId, inboxProjectId, moveSectionToOption.dataset["sectionId"]);
+
+            this.renderProjectUpdates();
+        });
     }
 }
