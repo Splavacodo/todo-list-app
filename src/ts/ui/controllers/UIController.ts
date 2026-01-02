@@ -10,6 +10,7 @@ import { TaskController } from "./TaskController";
 import { Project } from "../../models/Project";
 import { Section } from "../../models/Section";
 import { Task } from "../../models/Task";
+import { TaskView } from "../components/TaskView";
 
 export class UIController {
     private taskService: TaskService;
@@ -373,12 +374,18 @@ export class UIController {
 
             const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
             const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
+            const editTaskForm: HTMLFormElement = document.querySelector(".main-edit-task-form");
 
             if (eventTarget.classList.contains("main-add-task-btn")) {
                 if (mainAddTaskForm)
                     projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
                 else if (addSectionForm)
                     projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+                else if(editTaskForm) {
+                    const editTaskFormParentList: HTMLUListElement = (editTaskForm.parentNode as HTMLUListElement);
+                    const taskEdited: Task = this.taskService.getTask(editTaskForm.dataset["parentId"]);
+                    editTaskFormParentList.replaceChild(TaskView.createTaskContainer(taskEdited), editTaskForm);
+                }
         
                 projectContainer.replaceChild(this.projectController.getAddTaskForm(eventTarget.dataset["parentId"]), eventTarget);
                 this.renderTaskPlacementOptions();
@@ -409,6 +416,11 @@ export class UIController {
                 }
                 else if (addSectionForm)
                     projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+                else if(editTaskForm) {
+                    const editTaskFormParentList: HTMLUListElement = (editTaskForm.parentNode as HTMLUListElement);
+                    const taskEdited: Task = this.taskService.getTask(editTaskForm.dataset["parentId"]);
+                    editTaskFormParentList.replaceChild(TaskView.createTaskContainer(taskEdited), editTaskForm);
+                }
 
                 projectContainer.replaceChild(this.projectController.getAddSectionForm(eventTarget.dataset["parentId"]), eventTarget);
                 
@@ -420,6 +432,11 @@ export class UIController {
                 }
                 else if (addSectionForm)
                     projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+                else if(editTaskForm) {
+                    const editTaskFormParentList: HTMLUListElement = (editTaskForm.parentNode as HTMLUListElement);
+                    const taskEdited: Task = this.taskService.getTask(editTaskForm.dataset["parentId"]);
+                    editTaskFormParentList.replaceChild(TaskView.createTaskContainer(taskEdited), editTaskForm);
+                }
 
                 const parentTaskElement: HTMLLIElement = (eventTarget.parentNode as HTMLLIElement);
                 
