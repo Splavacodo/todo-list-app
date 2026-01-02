@@ -103,5 +103,26 @@ export class ProjectService {
             destinationProject.children.push(this.sectionService.getSection(childId));
             childSection.parentId = destinationProjectId;
         }
+        else {
+            const childTask: Task = this.taskService.getTask(childId);
+            this.addTaskModelToProject(destinationProjectId, childTask);
+        }
+    }
+
+    addTaskModelToProject(projectId: string, task: Task) {
+        const parentProject = this.projects[projectId];
+
+        let lastIndex: number = -1;
+
+        for (let i = 0; i < parentProject.children.length; i++) {
+            const child = parentProject.children[i];
+
+            if (child instanceof Task)
+                lastIndex = i;
+        }
+
+        parentProject.children.splice(lastIndex + 1, 0, task);
+        
+        task.parentId = projectId;
     }
 }

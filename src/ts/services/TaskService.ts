@@ -36,5 +36,12 @@ export class TaskService {
 
     deleteTask(taskId: string): void { delete this.tasks[taskId]; }
 
-    // Will be extending this class for more functionality later
+    editTask(taskId: string, newTitle: string, newDescription: string, newDueDate: string, newPriority: number): void {
+        const taskToEdit: Task = this.tasks[taskId];
+
+        taskToEdit.title = newTitle;
+        taskToEdit.description = newDescription;
+        taskToEdit.dueDate = newDueDate;
+        taskToEdit.priority = newPriority;
+    }
 }

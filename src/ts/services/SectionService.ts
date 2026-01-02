@@ -55,5 +55,29 @@ export class SectionService {
         const newTask: Task = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", sectionId);
 
         section.tasks.push(newTask);
+        this.taskService.addTask(newTask);
+    }
+
+    addTaskModelToSection(sectionId: string, task: Task) { 
+        this.sections[sectionId].tasks.push(task); 
+        task.parentId = sectionId;
+    }
+
+    moveTaskToSection(sourceSectionId: string, destinationSectionId: string, taskId: string) {
+        const sourceSection: Section = this.sections[sourceSectionId];
+        const destinationSection: Section = this.sections[destinationSectionId];
+        const taskToMove: Task = this.taskService.getTask(taskId);
+        
+        sourceSection.tasks.splice(sourceSection.tasks.indexOf(taskToMove), 1);
+        destinationSection.tasks.push(taskToMove);
+
+        taskToMove.parentId = destinationSectionId;
+    }
+
+    deleteTaskFromSection(sectionId: string, taskToRemove: Task) { 
+        const parentSection = this.sections[sectionId];
+
+        if (parentSection.tasks.includes(taskToRemove))
+            parentSection.tasks.splice(parentSection.tasks.indexOf(taskToRemove), 1);
     }
 }

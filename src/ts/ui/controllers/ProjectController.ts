@@ -2,6 +2,7 @@ import { UIController } from "./UIController";
 import { ProjectView } from "../components/ProjectView";
 import { Project } from "../../models/Project";
 import { Section } from "../../models/Section"; 
+import { Task } from "../../models/Task";
 import { ProjectService } from "../../services/ProjectService";
 import { SectionService } from "../../services/SectionService";
 import { SidebarView } from "../components/SidebarView";
@@ -480,8 +481,6 @@ export class ProjectController {
 
         document.querySelector(`option[value="${ulParentId}"]`).setAttribute("selected", "");
 
-        const projectContainer: HTMLDivElement = document.querySelector(".project-container");
-
         editTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
@@ -489,27 +488,39 @@ export class ProjectController {
             selectedProjectId = (document.querySelector(".selected-project") as HTMLElement).dataset["projectId"];
             selectedProject = this.projectService.getProject(selectedProjectId);
 
+            const taskModified: Task = this.taskService.getTask(mainEditTaskForm.dataset["parentId"]);
+
             if (this.sectionService.containsId(selectedTaskPlacementId)) {
-                this.sectionService.addTaskToSection(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+                const selectedSection: Section = this.sectionService.getSection(selectedTaskPlacementId);
 
-                const parentSection: Section = this.sectionService.getSection(selectedTaskPlacementId);
+                if (selectedSection.id === taskModified.parentId)
+                    this.taskService.editTask(taskModified.id, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+                else if (this.sectionService.containsId(taskModified.parentId))
+                    this.sectionService.moveTaskToSection(taskModified.parentId, selectedTaskPlacementId, taskModified.id);
+                else {
+                    this.projectService.deleteChildFromProject(taskModified.parentId, taskModified.id);
+                    this.sectionService.addTaskModelToSection(selectedSection.id, taskModified);
+                }
 
-                if (parentSection.parentId === selectedProjectId && selectedProject.title === "Inbox")
-                    this.uiController.renderInboxProject();
-                else if (parentSection.parentId === selectedProjectId)
+                if (selectedSection.parentId === selectedProjectId)
                     this.uiController.renderProject(selectedProject);
-                // else
-                //     projectContainer.replaceChild(this.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                else
+                    formULParent.removeChild(mainEditTaskForm);
             }
             else {
-                this.projectService.addTaskToProject(selectedTaskPlacementId, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+                if (selectedTaskPlacementId === taskModified.parentId)
+                    this.taskService.editTask(taskModified.id, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
+                else if (!this.sectionService.containsId(taskModified.parentId))
+                    this.projectService.moveChildToProject(taskModified.parentId, selectedTaskPlacementId, taskModified.id);
+                else {
+                    this.sectionService.deleteTaskFromSection(taskModified.parentId, taskModified);
+                    this.projectService.addTaskModelToProject(selectedTaskPlacementId, taskModified);
+                }
 
-                if (selectedTaskPlacementId === selectedProjectId && selectedProject.title === "Inbox")
-                    this.uiController.renderInboxProject();
-                else if (selectedTaskPlacementId === selectedProjectId)
+                if (selectedTaskPlacementId === selectedProjectId)
                     this.uiController.renderProject(selectedProject);
-                // else
-                //     projectContainer.replaceChild(this.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                else
+                    formULParent.removeChild(mainEditTaskForm);
             }
         });
 
