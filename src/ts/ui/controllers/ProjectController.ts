@@ -5,16 +5,20 @@ import { Section } from "../../models/Section";
 import { ProjectService } from "../../services/ProjectService";
 import { SectionService } from "../../services/SectionService";
 import { SidebarView } from "../components/SidebarView";
+import { TaskView } from "../components/TaskView";
+import { TaskService } from "../../services/TaskService";
 
 export class ProjectController {
     private uiController: UIController;
     private projectService: ProjectService;
     private sectionService: SectionService;
+    private taskService: TaskService;
 
-    constructor(uiController: UIController, projectService: ProjectService, sectionService: SectionService) {
+    constructor(uiController: UIController, projectService: ProjectService, sectionService: SectionService, taskService: TaskService) {
         this.uiController = uiController;
         this.projectService = projectService;
         this.sectionService = sectionService;
+        this.taskService = taskService;
 
         ProjectView.renderInboxProjectMenu();
     }
@@ -514,7 +518,7 @@ export class ProjectController {
         cancelTaskBtn.addEventListener("click", (event) => {
             event.preventDefault();
 
-            // projectContainer.replaceChild(this.getAddTaskButton(formParentId), mainAddTaskForm); 
+            formULParent.replaceChild(TaskView.createTaskContainer(this.taskService.getTask(mainEditTaskForm.dataset["parentId"])), mainEditTaskForm); 
         });
     }
 
