@@ -13,6 +13,7 @@ export class TaskView {
     static createTaskContainer(task: Task): HTMLLIElement {
         const taskContainer: HTMLLIElement = document.createElement("li");
         taskContainer.setAttribute("class", "task");
+        taskContainer.setAttribute("data-task-id", task.id);
 
         const taskCheckbox: HTMLButtonElement = document.createElement("button");
         taskCheckbox.setAttribute("class", "task-checkbox");
