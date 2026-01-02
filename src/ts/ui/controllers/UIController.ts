@@ -368,6 +368,8 @@ export class UIController {
                 eventTarget = (eventTarget.parentNode as HTMLElement);  
             else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("add-section"))
                 eventTarget = (eventTarget.parentNode as HTMLElement);
+            else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("edit-task-btn"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);
 
             const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
             const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
@@ -411,6 +413,38 @@ export class UIController {
                 projectContainer.replaceChild(this.projectController.getAddSectionForm(eventTarget.dataset["parentId"]), eventTarget);
                 
                 this.projectController.setupAddSectionFormEventListeners();
+            }
+            else if (eventTarget.classList.contains("edit-task-btn")) {
+                if (mainAddTaskForm) {
+                    projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
+                }
+                else if (addSectionForm)
+                    projectContainer.replaceChild(this.projectController.getAddSectionDiv(addSectionForm.dataset["parentId"]), addSectionForm);
+
+                const parentTaskElement: HTMLLIElement = (eventTarget.parentNode as HTMLLIElement);
+                
+                parentTaskElement.parentNode.replaceChild(this.projectController.getEditTaskForm(parentTaskElement.dataset["taskId"]), parentTaskElement);
+                this.renderTaskPlacementOptions();
+
+                const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
+                const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
+
+                dueDateInput.style.width = String(dueDateButton.offsetWidth) + "px";
+                dueDateInput.style.height = String(dueDateButton.offsetHeight) + "px";
+
+                const priorityBtn: HTMLButtonElement = document.querySelector(".task-priority-btn");
+                const prioritySelection: HTMLSelectElement = document.querySelector("#main-task-priority-selection");
+
+                prioritySelection.style.width = String(priorityBtn.offsetWidth) + "px";
+                prioritySelection.style.height = String(priorityBtn.offsetHeight) + "px";
+
+                const taskPlacementBtn: HTMLButtonElement = document.querySelector(".task-placement-btn");
+                const taskPlacementSelection: HTMLSelectElement = document.querySelector("#task-placement-selection");
+
+                taskPlacementSelection.style.width = String(taskPlacementBtn.offsetWidth) + "px";
+                taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
+
+                this.projectController.setupEditTaskFormEventListeners();
             }
         });
     }
