@@ -193,7 +193,8 @@
     margin-top: -12px;
 }
 
-.main-add-task-form {
+.main-add-task-form,
+.main-edit-task-form {
     display: flex;
     flex-direction: column;
     position: relative;

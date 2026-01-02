@@ -249,7 +249,9 @@ textarea {
 .dialog-add-project-btn,
 .cancel-rename-btn,
 .dialog-rename-project-btn,
-.dialog-rename-section-btn {
+.dialog-rename-section-btn,
+.form-edit-task-btn,
+.cancel-edit-btn {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -262,14 +264,16 @@ textarea {
 
 .cancel-task-btn,
 .cancel-project-btn,
-.cancel-rename-btn {
+.cancel-rename-btn,
+.cancel-edit-btn {
     margin-left: auto;
     background-color: #414141;
 }
 
 .cancel-task-btn:hover,
 .cancel-project-btn:hover,
-.cancel-rename-btn:hover {
+.cancel-rename-btn:hover,
+.cancel-edit-btn:hover {
     background-color: #575757;
     cursor: pointer;
 }
@@ -277,7 +281,8 @@ textarea {
 .dialog-add-task-btn:hover:not(:disabled),
 .dialog-add-project-btn:hover:not(:disabled),
 .dialog-rename-project-btn:hover:not(:disabled),
-.dialog-rename-section-btn:hover:not(:disabled) {
+.dialog-rename-section-btn:hover:not(:disabled),
+.form-edit-task-btn:hover:not(:disabled) {
     background-color: var(--primary-text-accent-color);
     cursor: pointer;
 }
@@ -285,21 +290,24 @@ textarea {
 .dialog-add-task-btn,
 .dialog-add-project-btn,
 .dialog-rename-project-btn,
-.dialog-rename-section-btn {
+.dialog-rename-section-btn,
+.form-edit-task-btn {
     background-color: var(--primary-bg-accent-color);
 }
 
 .dialog-add-task-btn:not(:disabled),
 .dialog-add-project-btn:not(:disabled),
 .dialog-rename-project-btn:not(:disabled),
-.dialog-rename-section-btn:not(:disabled) {
+.dialog-rename-section-btn:not(:disabled),
+.form-edit-task-btn:not(:disabled) {
     opacity: 1;
 }
 
 .dialog-add-task-btn:disabled,
 .dialog-add-project-btn:disabled,
 .dialog-rename-project-btn:disabled,
-.dialog-rename-section-btn:disabled {
+.dialog-rename-section-btn:disabled,
+.form-edit-task-btn:disabled {
     opacity: 0.2;
     cursor: not-allowed;
 }
