@@ -373,6 +373,10 @@ export class UIController {
                 eventTarget = (eventTarget.parentNode as HTMLElement);
             else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("task"))
                 eventTarget = (eventTarget.parentNode as HTMLElement);
+            else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("delete-task-btn"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);
+            else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("task-checkbox"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);
             else if (eventTarget.parentNode.parentNode && (eventTarget.parentNode.parentNode as HTMLElement).classList.contains("task"))
                 eventTarget = (eventTarget.parentNode.parentNode as HTMLElement);
 
@@ -536,6 +540,20 @@ export class UIController {
                 }
                 
                 priorityBtn.setAttribute("task-priority", String(prioritySelection.selectedIndex + 1));
+            }
+            else if (eventTarget.classList.contains("delete-task-btn") || eventTarget.classList.contains("task-checkbox")) {
+                const taskLiElement: HTMLLIElement = (eventTarget.parentNode as HTMLLIElement);
+                const taskToDelete: Task = this.taskService.getTask(taskLiElement.dataset["taskId"]);
+                const selectedProject: HTMLDivElement = document.querySelector(".selected-project");
+
+                if (this.sectionService.containsId(taskToDelete.parentId))
+                    this.sectionService.deleteTaskFromSection(taskToDelete.parentId, taskToDelete);
+                else
+                    this.projectService.deleteChildFromProject(selectedProject.dataset["projectId"], taskToDelete.id);
+
+                this.taskService.deleteTask(taskToDelete.id);
+
+                this.renderProjectUpdates();
             }
         });
     }
