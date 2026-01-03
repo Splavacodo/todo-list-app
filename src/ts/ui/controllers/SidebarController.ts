@@ -16,6 +16,24 @@ export class SidebarController {
 
     setupEventListeners(): void {
         document.querySelector("#sidebar-add-task-btn").addEventListener("click", () => {
+            this.uiController.renderTaskPlacementOptions();
+
+            for(let child of Array.from(document.querySelector("#task-placement-selection").children)) {
+                if (child.hasAttribute("selected")) {
+                    child.toggleAttribute("selected");
+                    break;
+                }
+            }
+
+            const selectedProject: HTMLDivElement = document.querySelector(".selected-project");
+            const sidebarInboxBtn: HTMLButtonElement = document.querySelector("#sidebar-inbox-btn");
+            const selectedProjectId: string = selectedProject.dataset["projectId"];
+
+            if (!selectedProject.classList.contains("projects-header"))
+                document.querySelector(`option[value="${selectedProjectId}"]`).setAttribute("selected", "");
+            else
+                document.querySelector(`option[value="${sidebarInboxBtn.dataset["projectId"]}"]`).setAttribute("selected", "");
+
             (document.querySelector("#add-task-dialog") as HTMLDialogElement).showModal();
 
             const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
