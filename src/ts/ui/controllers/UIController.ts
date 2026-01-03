@@ -442,7 +442,7 @@ export class UIController {
                 
                 parentTaskElement.parentNode.replaceChild(this.projectController.getEditTaskForm(parentTaskElement.dataset["taskId"]), parentTaskElement);
                 this.renderTaskPlacementOptions();
-
+                
                 const dueDateButton: HTMLButtonElement = document.querySelector(".task-due-date-btn");
                 const dueDateInput: HTMLInputElement = document.querySelector("#task-due-date");
 
@@ -462,6 +462,73 @@ export class UIController {
                 taskPlacementSelection.style.height = String(taskPlacementBtn.offsetHeight) + "px";
 
                 this.projectController.setupEditTaskFormEventListeners();
+
+                const replacedTask: Task = this.taskService.getTask(parentTaskElement.dataset["taskId"]);
+
+                const taskTitle: HTMLInputElement = document.querySelector("#main-task-name");
+                const taskDescription: HTMLTextAreaElement = document.querySelector('#task-description');
+                const priorityBtnText: HTMLDivElement = document.querySelector(".task-priority-text");
+                const dueDateText: HTMLDivElement = document.querySelector(".task-due-date-text");
+
+                taskTitle.value = replacedTask.title;
+                taskDescription.value = replacedTask.description;
+                dueDateInput.value = replacedTask.dueDate;
+                prioritySelection.options[replacedTask.priority - 1].selected = true;
+                priorityBtnText.textContent = prioritySelection.options[prioritySelection.selectedIndex].text;
+                
+                document.querySelector(".form-edit-task-btn").removeAttribute("disabled");
+
+                if (dueDateInput.value === "") {
+                    dueDateText.textContent = "Date";
+                }
+                else {
+                    const selectedDate: Array<string> = dueDateInput.value.split("-");
+                    let selectedMonth: string = selectedDate[1];
+                    const selectedDay: string = selectedDate[2];
+
+                    switch (selectedMonth) {
+                        case "01":
+                            selectedMonth = "Jan";
+                            break;
+                        case "02":
+                            selectedMonth = "Feb";
+                            break;
+                        case "03":
+                            selectedMonth = "Mar";
+                            break;
+                        case "04":
+                            selectedMonth = "Apr"; 
+                            break;
+                        case "05":
+                            selectedMonth = "May";
+                            break;
+                        case "06":
+                            selectedMonth = "Jun";
+                            break;
+                        case "07":
+                            selectedMonth = "Jul";
+                            break;
+                        case "08":
+                            selectedMonth = "Aug";
+                            break;
+                        case "09":
+                            selectedMonth = "Sep";
+                            break;
+                        case "10":
+                            selectedMonth = "Oct";
+                            break;
+                        case "11":
+                            selectedMonth = "Nov";
+                            break;
+                        case "12":
+                            selectedMonth = "Dec";
+                            break;
+                    }
+
+                    dueDateText.textContent = selectedMonth + " " + selectedDay;
+                }
+                
+                priorityBtn.setAttribute("task-priority", String(prioritySelection.selectedIndex + 1));
             }
         });
     }
