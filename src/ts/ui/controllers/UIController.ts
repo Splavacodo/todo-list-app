@@ -371,6 +371,10 @@ export class UIController {
                 eventTarget = (eventTarget.parentNode as HTMLElement);
             else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("edit-task-btn"))
                 eventTarget = (eventTarget.parentNode as HTMLElement);
+            else if (eventTarget.parentNode && (eventTarget.parentNode as HTMLElement).classList.contains("task"))
+                eventTarget = (eventTarget.parentNode as HTMLElement);
+            else if (eventTarget.parentNode.parentNode && (eventTarget.parentNode.parentNode as HTMLElement).classList.contains("task"))
+                eventTarget = (eventTarget.parentNode.parentNode as HTMLElement);
 
             const mainAddTaskForm: HTMLFormElement = document.querySelector(".main-add-task-form");
             const addSectionForm: HTMLFormElement = document.querySelector(".add-section-form");
@@ -426,7 +430,10 @@ export class UIController {
                 
                 this.projectController.setupAddSectionFormEventListeners();
             }
-            else if (eventTarget.classList.contains("edit-task-btn")) {
+            else if (eventTarget.classList.contains("edit-task-btn") || eventTarget.classList.contains("task")) {
+                if (eventTarget.classList.contains("task"))
+                    eventTarget = document.querySelector(`li[data-task-id="${eventTarget.dataset["taskId"]}"] > .edit-task-btn`);
+
                 if (mainAddTaskForm) {
                     projectContainer.replaceChild(this.projectController.getAddTaskButton(mainAddTaskForm.dataset["parentId"]), mainAddTaskForm);
                 }
