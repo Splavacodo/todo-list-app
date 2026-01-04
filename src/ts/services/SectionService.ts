@@ -56,6 +56,9 @@ export class SectionService {
 
         section.tasks.push(newTask);
         this.taskService.addTask(newTask);
+
+        StorageManager.writeTaskToStorage(newTask);
+        StorageManager.writeTaskIdToSection(sectionId, newTask.id);
     }
 
     addTaskModelToSection(sectionId: string, task: Task) { 

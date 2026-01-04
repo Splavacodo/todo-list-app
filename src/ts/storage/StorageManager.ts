@@ -1,3 +1,5 @@
+import { Task } from "../models/Task";
+
 export class StorageManager {
     static getLocalProjects(): string {
         return "projects" in localStorage ? localStorage.getItem("projects") : "[]";
@@ -100,5 +102,25 @@ export class StorageManager {
                 ]
             )
         }
+    }
+
+    static writeTaskToStorage(task: Task) {
+        const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
+
+        localTasks.push(task);
+        
+        localStorage.setItem("tasks", JSON.stringify(localTasks));
+    }
+
+    static writeTaskIdToSection(sectionId: string, childTaskId: string) {
+        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
+        const parentSectionJSON: Record<string, any> = localSections.find((section) => section["id"] === sectionId);
+        const parentSectionIdx: number = localSections.indexOf(parentSectionJSON);
+
+        parentSectionJSON["taskIds"].push(childTaskId);
+        
+        localSections[parentSectionIdx] = parentSectionJSON;
+        
+        localStorage.setItem("sections", JSON.stringify(localSections));
     }
 }
