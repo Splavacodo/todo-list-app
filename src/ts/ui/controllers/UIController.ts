@@ -309,6 +309,7 @@ export class UIController {
             
             projectToRename.title = newProjectNameInput.value; 
 
+            this.projectService.updateLocalStorageProject(projectToRename);
             this.renderProjectUpdates();
 
             (document.querySelector("#rename-project-dialog") as HTMLDialogElement).close();

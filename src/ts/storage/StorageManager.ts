@@ -144,4 +144,13 @@ export class StorageManager {
         
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
+
+    static updateProject(modifiedProject: Project) {
+        const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
+        const modifiedProjectIdx: number = localProjects.findIndex((project) => project["id"] === modifiedProject.id);
+
+        localProjects[modifiedProjectIdx] = modifiedProject.toJSONObj();
+
+        localStorage.setItem("projects", JSON.stringify(localProjects));
+    }
 }

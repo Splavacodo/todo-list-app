@@ -130,4 +130,8 @@ export class ProjectService {
         
         task.parentId = projectId;
     }
+
+    updateLocalStorageProject(modifiedProject: Project) {
+        StorageManager.updateProject(modifiedProject);
+    }
 }
