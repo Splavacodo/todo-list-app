@@ -123,4 +123,16 @@ export class StorageManager {
         
         localStorage.setItem("sections", JSON.stringify(localSections));
     }
+
+    static writeTaskIdToProject(projectId: string, childTaskId: string) {
+        const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
+        const parentProjectJSON: Record<string, any> = localProjects.find((project) => project["id"] === projectId);
+        const parentProjectIdx: number = localProjects.indexOf(parentProjectJSON);
+
+        parentProjectJSON["childrenIds"].push(childTaskId);
+        
+        localProjects[parentProjectIdx] = parentProjectJSON;
+        
+        localStorage.setItem("projects", JSON.stringify(localProjects));
+    }
 }

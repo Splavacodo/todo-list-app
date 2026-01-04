@@ -59,6 +59,9 @@ export class ProjectService {
 
         project.children.push(newTask);
         this.taskService.addTask(newTask);
+
+        StorageManager.writeTaskToStorage(newTask);
+        StorageManager.writeTaskIdToProject(projectId, newTask.id);
     }
 
     addSectionToProject(projectId: string, sectionTitle: string, placementIdx: number): void {
