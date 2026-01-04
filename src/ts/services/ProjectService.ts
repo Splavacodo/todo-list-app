@@ -134,4 +134,8 @@ export class ProjectService {
     updateLocalStorageProject(modifiedProject: Project) {
         StorageManager.updateProject(modifiedProject);
     }
+
+    removeLocalStorageProject(projectToRemoveId: string) {
+        StorageManager.removeProject(projectToRemoveId);
+    }
 }

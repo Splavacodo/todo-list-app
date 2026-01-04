@@ -153,4 +153,13 @@ export class StorageManager {
 
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
+
+    static removeProject(projectToRemoveId: string) {
+        const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
+        const removalIdx: number = localProjects.findIndex((project) => project["id"] === projectToRemoveId);
+
+        localProjects.splice(removalIdx, 1);
+
+        localStorage.setItem("projects", JSON.stringify(localProjects));
+    }
 }

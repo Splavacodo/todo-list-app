@@ -109,6 +109,7 @@ export class SidebarController {
 
         deleteMenuOption.addEventListener("click", () => {
             this.projectService.deleteProject(deleteMenuOption.dataset["projectId"]);
+            this.projectService.removeLocalStorageProject(deleteMenuOption.dataset["projectId"]);
             this.uiController.renderProjectUpdates();
         });
     }
