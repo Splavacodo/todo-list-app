@@ -576,10 +576,12 @@ export class UIController {
             moveSectionToMenu.style.display = "none";
         });
 
-        const addSectionMenuOption: HTMLDivElement = document.querySelector(".add-section-menu-option");
+        const addSectionMenuOptions: NodeListOf<HTMLDivElement> = document.querySelectorAll(".add-section-menu-option");
 
-        addSectionMenuOption.addEventListener("click", () => {
-            document.querySelector(".add-section").dispatchEvent(new Event("click", { bubbles: true }));
+        addSectionMenuOptions.forEach((addSectionMenuOption) => {
+                addSectionMenuOption.addEventListener("click", () => {
+                    document.querySelector(".add-section").dispatchEvent(new Event("click", { bubbles: true }));
+                });
         });
 
         const deleteProjectMenuOption: HTMLDivElement = document.querySelector(".delete-project-menu-option");
