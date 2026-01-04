@@ -34,4 +34,17 @@ export class Project {
             }
         );
     }
+
+    toJSONObj(): Record<string, any> {
+        const childrenIds: Array<string> = [];
+
+        for(let child of this._children)
+            childrenIds.push(child.id);
+
+        return {
+            "id": this._id,
+            "title": this._title,
+            "childrenIds": childrenIds
+        }
+    }
 }

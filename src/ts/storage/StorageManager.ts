@@ -1,3 +1,4 @@
+import { Project } from "../models/Project";
 import { Task } from "../models/Task";
 
 export class StorageManager {
@@ -102,6 +103,14 @@ export class StorageManager {
                 ]
             )
         }
+    }
+
+    static writeProjectToStorage(project: Project) {
+        const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
+        
+        localProjects.push(project.toJSONObj());
+
+        localStorage.setItem("projects", JSON.stringify(localProjects));
     }
 
     static writeTaskToStorage(task: Task) {

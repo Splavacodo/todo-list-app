@@ -73,9 +73,11 @@ export class ProjectService {
     }
 
     addNewProject(projectName: string): void {
-        const newProjetId: string = crypto.randomUUID();
+        const newProjectId: string = crypto.randomUUID();
 
-        this.projects[newProjetId] = new Project(newProjetId, projectName, []);
+        this.projects[newProjectId] = new Project(newProjectId, projectName, []);
+
+        StorageManager.writeProjectToStorage(this.projects[newProjectId]);
     }
 
     getProjectLevelTasks(project: Project) {
