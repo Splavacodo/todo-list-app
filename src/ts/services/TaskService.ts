@@ -44,4 +44,8 @@ export class TaskService {
         taskToEdit.dueDate = newDueDate;
         taskToEdit.priority = newPriority;
     }
+
+    updateLocalStorageTask(modifiedTask: Task): void {
+        StorageManager.updateTask(modifiedTask);
+    }
 }

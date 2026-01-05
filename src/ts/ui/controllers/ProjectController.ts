@@ -521,6 +521,8 @@ export class ProjectController {
                     this.uiController.renderProject(selectedProject);
                 else
                     formULParent.removeChild(mainEditTaskForm);
+
+                this.taskService.updateLocalStorageTask(taskModified);
             }
         });
 

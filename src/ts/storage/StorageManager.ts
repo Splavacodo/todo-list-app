@@ -162,4 +162,13 @@ export class StorageManager {
 
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
+
+    static updateTask(modifiedTask: Task) {
+        const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
+        const modifiedTaskIdx: number = localTasks.findIndex((task) => task["_id"] === modifiedTask.id);
+
+        localTasks[modifiedTaskIdx] = modifiedTask;
+
+        localStorage.setItem("tasks", JSON.stringify(localTasks));
+    }
 }
