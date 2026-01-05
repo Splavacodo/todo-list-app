@@ -80,15 +80,15 @@ export class ProjectService {
         StorageManager.writeProjectToStorage(this.projects[newProjectId]);
     }
 
-    getProjectLevelTasks(project: Project) {
+    getProjectLevelTasks(project: Project): Array<Task> {
         return project.children.filter((childElement) => childElement instanceof Task);
     }
 
-    getProjectSections(project: Project) {
+    getProjectSections(project: Project): Array<Section> {
         return project.children.filter((childElement) => childElement instanceof Section);
     }
 
-    deleteChildFromProject(projectId: string, childId: string) {
+    deleteChildFromProject(projectId: string, childId: string): void {
         const parentProject: Project = this.projects[projectId];
 
         if (this.sectionService.containsId(childId))
@@ -97,7 +97,7 @@ export class ProjectService {
             parentProject.children.splice(parentProject.children.indexOf(this.taskService.getTask(childId)), 1);
     }
 
-    moveChildToProject(sourceProjectId: string, destinationProjectId: string, childId: string) {
+    moveChildToProject(sourceProjectId: string, destinationProjectId: string, childId: string): void {
         this.deleteChildFromProject(sourceProjectId, childId);
 
         const destinationProject: Project = this.projects[destinationProjectId];
@@ -114,7 +114,7 @@ export class ProjectService {
         }
     }
 
-    addTaskModelToProject(projectId: string, task: Task) {
+    addTaskModelToProject(projectId: string, task: Task): void {
         const parentProject = this.projects[projectId];
 
         let lastIndex: number = -1;
@@ -131,11 +131,11 @@ export class ProjectService {
         task.parentId = projectId;
     }
 
-    updateLocalStorageProject(modifiedProject: Project) {
+    updateLocalStorageProject(modifiedProject: Project): void {
         StorageManager.updateProject(modifiedProject);
     }
 
-    removeLocalStorageProject(projectToRemoveId: string) {
+    removeLocalStorageProject(projectToRemoveId: string): void {
         StorageManager.removeProject(projectToRemoveId);
     }
 }
