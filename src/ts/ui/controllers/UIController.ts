@@ -608,6 +608,7 @@ export class UIController {
             });
 
             this.projectService.deleteProject(deleteProjectMenuOption.dataset["projectId"]);
+            this.projectService.removeLocalStorageProject(deleteProjectMenuOption.dataset["projectId"]);
             this.renderProjectUpdates();
         });
 

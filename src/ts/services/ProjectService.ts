@@ -70,6 +70,9 @@ export class ProjectService {
 
         project.children.splice(placementIdx, 0, newSection);
         this.sectionService.addSection(newSection);
+
+        this.updateLocalStorageProject(project);
+        StorageManager.writeSectionToStorage(newSection);
     }
 
     addNewProject(projectName: string): void {
