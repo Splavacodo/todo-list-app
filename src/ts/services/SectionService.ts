@@ -50,7 +50,7 @@ export class SectionService {
 
     deleteSection(sectionId: string): void { delete this.sections[sectionId]; }
 
-    addTaskToSection(sectionId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number) {
+    addTaskToSection(sectionId: string, taskTitle: string, taskDescription: string, taskDueDate: string, taskPriority: number): void {
         const section: Section = this.sections[sectionId];
         const newTask: Task = new Task(crypto.randomUUID(), taskTitle, taskDescription, taskDueDate, taskPriority, "", sectionId);
 
@@ -61,12 +61,12 @@ export class SectionService {
         StorageManager.writeTaskIdToSection(sectionId, newTask.id);
     }
 
-    addTaskModelToSection(sectionId: string, task: Task) { 
+    addTaskModelToSection(sectionId: string, task: Task): void { 
         this.sections[sectionId].tasks.push(task); 
         task.parentId = sectionId;
     }
 
-    moveTaskToSection(sourceSectionId: string, destinationSectionId: string, taskId: string) {
+    moveTaskToSection(sourceSectionId: string, destinationSectionId: string, taskId: string): void {
         const sourceSection: Section = this.sections[sourceSectionId];
         const destinationSection: Section = this.sections[destinationSectionId];
         const taskToMove: Task = this.taskService.getTask(taskId);
@@ -77,10 +77,14 @@ export class SectionService {
         taskToMove.parentId = destinationSectionId;
     }
 
-    deleteTaskFromSection(sectionId: string, taskToRemove: Task) { 
+    deleteTaskFromSection(sectionId: string, taskToRemove: Task): void { 
         const parentSection = this.sections[sectionId];
 
         if (parentSection.tasks.includes(taskToRemove))
             parentSection.tasks.splice(parentSection.tasks.indexOf(taskToRemove), 1);
+    }
+
+    updateLocalStorageSection(modifiedSection: Section) {
+        StorageManager.updateSection(modifiedSection);
     }
 }
