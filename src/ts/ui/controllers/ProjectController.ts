@@ -521,9 +521,9 @@ export class ProjectController {
                     this.uiController.renderProject(selectedProject);
                 else
                     formULParent.removeChild(mainEditTaskForm);
-
-                this.taskService.updateLocalStorageTask(taskModified);
             }
+
+            this.taskService.updateLocalStorageTask(taskModified);
         });
 
         const cancelTaskBtn: HTMLButtonElement = document.querySelector(".cancel-edit-btn");
