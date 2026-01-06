@@ -48,4 +48,8 @@ export class TaskService {
     updateLocalStorageTask(modifiedTask: Task): void {
         StorageManager.updateTask(modifiedTask);
     }
+
+    removeLocalStorageTask(taskRemovalId: string) {
+        StorageManager.removeTask(taskRemovalId);
+    }
 }

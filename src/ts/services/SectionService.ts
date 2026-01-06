@@ -87,4 +87,8 @@ export class SectionService {
     updateLocalStorageSection(modifiedSection: Section) {
         StorageManager.updateSection(modifiedSection);
     }
+
+    removeLocalStorageSection(sectionRemovalId: string) {
+        StorageManager.removeSection(sectionRemovalId);
+    }
 }
