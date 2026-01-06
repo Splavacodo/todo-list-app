@@ -349,10 +349,15 @@ export class UIController {
 
         if (selectedProject.classList.contains("projects-header"))
             this.renderMyProjects();
-        else {
+        else if(this.projectService.getProject(selectedProjectId)) {
             this.renderProject(this.projectService.getProject(selectedProjectId));
 
             document.querySelector(`.selectable[data-project-id="${selectedProjectId}"]`).classList.add("selected-project");
+        }
+        else {
+            this.renderInboxProject();
+            
+            document.querySelector("#sidebar-inbox-btn").classList.add("selected-project");
         }
     }
 
