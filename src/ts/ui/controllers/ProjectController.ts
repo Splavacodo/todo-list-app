@@ -495,11 +495,22 @@ export class ProjectController {
 
                 if (selectedSection.id === taskModified.parentId)
                     this.taskService.editTask(taskModified.id, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
-                else if (this.sectionService.containsId(taskModified.parentId))
+                else if (this.sectionService.containsId(taskModified.parentId)) {
+                    const sourceSectionId: string = taskModified.parentId;
+
                     this.sectionService.moveTaskToSection(taskModified.parentId, selectedTaskPlacementId, taskModified.id);
+
+                    this.sectionService.updateLocalStorageSection(this.sectionService.getSection(sourceSectionId));
+                    this.sectionService.updateLocalStorageSection(selectedSection);
+                }
                 else {
+                    const sourceProjectId: string = taskModified.parentId;
+
                     this.projectService.deleteChildFromProject(taskModified.parentId, taskModified.id);
+                    this.projectService.updateLocalStorageProject(this.projectService.getProject(sourceProjectId));
+
                     this.sectionService.addTaskModelToSection(selectedSection.id, taskModified);
+                    this.sectionService.updateLocalStorageSection(selectedSection);
                 }
 
                 if (selectedSection.parentId === selectedProjectId)
@@ -508,13 +519,26 @@ export class ProjectController {
                     formULParent.removeChild(mainEditTaskForm);
             }
             else {
+                const selectedProject: Project = this.projectService.getProject(selectedTaskPlacementId);
+
                 if (selectedTaskPlacementId === taskModified.parentId)
                     this.taskService.editTask(taskModified.id, taskTitle.value, taskDescription.value, dueDateInput.value, prioritySelection.selectedIndex + 1);
-                else if (!this.sectionService.containsId(taskModified.parentId))
+                else if (!this.sectionService.containsId(taskModified.parentId)) {
+                    const sourceProjectId: string = taskModified.parentId;
+
                     this.projectService.moveChildToProject(taskModified.parentId, selectedTaskPlacementId, taskModified.id);
+
+                    this.projectService.updateLocalStorageProject(this.projectService.getProject(sourceProjectId));
+                    this.projectService.updateLocalStorageProject(selectedProject);                 
+                }
                 else {
+                    const sourceSectionId: string = taskModified.parentId;
+
                     this.sectionService.deleteTaskFromSection(taskModified.parentId, taskModified);
+                    this.sectionService.updateLocalStorageSection(this.sectionService.getSection(sourceSectionId));
+
                     this.projectService.addTaskModelToProject(selectedTaskPlacementId, taskModified);
+                    this.projectService.updateLocalStorageProject(selectedProject);
                 }
 
                 if (selectedTaskPlacementId === selectedProjectId)

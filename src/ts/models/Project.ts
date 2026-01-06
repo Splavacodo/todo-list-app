@@ -20,22 +20,7 @@ export class Project {
 
     get children(): Array<Section|Task> { return this._children };
 
-    toJSON(): string {
-        const childrenIds: Array<string> = [];
-
-        for(let child of this._children)
-            childrenIds.push(child.id);
-
-        return JSON.stringify(
-            {
-                "id": this._id,
-                "title": this._title,
-                "childrenIds": childrenIds
-            }
-        );
-    }
-
-    toJSONObj(): Record<string, any> {
+    toJSON(): Record<string, any> {
         const childrenIds: Array<string> = [];
 
         for(let child of this._children)
