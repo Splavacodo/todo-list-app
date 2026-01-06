@@ -333,6 +333,7 @@ export class UIController {
             
             sectionToRename.title = newSectionNameInput.value; 
 
+            this.sectionService.updateLocalStorageSection(sectionToRename);
             this.renderProjectUpdates();
 
             (document.querySelector("#rename-section-dialog") as HTMLDialogElement).close();
