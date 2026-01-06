@@ -2,14 +2,22 @@ import { UIController } from "./UIController";
 import { SidebarView } from "../components/SidebarView"; 
 import { Project } from "../../models/Project";
 import { ProjectService } from "../../services/ProjectService";
+import { Task } from "../../models/Task";
+import { Section } from "../../models/Section";
+import { SectionService } from "../../services/SectionService";
+import { TaskService } from "../../services/TaskService";
 
 export class SidebarController {
     private uiController: UIController;
     private projectService: ProjectService;
+    private sectionService: SectionService;
+    private taskService: TaskService;
 
-    constructor(uiController: UIController, projectService: ProjectService) {
+    constructor(uiController: UIController, projectService: ProjectService, sectionService: SectionService, taskService: TaskService) {
         this.uiController = uiController;
         this.projectService = projectService;
+        this.sectionService = sectionService;
+        this.taskService = taskService;
 
         SidebarView.renderEditProjectMenu();
     }
@@ -108,6 +116,17 @@ export class SidebarController {
         const deleteMenuOption: HTMLDivElement = document.querySelector(".delete-menu-option");
 
         deleteMenuOption.addEventListener("click", () => {
+            const projectToDelete: Project = this.projectService.getProject(deleteMenuOption.dataset["projectId"]);
+            const projectTasks: Array<Task> = this.projectService.getProjectLevelTasks(projectToDelete);
+            const projectSections: Array<Section> = this.projectService.getProjectSections(projectToDelete);
+
+            projectTasks.forEach((task) => this.taskService.deleteTask(task.id));
+            
+            projectSections.forEach((section) => {
+                section.tasks.forEach((task) => this.taskService.deleteTask(task.id));
+                this.sectionService.deleteSection(section.id);
+            });
+            
             this.projectService.deleteProject(deleteMenuOption.dataset["projectId"]);
             this.projectService.removeLocalStorageProject(deleteMenuOption.dataset["projectId"]);
             this.uiController.renderProjectUpdates();

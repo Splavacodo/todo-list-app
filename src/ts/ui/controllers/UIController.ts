@@ -26,7 +26,7 @@ export class UIController {
         this.sectionService = sectionService;
         this.projectService = projectService;
 
-        this.sidebarController = new SidebarController(this, this.projectService);
+        this.sidebarController = new SidebarController(this, this.projectService, this.sectionService, this.taskService);
         this.sidebarController.setupEventListeners();
 
         this.projectController = new ProjectController(this, projectService, sectionService, taskService);
