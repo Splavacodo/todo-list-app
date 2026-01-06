@@ -631,10 +631,16 @@ export class UIController {
             const sectionToDelete: Section = this.sectionService.getSection(deleteSectionMenuOption.dataset["sectionId"]);
             
             const sectionTasks: Array<Task> = sectionToDelete.tasks;
-            sectionTasks.forEach((task) => this.taskService.deleteTask(task.id));
+            sectionTasks.forEach((task) => {
+                this.taskService.removeLocalStorageTask(task.id);
+                this.taskService.deleteTask(task.id);
+            });
 
             this.projectService.deleteChildFromProject(sectionToDelete.parentId, sectionToDelete.id);
+            this.projectService.updateLocalStorageProject(this.projectService.getProject(sectionToDelete.parentId));
+
             this.sectionService.deleteSection(sectionToDelete.id);
+            this.sectionService.removeLocalStorageSection(sectionToDelete.id);
 
             this.renderProjectUpdates();
         });
