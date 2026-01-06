@@ -25,19 +25,17 @@ export class Section {
 
     set parentId(newParentId: string) { this._parentId = newParentId; }
 
-    toJSON(): string {
+    toJSON(): Record<string, any> {
         const taskIds: Array<string> = [];
 
         for(let task of this._tasks)
             taskIds.push(task.id);
 
-        return JSON.stringify(
-            {
-                "id": this._id,
-                "title": this._title,
-                "taskIds": taskIds,
-                "parentId": this._parentId
-            }
-        );
+        return {
+            "id": this._id,
+            "title": this._title,
+            "taskIds": taskIds,
+            "parentId": this._parentId
+        };
     }
 }
