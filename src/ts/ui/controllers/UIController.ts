@@ -545,8 +545,12 @@ export class UIController {
 
                 if (this.sectionService.containsId(taskToDelete.parentId))
                     this.sectionService.deleteTaskFromSection(taskToDelete.parentId, taskToDelete);
-                else
+                else {
                     this.projectService.deleteChildFromProject(selectedProject.dataset["projectId"], taskToDelete.id);
+
+                    this.taskService.removeLocalStorageTask(taskToDelete.id);
+                    this.projectService.updateLocalStorageProject(this.projectService.getProject(selectedProject.dataset["projectId"]));
+                }
 
                 this.taskService.deleteTask(taskToDelete.id);
 

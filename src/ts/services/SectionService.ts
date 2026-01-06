@@ -82,6 +82,9 @@ export class SectionService {
 
         if (parentSection.tasks.includes(taskToRemove))
             parentSection.tasks.splice(parentSection.tasks.indexOf(taskToRemove), 1);
+
+        StorageManager.updateSection(parentSection);
+        StorageManager.removeTask(taskToRemove.id);
     }
 
     updateLocalStorageSection(modifiedSection: Section) {
