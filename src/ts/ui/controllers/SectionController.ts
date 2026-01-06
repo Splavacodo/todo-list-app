@@ -65,8 +65,12 @@ export class SectionController {
 
                 if (selectedProjectId === projectOptionId)
                     return;
-                else
+                else {
                     this.projectService.moveChildToProject(selectedProjectId, projectOptionId, moveSectionToOption.dataset["sectionId"]);
+
+                    this.projectService.updateLocalStorageProject(this.projectService.getProject(selectedProjectId));
+                    this.projectService.updateLocalStorageProject(this.projectService.getProject(projectOptionId));
+                }
 
                 this.uiController.renderProjectUpdates();
             })
