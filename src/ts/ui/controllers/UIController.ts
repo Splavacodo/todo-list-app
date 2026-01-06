@@ -349,15 +349,10 @@ export class UIController {
 
         if (selectedProject.classList.contains("projects-header"))
             this.renderMyProjects();
-        else if (this.projectService.getProject(selectedProjectId)) {
+        else {
             this.renderProject(this.projectService.getProject(selectedProjectId));
 
             document.querySelector(`.selectable[data-project-id="${selectedProjectId}"]`).classList.add("selected-project");
-        }
-        else {
-            document.querySelector("#sidebar-inbox-btn").classList.add("selected-project");
-
-            this.renderInboxProject();
         }
     }
 
@@ -666,8 +661,14 @@ export class UIController {
 
             if (selectedProjectId === inboxProjectId)
                 return;
-            else
+            else {
                 this.projectService.moveChildToProject(selectedProjectId, inboxProjectId, moveSectionToOption.dataset["sectionId"]);
+
+                this.projectService.updateLocalStorageProject(this.projectService.getProject(selectedProjectId));
+                this.projectService.updateLocalStorageProject(this.projectService.getProject(inboxProjectId));
+
+                this.sectionService.updateLocalStorageSection(this.sectionService.getSection(moveSectionToOption.dataset["sectionId"]));
+            }
 
             this.renderProjectUpdates();
         });

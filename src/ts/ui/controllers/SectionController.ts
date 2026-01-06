@@ -70,6 +70,8 @@ export class SectionController {
 
                     this.projectService.updateLocalStorageProject(this.projectService.getProject(selectedProjectId));
                     this.projectService.updateLocalStorageProject(this.projectService.getProject(projectOptionId));
+
+                    this.sectionService.updateLocalStorageSection(this.sectionService.getSection(moveSectionToOption.dataset["sectionId"]));
                 }
 
                 this.uiController.renderProjectUpdates();
