@@ -1,4 +1,5 @@
 import { Project } from "../models/Project";
+import { Section } from "../models/Section";
 import { Task } from "../models/Task";
 
 export class StorageManager {
@@ -14,7 +15,7 @@ export class StorageManager {
         return "tasks" in localStorage ? localStorage.getItem("tasks") : "[]";
     }
 
-    static init() {
+    static init(): void {
         if (!("user" in localStorage)) {
             const welcomeProjectId: string = crypto.randomUUID();
             const tipsSectionId: string = crypto.randomUUID();
@@ -105,15 +106,23 @@ export class StorageManager {
         }
     }
 
-    static writeProjectToStorage(project: Project) {
+    static writeProjectToStorage(project: Project): void {
         const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
         
-        localProjects.push(project.toJSONObj());
+        localProjects.push(project.toJSON());
 
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
 
-    static writeTaskToStorage(task: Task) {
+    static writeSectionToStorage(section: Section): void {
+        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
+
+        localSections.push(section.toJSON());
+
+        localStorage.setItem("sections", JSON.stringify(localSections));
+    }
+
+    static writeTaskToStorage(task: Task): void {
         const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
 
         localTasks.push(task);
@@ -121,19 +130,7 @@ export class StorageManager {
         localStorage.setItem("tasks", JSON.stringify(localTasks));
     }
 
-    static writeTaskIdToSection(sectionId: string, childTaskId: string) {
-        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
-        const parentSectionJSON: Record<string, any> = localSections.find((section) => section["id"] === sectionId);
-        const parentSectionIdx: number = localSections.indexOf(parentSectionJSON);
-
-        parentSectionJSON["taskIds"].push(childTaskId);
-        
-        localSections[parentSectionIdx] = parentSectionJSON;
-        
-        localStorage.setItem("sections", JSON.stringify(localSections));
-    }
-
-    static writeTaskIdToProject(projectId: string, childTaskId: string) {
+    static writeTaskIdToProject(projectId: string, childTaskId: string): void {
         const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
         const parentProjectJSON: Record<string, any> = localProjects.find((project) => project["id"] === projectId);
         const parentProjectIdx: number = localProjects.indexOf(parentProjectJSON);
@@ -145,16 +142,46 @@ export class StorageManager {
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
 
-    static updateProject(modifiedProject: Project) {
+    static writeTaskIdToSection(sectionId: string, childTaskId: string): void {
+        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
+        const parentSectionJSON: Record<string, any> = localSections.find((section) => section["id"] === sectionId);
+        const parentSectionIdx: number = localSections.indexOf(parentSectionJSON);
+
+        parentSectionJSON["taskIds"].push(childTaskId);
+        
+        localSections[parentSectionIdx] = parentSectionJSON;
+        
+        localStorage.setItem("sections", JSON.stringify(localSections));
+    }
+
+    static updateProject(modifiedProject: Project): void {
         const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
         const modifiedProjectIdx: number = localProjects.findIndex((project) => project["id"] === modifiedProject.id);
 
-        localProjects[modifiedProjectIdx] = modifiedProject.toJSONObj();
+        localProjects[modifiedProjectIdx] = modifiedProject.toJSON();
 
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
 
-    static removeProject(projectToRemoveId: string) {
+    static updateSection(modifiedSection: Section): void {
+        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
+        const modifiedSectionIdx: number = localSections.findIndex((section) => section["id"] === modifiedSection.id);
+
+        localSections[modifiedSectionIdx] = modifiedSection.toJSON();
+
+        localStorage.setItem("sections", JSON.stringify(localSections));
+    }
+
+    static updateTask(modifiedTask: Task): void {
+        const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
+        const modifiedTaskIdx: number = localTasks.findIndex((task) => task["_id"] === modifiedTask.id);
+
+        localTasks[modifiedTaskIdx] = modifiedTask;
+
+        localStorage.setItem("tasks", JSON.stringify(localTasks));
+    }
+
+    static removeProject(projectToRemoveId: string): void {
         const localProjects: Array<Record<string, any>> = JSON.parse(localStorage.getItem("projects"));
         const removalIdx: number = localProjects.findIndex((project) => project["id"] === projectToRemoveId);
 
@@ -163,11 +190,20 @@ export class StorageManager {
         localStorage.setItem("projects", JSON.stringify(localProjects));
     }
 
-    static updateTask(modifiedTask: Task) {
-        const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
-        const modifiedTaskIdx: number = localTasks.findIndex((task) => task["_id"] === modifiedTask.id);
+    static removeSection(sectionToRemoveId: string): void {
+        const localSections: Array<Record<string, any>> = JSON.parse(localStorage.getItem("sections"));
+        const removalIdx: number = localSections.findIndex((section) => section["id"] === sectionToRemoveId);
 
-        localTasks[modifiedTaskIdx] = modifiedTask;
+        localSections.splice(removalIdx, 1);
+
+        localStorage.setItem("sections", JSON.stringify(localSections));
+    }
+
+    static removeTask(taskToRemoveId: string): void {
+        const localTasks: Array<Record<string, any>> = JSON.parse(localStorage.getItem("tasks"));
+        const removalIdx: number = localTasks.findIndex((task) => task["_id"] === taskToRemoveId);
+
+        localTasks.splice(removalIdx, 1);
 
         localStorage.setItem("tasks", JSON.stringify(localTasks));
     }
